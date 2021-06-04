@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3946ca98-248b-4499-ba50-518e37666a19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from book]]>
+	</queryString>
+	<field name="BOOK_ID" class="java.math.BigDecimal"/>
+	<field name="CATEGORY_ID" class="java.math.BigDecimal"/>
+	<field name="TITLE" class="java.lang.String"/>
+	<field name="AUTHOR" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="ISBN" class="java.lang.String"/>
+	<field name="IMAGE" class="java.lang.String"/>
+	<field name="PRICE" class="java.lang.Double"/>
+	<field name="PUBLISH_DATE" class="java.sql.Timestamp"/>
+	<field name="LAST_UPDATE" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="105" y="27" width="100" height="20" uuid="30465b62-cd20-46ad-954f-4273e8b029a4"/>
+				<text><![CDATA[BOOK_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="27" width="100" height="20" uuid="1e6f1c7c-945b-435e-8814-7510feea336b"/>
+				<text><![CDATA[TITLE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="105" y="0" width="100" height="20" forecolor="#33FF33" uuid="aefb2ac9-1679-4777-97d6-e4a22e93d189"/>
+				<textFieldExpression><![CDATA[$F{BOOK_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="257" y="0" width="100" height="20" uuid="aa19670c-65e6-482e-9dea-d0b808a001e8"/>
+				<textFieldExpression><![CDATA[$F{TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
