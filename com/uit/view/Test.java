@@ -11,6 +11,7 @@ import com.uit.controller.BuyOrderController;
 import com.uit.controller.CategoryController;
 import com.uit.controller.CustomerController;
 import com.uit.controller.OrderController;
+import com.uit.controller.OrderHistoryController;
 import com.uit.controller.UserController;
 import com.uit.entity.Book;
 import com.uit.entity.Category;
@@ -38,6 +39,7 @@ public class Test extends javax.swing.JFrame {
     protected CategoryController categoryController;
     protected BookController bookController;
     protected CustomerController customerController;
+    protected OrderHistoryController orderHistoryController;
     public static Map<Book, Integer> list;
 
     /**
@@ -60,6 +62,11 @@ public class Test extends javax.swing.JFrame {
          //buyorder
          buyOrderController = new BuyOrderController(lblSum, btnBuyproduct, displayPanel, list);
          buyOrderController.action();
+         
+         //OrderHistory
+         orderHistoryController = new OrderHistoryController(tblOrder, tblOrderDetail, LoginFrame.customer);
+         orderHistoryController.listOrder();
+         orderHistoryController.action();
          
          //admin
          adminController = new AdminController(btnUser, btnCategory, btnBook, btnCustomer, btnAddall);
@@ -1171,6 +1178,8 @@ public class Test extends javax.swing.JFrame {
     private void lblOrderHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderHistoryMouseClicked
         // TODO add your handling code here:
         changePanel(orderhistoryPanel);
+        orderHistoryController.listOrder();
+        tblOrder.getSelectionModel().clearSelection();
     }//GEN-LAST:event_lblOrderHistoryMouseClicked
 
     private void lblOrderHistoryMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderHistoryMouseMoved

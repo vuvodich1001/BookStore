@@ -8,6 +8,7 @@ package com.uit.service;
 import com.uit.dao.OrderDao;
 import com.uit.entity.Book;
 import com.uit.entity.BookOrder;
+import com.uit.entity.OrderDetail;
 import java.util.List;
 
 /**
@@ -30,5 +31,9 @@ public class OrderService {
     
     public List<BookOrder> listOrderforspecificCustomer(long id){
         return orderDao.listOrderforspecificUser(id);
+    }
+    
+    public List<OrderDetail> listDetail(long id){
+        return orderDao.listDetail(id);
     }
 }

@@ -183,14 +183,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 if(customerService.check(username, password) == 1){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
                     name = "Username: " + username;
-//                    DashBoard db = new DashBoard();
-//                    db.getBtnUser().setEnabled(false);
-//                    db.getBtnCategory().setEnabled(false);
-//                    db.getBtnBook().setEnabled(false);
-//                    db.getBtnCustomer().setEnabled(false);
-//                    db.pack();
-//                    db.setLocationRelativeTo(null);
-//                    db.setVisible(true);
                     customer = customerService.returnCustomer(username, password);
                     Test test = new Test();
                     test.pack();

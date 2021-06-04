@@ -30,7 +30,14 @@ public class OrderDao {
   
     public static List<BookOrder> listOrderforspecificUser(long id){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from BookOrder where customer_id = :id");
+        Query q = s.createQuery("from BookOrder where customer_id = :id order by order_id asc");
+        q.setParameter("id", id);
+        return q.list();
+    }
+    
+    public static List<OrderDetail> listDetail(long id){
+        Session s = sessionFactory.openSession();
+        Query q = s.createQuery("from OrderDetail where order_id = :id order by order_id asc");
         q.setParameter("id", id);
         return q.list();
     }
