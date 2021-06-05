@@ -77,10 +77,6 @@ public class OrderController {
         bookService = new BookService();
     }
 
-    public OrderController(JPanel viewOrder, JDialog bookDetail, JTextField txtSearchBook, JLabel lblTitle, JLabel lblAuthor, JLabel lblPublishdate, JLabel lblImageorder, JLabel lblPrice, JButton btnPlus, JButton btnMinus, JButton btnBuy, JLabel lblQuantity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void setView() {
         panel.removeAll();
         panel.repaint();
@@ -217,4 +213,6 @@ public class OrderController {
             }
         });
     }
+    
+    
 }

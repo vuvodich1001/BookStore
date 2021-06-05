@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -67,6 +68,8 @@ public class BookController {
     private Book book;
     private BookService bookService;
     private javax.swing.JPanel panel;
+    private javax.swing.JPanel preferPanel;
+    private javax.swing.JPanel recommendPanel;
     private CategoryService categoryService;
     private File file;
     public BookController() {
@@ -99,7 +102,28 @@ public class BookController {
         file = new File("");
     }
     
+    public BookController(JPanel preferPanel, JPanel recommendPanel){
+        this.recommendPanel = recommendPanel;
+        this.preferPanel = preferPanel;
+        bookService = new BookService();
+    }
     
+    public void showDashBoard(){
+        GridLayout gridLayout = new GridLayout(0, 3);
+        preferPanel.setLayout(gridLayout);
+        gridLayout.setHgap(30);
+        for(Book b : bookService.mostBook()){
+            JLabel label = new JLabel(b.getTitle() + " " + b.getPrice() + " VND");
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setHorizontalTextPosition(JLabel.CENTER);
+            label.setVerticalTextPosition(JLabel.BOTTOM);
+            ImageIcon icon = new ImageIcon(b.getImage());
+            Image image = icon.getImage();
+            ImageIcon imageIcon = new ImageIcon(fitimage(image, 180, 210));
+            label.setIcon(imageIcon);
+            preferPanel.add(label);
+        }
+    }
     public void listBook(){
         initMenuItem(menuBook, deleteBook, modifyBook);
         table.setComponentPopupMenu(menuBook);

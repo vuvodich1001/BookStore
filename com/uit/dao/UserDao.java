@@ -66,8 +66,8 @@ public class UserDao {
     
     public static List<Usr> findUser(String username){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from Usr where full_name like :username");
-        q.setParameter("username", "%" + username + "%");
+        Query q = s.createQuery("from Usr where lower(full_name) like :username");
+        q.setParameter("username", "%" + username.toLowerCase() + "%");
         return q.list();
     }
 }

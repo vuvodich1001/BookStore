@@ -7,6 +7,7 @@ package com.uit.controller;
 
 import com.uit.entity.Customer;
 import com.uit.service.CustomerService;
+import com.uit.view.LoginFrame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -43,6 +44,16 @@ public class CustomerController{
     JPopupMenu menuCustomer;
     JMenuItem deleteCustomer;
     JMenuItem modifyCustomer;
+    
+    JLabel lblUsername;
+    JLabel lblPassword;
+    JLabel lblCity;
+    JLabel lblCountry;
+    JLabel lblZipcode;
+    JLabel lblPhone;
+    JLabel lblEmail;
+    JLabel lblRegisterdate;
+    JButton btnChangePassword;
 
     public CustomerController(){
         
@@ -58,6 +69,24 @@ public class CustomerController{
         menuCustomer = new JPopupMenu();
         deleteCustomer = new JMenuItem();
         modifyCustomer = new JMenuItem();
+    }
+
+    public CustomerController(JLabel lblUsername, JLabel lblPassword, JLabel lblCity, JLabel lblCountry, JLabel lblZipcode, JLabel lblPhone, JLabel lblEmail, JLabel lblRegisterdate, JButton btnChangePassword) {
+        this.lblUsername = lblUsername;
+        this.lblPassword = lblPassword;
+        this.lblCity = lblCity;
+        this.lblCountry = lblCountry;
+        this.lblZipcode = lblZipcode;
+        this.lblPhone = lblPhone;
+        this.lblEmail = lblEmail;
+        this.lblRegisterdate = lblRegisterdate;
+        this.btnChangePassword = btnChangePassword;
+    }
+    
+    public void showProfile(){
+        lblUsername.setText(LoginFrame.customer.getFullName());
+        lblPassword.setText(LoginFrame.customer.getPassword());
+        lblRegisterdate.setText(String.valueOf(LoginFrame.customer.getRegisterDate()));
     }
     
     public void listCustomer(){

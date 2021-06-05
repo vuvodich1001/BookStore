@@ -67,13 +67,16 @@ public class BookDao {
         s.close();
     }
     
+    public static List<Book> mostBook(){
+        Session s = sessionFactory.openSession();
+        String sql = "from Book";
+        Query q = s.createQuery(sql).setMaxResults(3);
+        return q.list();
+    }
     
     public static void main(String[] args) {
-        Category c = new Category();
-        c.setName("Java");
-        Book b = new Book();
-        b.setTitle("test");
-        b.setCategory(c);
-        addBook(b);
+        for(Book book : mostBook()){
+            System.out.println(book.getBookId() + "" + book.getAuthor());
+        }
     }
 }

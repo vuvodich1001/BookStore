@@ -40,4 +40,8 @@ public class BookService {
     public List<Book> findBook(String title){
         return bookDao.findBook(title);
     }
+    
+    public List<Book> mostBook(){
+        return bookDao.mostBook();
+    }
 }

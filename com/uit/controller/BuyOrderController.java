@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 public class BuyOrderController {
     private JLabel title1;
     private JButton btnBuyproduct;
+    private JButton btnClearOrder;
     private JPanel displayPanel;
     private Map<Book, Integer> list;
     public static double sum;
@@ -40,9 +41,10 @@ public class BuyOrderController {
         
     }
     
-    public BuyOrderController(JLabel title1,  JButton btnBuyproduct, JPanel displayPanel, Map<Book, Integer> list ) {
+    public BuyOrderController(JLabel title1,  JButton btnBuyproduct, JButton btnClearOrder, JPanel displayPanel, Map<Book, Integer> list ) {
         this.title1 = title1;
         this.btnBuyproduct = btnBuyproduct;
+        this.btnClearOrder = btnClearOrder;
         this.displayPanel = displayPanel;
         this.list = list;
     }
@@ -147,6 +149,13 @@ public class BuyOrderController {
                bbf.setLocationRelativeTo(null);
                bbf.setVisible(true);
                 System.out.println(list.toString());
+            }
+        });
+        btnClearOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                list.clear();
+                setView();
             }
         });
     }

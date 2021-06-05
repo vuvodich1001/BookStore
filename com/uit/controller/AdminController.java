@@ -48,6 +48,10 @@ public class AdminController {
         btnCustomer.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
         btnUser.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
         btnCategory.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+        btnBook.setFocusable(false);
+        btnCustomer.setFocusable(false);
+        btnCategory.setFocusable(false);
+        btnUser.setFocusable(false);
     }
     
   

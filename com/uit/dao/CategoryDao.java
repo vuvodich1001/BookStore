@@ -55,8 +55,8 @@ public class CategoryDao {
     
     public static List<Category> findCategory(String name){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from Category where name like :name");
-        q.setParameter("name", "%" + name + "%");
+        Query q = s.createQuery("from Category where lower(name) like :name");
+        q.setParameter("name", "%" + name.toLowerCase() + "%");
         return q.list();
     }
     public static void main(String[] args){
