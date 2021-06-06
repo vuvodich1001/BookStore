@@ -103,7 +103,7 @@ public class Test extends javax.swing.JFrame {
          lblDashBoard.setIcon(getIcon("/com/uit/image/icons8_home_page_80px_1.png", 30, 30));
          lblUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 30, 30));
          lblOrder.setIcon(getIcon("/com/uit/image/Order.png", 30, 30));
-         
+         lblLogout.setIcon(getIcon("/com/uit/image/icons8_logout_rounded_left_64px_2.png", 30, 30));
     }
     
     
@@ -194,6 +194,7 @@ public class Test extends javax.swing.JFrame {
         lblUser = new javax.swing.JLabel();
         lblOrderHistory = new javax.swing.JLabel();
         lblOrder = new javax.swing.JLabel();
+        lblLogout = new javax.swing.JLabel();
         LayeredPane = new javax.swing.JLayeredPane();
         dashboardPanel = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
@@ -771,6 +772,27 @@ public class Test extends javax.swing.JFrame {
             }
         });
 
+        lblLogout.setBackground(new java.awt.Color(47, 54, 64));
+        lblLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblLogout.setText("LogOut");
+        lblLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblLogout.setOpaque(true);
+        lblLogout.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseMoved(evt);
+            }
+        });
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout taskbarPanelLayout = new javax.swing.GroupLayout(taskbarPanel);
         taskbarPanel.setLayout(taskbarPanelLayout);
         taskbarPanelLayout.setHorizontalGroup(
@@ -785,6 +807,7 @@ public class Test extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
             .addComponent(lblOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         taskbarPanelLayout.setVerticalGroup(
             taskbarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -801,8 +824,10 @@ public class Test extends javax.swing.JFrame {
                 .addComponent(lblProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblOrderHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1425,6 +1450,23 @@ public class Test extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void lblLogoutMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblLogoutMouseMoved
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        // TODO add your handling code here:
+        LoginFrame lf = new LoginFrame();
+        lf.pack();
+        lf.setLocationRelativeTo(null);
+        lf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblLogoutMouseExited
+
     
     
     
@@ -1551,6 +1593,7 @@ public class Test extends javax.swing.JFrame {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblImageorder;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblNotice;
     private javax.swing.JLabel lblOrder;
     private javax.swing.JLabel lblOrderHistory;

@@ -275,7 +275,7 @@ public class BookController {
                        book.setTitle(txtTitle.getText());
                        book.setAuthor(txtAuthor.getText());
                        book.setPrice(Double.valueOf(txtPrice.getText()));
-                       //book.setImage(String.valueOf(table.getValueAt(row, 4)));
+                       book.setImage(file.getAbsolutePath());
                        book.setIsbn(txtIsbn.getText());
                        book.setPublishDate(txtPublishDate.getDate());
                        bookService.editBook(book);
@@ -350,10 +350,13 @@ public class BookController {
                     if(confirm == JOptionPane.YES_OPTION){ 
                        book.setBookId(Long.valueOf(String.valueOf(table.getValueAt(row, 0))));
                        book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
+                       book.setImage(String.valueOf(table.getValueAt(row, 4)));
+                       cbxCategory.getModel().setSelectedItem(findCategoryID((long)table.getValueAt(row, 1)));
+                       //cbxCategory.setEnabled(false);
                        txtTitle.setText(String.valueOf(table.getValueAt(row, 2)));
                        txtAuthor.setText(String.valueOf(table.getValueAt(row, 3)));
+                       lblImage.setIcon(new ImageIcon(fitimage(new ImageIcon(String.valueOf(table.getValueAt(row, 4))).getImage(), 100, 130)));
                        txtPrice.setText(String.valueOf(table.getValueAt(row,6)));
-                       book.setImage(String.valueOf(table.getValueAt(row, 4)));
                        txtIsbn.setText(String.valueOf(table.getValueAt(row, 5)));
                        txtPublishDate.setDate(Date.valueOf(String.valueOf(table.getValueAt(row, 7))));
                        addupdateBook.pack();
