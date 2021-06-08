@@ -27,9 +27,10 @@ import javax.swing.JPanel;
  *
  * @author vunguyen
  */
-public class Test extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
     
     protected OrderController orderController; 
+    protected OrderController adminOrder;
     protected BuyOrderController buyOrderController;
     protected AdminController adminController;
     protected UserController userController;
@@ -44,7 +45,7 @@ public class Test extends javax.swing.JFrame {
     /**
      * Creates new form Test
      */
-    public Test() {
+    public MainFrame() {
         initComponents();
         list = new HashMap<>();
         //User
@@ -57,6 +58,8 @@ public class Test extends javax.swing.JFrame {
          orderController.setView();
          orderController.setIconforShipingCart(lblCart);
          
+         adminOrder = new OrderController(table, btnOrder, btnAddall);
+         adminOrder.setViewAdminOrder();
          
          //buyorder
          buyOrderController = new BuyOrderController(lblSum, btnBuyproduct, btnClearOrder, displayPanel, list);
@@ -68,7 +71,7 @@ public class Test extends javax.swing.JFrame {
          orderHistoryController.action();
          
          //admin
-         adminController = new AdminController(btnUser, btnCategory, btnBook, btnCustomer, btnAddall);
+         adminController = new AdminController(btnUser, btnCategory, btnBook, btnCustomer, btnAddall, btnOrder);
          adminController.actions();
          adminController.setIconforButton();
         
@@ -230,16 +233,18 @@ public class Test extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         bookPanel = new javax.swing.JPanel();
         adminPanel = new javax.swing.JPanel();
-        btnUser = new javax.swing.JButton();
-        btnCategory = new javax.swing.JButton();
-        btnBook = new javax.swing.JButton();
-        btnCustomer = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtSearchall = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         btnAddall = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
+        btnUser = new javax.swing.JButton();
+        btnCategory = new javax.swing.JButton();
+        btnBook = new javax.swing.JButton();
+        btnCustomer = new javax.swing.JButton();
+        btnOrder = new javax.swing.JButton();
         orderPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtSearchBook = new javax.swing.JTextField();
@@ -1105,26 +1110,6 @@ public class Test extends javax.swing.JFrame {
 
         adminPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnUser.setBackground(new java.awt.Color(255, 255, 255));
-        btnUser.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnUser.setText("User");
-        btnUser.setPreferredSize(new java.awt.Dimension(85, 23));
-
-        btnCategory.setBackground(new java.awt.Color(255, 255, 255));
-        btnCategory.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCategory.setText("Categroy");
-        btnCategory.setPreferredSize(new java.awt.Dimension(85, 23));
-
-        btnBook.setBackground(new java.awt.Color(255, 255, 255));
-        btnBook.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnBook.setText("Book");
-        btnBook.setPreferredSize(new java.awt.Dimension(85, 23));
-
-        btnCustomer.setBackground(new java.awt.Color(255, 255, 255));
-        btnCustomer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCustomer.setText("Customer");
-        btnCustomer.setPreferredSize(new java.awt.Dimension(85, 23));
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Search");
 
@@ -1145,10 +1130,43 @@ public class Test extends javax.swing.JFrame {
         btnAddall.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnAddall.setText("Add new ");
 
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnUser.setBackground(new java.awt.Color(255, 255, 255));
+        btnUser.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnUser.setText("User");
+        btnUser.setPreferredSize(new java.awt.Dimension(85, 23));
+        jPanel1.add(btnUser);
+
+        btnCategory.setBackground(new java.awt.Color(255, 255, 255));
+        btnCategory.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCategory.setText("Categroy");
+        btnCategory.setPreferredSize(new java.awt.Dimension(85, 23));
+        jPanel1.add(btnCategory);
+
+        btnBook.setBackground(new java.awt.Color(255, 255, 255));
+        btnBook.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnBook.setText("Book");
+        btnBook.setPreferredSize(new java.awt.Dimension(85, 23));
+        jPanel1.add(btnBook);
+
+        btnCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        btnCustomer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCustomer.setText("Customer");
+        btnCustomer.setPreferredSize(new java.awt.Dimension(85, 23));
+        jPanel1.add(btnCustomer);
+
+        btnOrder.setBackground(new java.awt.Color(255, 255, 255));
+        btnOrder.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnOrder.setText("Order");
+        jPanel1.add(btnOrder);
+
         javax.swing.GroupLayout adminPanelLayout = new javax.swing.GroupLayout(adminPanel);
         adminPanel.setLayout(adminPanelLayout);
         adminPanelLayout.setHorizontalGroup(
             adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addComponent(jScrollPane7)
             .addGroup(adminPanelLayout.createSequentialGroup()
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminPanelLayout.createSequentialGroup()
@@ -1159,27 +1177,16 @@ public class Test extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(btnAddall, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(adminPanelLayout.createSequentialGroup()
-                        .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(400, Short.MAX_VALUE))
-            .addComponent(jSeparator2)
-            .addComponent(jScrollPane7)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
         adminPanelLayout.setVerticalGroup(
             adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adminPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1187,7 +1194,7 @@ public class Test extends javax.swing.JFrame {
                     .addComponent(txtSearchall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
         );
 
         LayeredPane.add(adminPanel, "card6");
@@ -1291,7 +1298,7 @@ public class Test extends javax.swing.JFrame {
 
         btnClearOrder.setBackground(new java.awt.Color(255, 255, 255));
         btnClearOrder.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnClearOrder.setText("Clear Order");
+        btnClearOrder.setText("x Clear Order");
 
         javax.swing.GroupLayout buyPanelLayout = new javax.swing.GroupLayout(buyPanel);
         buyPanel.setLayout(buyPanelLayout);
@@ -1487,20 +1494,21 @@ public class Test extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Test().setVisible(true);
+                new MainFrame().setVisible(true);
             }
         });
     }
@@ -1524,6 +1532,7 @@ public class Test extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnMoreBook;
+    private javax.swing.JButton btnOrder;
     private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnSubmitBook;
@@ -1573,6 +1582,7 @@ public class Test extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

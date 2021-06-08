@@ -184,7 +184,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
                     name = "Username: " + username;
                     customer = customerService.returnCustomer(username, password);
-                    Test test = new Test();
+                    MainFrame test = new MainFrame();
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
@@ -193,10 +193,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 else if(userService.check(username, password) == 1){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
                     name = "Admin:  " + username;
-                    DashBoard db = new DashBoard();
-                    db.pack();
-                    db.setLocationRelativeTo(null);
-                    db.setVisible(true);
+                    MainFrame test = new MainFrame();
+                    test.pack();
+                    test.setLocationRelativeTo(null);
+                    test.setVisible(true);
+                    this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Login denied! Type again");

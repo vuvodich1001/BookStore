@@ -36,4 +36,8 @@ public class OrderService {
     public List<OrderDetail> listDetail(long id){
         return orderDao.listDetail(id);
     }
+    
+    public List<BookOrder> listOrder(){
+        return orderDao.listOrder();
+    }
 }

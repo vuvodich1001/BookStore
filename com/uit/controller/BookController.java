@@ -150,7 +150,7 @@ public class BookController {
        
         
         setTabledata(bookService.getAllbook());
-        table.setRowHeight(100);
+        table.setRowHeight(130);
         table.getTableHeader().setReorderingAllowed(false);
         table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender());
     }
@@ -190,7 +190,7 @@ public class BookController {
             JLabel label = new JLabel();
             ImageIcon icon = new ImageIcon(photoName);
             Image image   = icon.getImage();
-            ImageIcon imageIcon = new ImageIcon(fitimage(image, 80, 100));
+            ImageIcon imageIcon = new ImageIcon(fitimage(image, 115, 130));
             return new JLabel(imageIcon);
         }
     }

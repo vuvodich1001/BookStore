@@ -5,6 +5,7 @@ package com.uit.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -169,7 +170,7 @@ public class Customer  implements java.io.Serializable {
         this.registerDate = registerDate;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade = CascadeType.ALL)
     public Set<BookOrder> getBookOrders() {
         return this.bookOrders;
     }

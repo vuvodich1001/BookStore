@@ -174,9 +174,9 @@ public class CustomerController{
                 else{
                     int confirm = JOptionPane.showConfirmDialog(panel, "are you sure to delete this row!", "Message" , JOptionPane.YES_NO_OPTION);
                     if(confirm == JOptionPane.YES_OPTION){
-                        String full_name = String.valueOf(table.getValueAt(row, 0));
+                        int customerId = Integer.valueOf(String.valueOf(table.getValueAt(row, 0)));
                         for(Customer c : customerService.getAllcustomer()){
-                            if(full_name.equals(c.getFullName())){
+                            if(c.getCustomerId() == customerId){
                                 customerService.deleteCustomer(c);
                                 setTabledata(customerService.getAllcustomer());
                             }

@@ -6,7 +6,9 @@
 package com.uit.controller;
 
 import com.uit.entity.Book;
+import com.uit.entity.BookOrder;
 import com.uit.service.BookService;
+import com.uit.service.OrderService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -27,7 +29,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -51,12 +55,17 @@ public class OrderController {
     JLabel lblNotice;
     Map<Book, Integer> listBook;
     long bookId;
+    
+    //admin order
+    JTable table;
+    JButton btnOrder;
+    JButton btnAddall;
+    OrderService orderService;
+    DefaultTableModel defaultTableModel;
     public OrderController() {
 
     }
-//       orderController = new OrderController(viewOrder, bookDetail, txtSearchBook, lblTitle, lblAuthor,
-//         lblPublishdate, lblImageorder, lblPrice, btnPlus, btnMinus,lblQuantity);
-
+       
     public OrderController(JPanel panel, JDialog bookDetail, JTextField txtSearch, JLabel lblTitle, JLabel lblAuthor,
             JLabel lblPublishdate, JLabel lblImageorder, JLabel lblPrice, JButton btnPlus, JButton btnMinus, JButton btnBuy, Map<Book, Integer> list,
             JLabel lblQuantity, JLabel lblNotice) {
@@ -76,7 +85,56 @@ public class OrderController {
         this.lblNotice = lblNotice;
         bookService = new BookService();
     }
-
+    
+    // admin order
+    public OrderController(JTable table, JButton btnOrder, JButton btnAddall){
+        this.table = table;
+        this.btnOrder = btnOrder;
+        this.btnAddall = btnAddall;
+        orderService = new OrderService();
+    }
+    
+    public void listOrder(){
+        table.setComponentPopupMenu(null);
+        defaultTableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
+        table.setModel(defaultTableModel);
+        defaultTableModel.addColumn("OrderId");
+        defaultTableModel.addColumn("CustomerId");
+        defaultTableModel.addColumn("ShippingAddress");
+        defaultTableModel.addColumn("RecipentName");
+        defaultTableModel.addColumn("RecipentPhone");
+        defaultTableModel.addColumn("PaymentMethod");
+        defaultTableModel.addColumn("Total");
+        table.setRowHeight(30);
+        setTabledata(orderService.listOrder());
+        
+    }
+    
+    public void setTabledata(List<BookOrder> list){
+        defaultTableModel.setRowCount(0);
+        for(BookOrder b : list){
+            defaultTableModel.addRow(new Object[]{b.getOrderId(), b.getCustomer().getCustomerId(), b.getShippingAddress(),
+            b.getRecipentName(), b.getRecipentPhone(), b.getPaymentMethod(), b.getTotal()});
+        }
+    }
+    public void setViewAdminOrder(){
+        btnOrder.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               listOrder();
+            }
+        });
+        
+        for(ActionListener al : btnAddall.getActionListeners()){
+            btnAddall.removeActionListener(al);
+        }
+    }
+    // Customer order
     public void setView() {
         panel.removeAll();
         panel.repaint();

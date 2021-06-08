@@ -52,9 +52,7 @@ public class CustomerDao {
     public static void deleteCustomer(Customer customer){
         Session s = sessionFactory.openSession();
         Transaction t = s.beginTransaction();
-        Query q = s.createQuery("delete from Customer where customer_id = :customerId");
-        q.setParameter("customerId", customer.getCustomerId());
-        q.executeUpdate();
+        s.delete(customer);
         t.commit();
         s.close();
     }

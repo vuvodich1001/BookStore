@@ -156,7 +156,7 @@ public class BuyBookFrame extends javax.swing.JFrame {
         bookOrder.setStatus("Processing");
         bookOrder.setCustomer(LoginFrame.customer);
         orderService.addBookorder(bookOrder);
-        for(Map.Entry<Book, Integer> map : Test.list.entrySet()){
+        for(Map.Entry<Book, Integer> map : MainFrame.list.entrySet()){
             orderService.addOrder(bookOrder, map.getKey(), map.getValue(), map.getKey().getPrice() * map.getValue());
         }
         JOptionPane.showMessageDialog(this, "Sucessfully!");

@@ -45,6 +45,7 @@ public class OrderHistoryController {
     public void listOrder(){
         menu.add(detail);
         tblOrder.setComponentPopupMenu(menu);
+        //tblorder
         defaultTableModel1 = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int i, int i1) {
@@ -52,6 +53,14 @@ public class OrderHistoryController {
             }
         };
         tblOrder.setModel(defaultTableModel1);
+        //tblOrderDetail
+        defaultTableModel2 = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
+        tblOrderDetail.setModel(defaultTableModel2);
         defaultTableModel1.addColumn("OrderID");
         defaultTableModel1.addColumn("ShippingAddress");
         defaultTableModel1.addColumn("RecipentName");
@@ -86,10 +95,10 @@ public class OrderHistoryController {
                 }
                 else{
                     defaultTableModel2 = new DefaultTableModel(){
-                        @Override
-                        public boolean isCellEditable(int i, int i1) {
-                            return false;
-                        }  
+                    @Override
+                    public boolean isCellEditable(int i, int i1) {
+                        return false;
+                    }
                     };
                     tblOrderDetail.setModel(defaultTableModel2);
                     defaultTableModel2.addColumn("OrderId");

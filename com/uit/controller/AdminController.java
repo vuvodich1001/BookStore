@@ -23,18 +23,19 @@ public class AdminController {
     JButton btnBook;
     JButton btnCustomer;
     JButton btnAddall;
+    JButton btnOrder;
 
     public AdminController() {
        
     }
 
-    public AdminController(JButton btnUser, JButton btnCategory, JButton btnBook, JButton btnCustomer, JButton btnAddall) {
+    public AdminController(JButton btnUser, JButton btnCategory, JButton btnBook, JButton btnCustomer, JButton btnAddall, JButton btnOrder) {
         this.btnUser = btnUser;
         this.btnCategory = btnCategory;
         this.btnBook = btnBook;
         this.btnCustomer = btnCustomer;
         this.btnAddall  = btnAddall;
-      
+        this.btnOrder = btnOrder;
     }
     
     
@@ -44,14 +45,17 @@ public class AdminController {
         btnCategory.setIcon(getIcon("/com/uit/image/Category.png", 20, 20));
         btnUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 20, 20));
         btnAddall.setIcon(getIcon("/com/uit/image/c.png", 20, 20));
-        btnBook.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
-        btnCustomer.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
-        btnUser.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
-        btnCategory.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+        btnOrder.setIcon(getIcon("/com/uit/image/icons8_order_history_60px_1.png", 20, 20));
+//        btnBook.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+//        btnCustomer.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+//        btnUser.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+//        btnCategory.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
+//        btnOrder.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
         btnBook.setFocusable(false);
         btnCustomer.setFocusable(false);
         btnCategory.setFocusable(false);
         btnUser.setFocusable(false);
+        btnOrder.setFocusable(false);
     }
     
   
@@ -65,6 +69,7 @@ public class AdminController {
                 btnBook.setBackground(Color.white);
                 btnCategory.setBackground(Color.white);
                 btnCustomer.setBackground(Color.white);
+                btnOrder.setBackground(Color.white);
             }
         });
           btnBook.addActionListener(new ActionListener() {
@@ -74,6 +79,7 @@ public class AdminController {
                 btnBook.setBackground(Color.green);
                 btnCategory.setBackground(Color.white);
                 btnCustomer.setBackground(Color.white);
+                btnOrder.setBackground(Color.white);
             }
         });
             btnCategory.addActionListener(new ActionListener() {
@@ -83,6 +89,7 @@ public class AdminController {
                 btnBook.setBackground(Color.white);
                 btnCategory.setBackground(Color.green);
                 btnCustomer.setBackground(Color.white);
+                btnOrder.setBackground(Color.white);
             }
         });
               btnCustomer.addActionListener(new ActionListener() {
@@ -92,6 +99,17 @@ public class AdminController {
                 btnBook.setBackground(Color.white);
                 btnCategory.setBackground(Color.white);
                 btnCustomer.setBackground(Color.green);
+                btnOrder.setBackground(Color.white);
+            }
+        });
+              btnOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                btnUser.setBackground(Color.white);
+                btnBook.setBackground(Color.white);
+                btnCategory.setBackground(Color.white);
+                btnCustomer.setBackground(Color.white);
+                btnOrder.setBackground(Color.green);
             }
         });
     }
