@@ -145,6 +145,9 @@ public class UserController{
                 else if(String.valueOf(txtPassword.getPassword()).equals(String.valueOf(txtConfirmpassword.getPassword())) == false){
                     JOptionPane.showMessageDialog(panel, "Confirm password not correct");
                 }
+                else if(userService.checkEmail(txtEmail.getText())){
+                    JOptionPane.showMessageDialog(panel, "Email already existed!");
+                }
                 else{
                     user.setFullName(txtFullName.getText());
                     user.setEmail(txtEmail.getText());

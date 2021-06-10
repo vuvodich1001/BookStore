@@ -22,7 +22,7 @@ public class DashBoard extends javax.swing.JFrame {
      */
     public DashBoard() {
         initComponents();
-        txtUsername.setText(LoginFrame.name);
+        txtUsername.setText("");
     }
 
     public JButton getBtnBook() {

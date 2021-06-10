@@ -44,7 +44,7 @@ public class AdminController {
         btnCustomer.setIcon(getIcon("/com/uit/image/icons8_customer_128px.png", 20, 20));
         btnCategory.setIcon(getIcon("/com/uit/image/Category.png", 20, 20));
         btnUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 20, 20));
-        btnAddall.setIcon(getIcon("/com/uit/image/c.png", 20, 20));
+        btnAddall.setIcon(getIcon("/com/uit/image/addIcon.png", 20, 20));
         btnOrder.setIcon(getIcon("/com/uit/image/icons8_order_history_60px_1.png", 20, 20));
 //        btnBook.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
 //        btnCustomer.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));

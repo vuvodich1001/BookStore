@@ -36,8 +36,12 @@ public class UserService {
         userDao.editUser(usr);
     }
     
-    public long check(String username, String password){
+    public boolean check(String username, String password){
         return userDao.check(username, password);
+    }
+    
+    public boolean checkEmail(String email){
+        return userDao.checkEmail(email);
     }
     
     public List<Usr> findUser(String username){

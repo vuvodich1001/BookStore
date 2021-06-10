@@ -19,12 +19,17 @@ import org.hibernate.Transaction;
 public class CustomerDao {
     final static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
-    public static long check(String username, String password){
+    public static boolean check(String username, String password){
         Session s = sessionFactory.openSession();
         Query q = s.createQuery("select count(*) from Customer where full_name = :username and password = :password");
         q.setParameter("username", username);
         q.setParameter("password", password);
-        return (long) q.uniqueResult();
+        if((long) q.uniqueResult() == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public static Customer returnCustomer(String username,  String password){
@@ -52,7 +57,9 @@ public class CustomerDao {
     public static void deleteCustomer(Customer customer){
         Session s = sessionFactory.openSession();
         Transaction t = s.beginTransaction();
-        s.delete(customer);
+        Query q = s.createQuery("delete from Customer where customer_id = :customer_id");
+        q.setParameter("customer_id", customer.getCustomerId());
+        q.executeUpdate();
         t.commit();
         s.close();
     }

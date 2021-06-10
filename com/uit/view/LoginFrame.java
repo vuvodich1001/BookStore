@@ -20,7 +20,6 @@ public class LoginFrame extends javax.swing.JFrame {
     protected CustomerService customerService;
     protected UserService userService;
     public static Customer customer;
-    public static String name = "";
     /**
      * Creates new form LoginFrame
      */
@@ -177,12 +176,11 @@ public class LoginFrame extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
             if(username.equals("") || password.equals("")){
-                JOptionPane.showMessageDialog(this, "Ban can nhap day du thong tin");
+                JOptionPane.showMessageDialog(this, "Not enough information!");
             }
             else{
-                if(customerService.check(username, password) == 1){
+                if(customerService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    name = "Username: " + username;
                     customer = customerService.returnCustomer(username, password);
                     MainFrame test = new MainFrame();
                     test.pack();
@@ -190,9 +188,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     test.setVisible(true);
                     this.dispose();
                 }
-                else if(userService.check(username, password) == 1){
+                else if(userService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    name = "Admin:  " + username;
                     MainFrame test = new MainFrame();
                     test.pack();
                     test.setLocationRelativeTo(null);
@@ -210,6 +207,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
         SignUpFrame suf = new SignUpFrame();
+        suf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         suf.pack();
         suf.setLocationRelativeTo(null);
         suf.setVisible(true);
@@ -226,12 +224,11 @@ public class LoginFrame extends javax.swing.JFrame {
               String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
             if(username.equals("") || password.equals("")){
-                JOptionPane.showMessageDialog(this, "Ban can nhap day du thong tin");
+                JOptionPane.showMessageDialog(this, "Not enough information!");
             }
             else{
-                if(customerService.check(username, password) == 1){
+                if(customerService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    name = "Username: " + username;
                     DashBoard db = new DashBoard();
                     db.getBtnUser().setEnabled(false);
                     db.getBtnCategory().setEnabled(false);
@@ -242,9 +239,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     db.setVisible(true);
                     this.dispose();
                 }
-                else if(userService.check(username, password) == 1){
+                else if(userService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    name = "Admin:  " + username;
                     DashBoard db = new DashBoard();
                     db.pack();
                     db.setLocationRelativeTo(null);

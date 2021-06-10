@@ -24,7 +24,7 @@ public class CustomerService {
         customerDao.addCustomer(customer);
     }
     
-    public long check(String username, String password){
+    public boolean check(String username, String password){
         return customerDao.check(username, password);
     }
     

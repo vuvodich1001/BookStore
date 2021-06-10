@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -47,6 +46,7 @@ import javax.swing.table.JTableHeader;
  * @author vunguyen
  */
 public class BookController {
+
     private javax.swing.JTextField txtAuthor;
     private javax.swing.JTextField txtIsbn;
     private javax.swing.JTextField txtPrice;
@@ -68,15 +68,14 @@ public class BookController {
     private Book book;
     private BookService bookService;
     private javax.swing.JPanel panel;
-    private javax.swing.JPanel preferPanel;
-    private javax.swing.JPanel recommendPanel;
     private CategoryService categoryService;
     private File file;
+
     public BookController() {
     }
 
-    public BookController(JTextField txtAuthor, JTextField txtPrice, JTextField txtIsbn, JDateChooser txtPublishDate, 
-            JTextField txtSearchall, JTextField txtTitle, JComboBox<Category> cbxCategroy, JLabel lblImage, JButton btnSubmitBook, JButton btnBook, JButton btnUpload, 
+    public BookController(JTextField txtAuthor, JTextField txtPrice, JTextField txtIsbn, JDateChooser txtPublishDate,
+            JTextField txtSearchall, JTextField txtTitle, JComboBox<Category> cbxCategroy, JLabel lblImage, JButton btnSubmitBook, JButton btnBook, JButton btnUpload,
             JButton btnAddall, JTable table, JPanel panel, JDialog addupdateBook) {
         this.txtAuthor = txtAuthor;
         this.txtIsbn = txtIsbn;
@@ -101,117 +100,98 @@ public class BookController {
         modifyBook = new JMenuItem();
         file = new File("");
     }
-    
-    public BookController(JPanel preferPanel, JPanel recommendPanel){
-        this.recommendPanel = recommendPanel;
-        this.preferPanel = preferPanel;
-        bookService = new BookService();
-    }
-    
-    public void showDashBoard(){
-        GridLayout gridLayout = new GridLayout(0, 3);
-        preferPanel.setLayout(gridLayout);
-        gridLayout.setHgap(30);
-        for(Book b : bookService.mostBook()){
-            JLabel label = new JLabel(b.getTitle() + " " + b.getPrice() + " VND");
-            label.setHorizontalAlignment(JLabel.CENTER);
-            label.setHorizontalTextPosition(JLabel.CENTER);
-            label.setVerticalTextPosition(JLabel.BOTTOM);
-            ImageIcon icon = new ImageIcon(b.getImage());
-            Image image = icon.getImage();
-            ImageIcon imageIcon = new ImageIcon(fitimage(image, 180, 210));
-            label.setIcon(imageIcon);
-            preferPanel.add(label);
-        }
-    }
-    public void listBook(){
+
+    public void listBook() {
         initMenuItem(menuBook, deleteBook, modifyBook);
         table.setComponentPopupMenu(menuBook);
+
         JTableHeader header = table.getTableHeader();
         header.setBackground(Color.yellow);
         header.setForeground(Color.blue);
         header.setFont(new Font("Tahome", Font.BOLD, 13));
-        ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-         defaultTableModel = new DefaultTableModel(){
+        ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        defaultTableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int i, int i1) {
-               return false;
-            }  
+                return false;
+            }
         };
         table.setModel(defaultTableModel);
         defaultTableModel.addColumn("book_id");
         defaultTableModel.addColumn("category_id");
-         defaultTableModel.addColumn("title");
+        defaultTableModel.addColumn("title");
         defaultTableModel.addColumn("author");
         defaultTableModel.addColumn("image");
         defaultTableModel.addColumn("isbn");
         defaultTableModel.addColumn("price");
         defaultTableModel.addColumn("publish_date");
-       
-        
+
         setTabledata(bookService.getAllbook());
         table.setRowHeight(130);
         table.getTableHeader().setReorderingAllowed(false);
         table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender());
     }
-    
-    public void setTabledata(List<Book> list){
+
+    public void setTabledata(List<Book> list) {
         cbxCategory.removeAllItems();
-        for(Category c : categoryService.getAllcategory()){
+        for (Category c : categoryService.getAllcategory()) {
             cbxCategory.addItem(c);
         }
         defaultTableModel.setRowCount(0);
-        for(Book b : list){
+        for (Book b : list) {
             defaultTableModel.addRow(new Object[]{b.getBookId(), b.getCategory().getCategoryId(),
-            b.getTitle(), b.getAuthor(), b.getImage(), b.getIsbn(), b.getPrice(), b.getPublishDate()});
+                b.getTitle(), b.getAuthor(), b.getImage(), b.getIsbn(), b.getPrice(), b.getPublishDate()});
         }
     }
-    
-    public void initMenuItem(JPopupMenu menu, JMenuItem delete, JMenuItem modify){
+
+    public void initMenuItem(JPopupMenu menu, JMenuItem delete, JMenuItem modify) {
         delete.setIcon(getIcon("/com/uit/image/icons8_delete_96px.png", 20, 20));
         delete.setText("delete");
         modify.setIcon(getIcon("/com/uit/image/icons8_edit_file_128px.png", 20, 20));
         modify.setText("modify");
         menu.add(delete);
-        menu.add(modify); 
+        menu.add(modify);
     }
-    public ImageIcon getIcon(String url, int w, int h){
+
+    public ImageIcon getIcon(String url, int w, int h) {
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         Image image = icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(image);
         return imageIcon;
     }
-    
-    public class ImageRender extends DefaultTableCellRenderer{
-        
+
+    public class ImageRender extends DefaultTableCellRenderer {
+
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             String photoName = value.toString();
             JLabel label = new JLabel();
             ImageIcon icon = new ImageIcon(photoName);
-            Image image   = icon.getImage();
+            Image image = icon.getImage();
             ImageIcon imageIcon = new ImageIcon(fitimage(image, 115, 130));
             return new JLabel(imageIcon);
         }
     }
-    public Image fitimage(Image img , int w , int h){
-        BufferedImage resizedimage = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
+
+    public Image fitimage(Image img, int w, int h) {
+        BufferedImage resizedimage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedimage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(img, 0, 0,w,h,null);
+        g2.drawImage(img, 0, 0, w, h, null);
         g2.dispose();
         return resizedimage;
     }
-    
-    public Category findCategoryID(String string){
-        for(Category c : categoryService.getAllcategory()){
-            if(c.getName().equals(string)){
+
+    public Category findCategoryID(String string) {
+        for (Category c : categoryService.getAllcategory()) {
+            if (c.getName().equals(string)) {
                 return c;
             }
         }
         return null;
     }
-    public void setNull(){
+
+    public void setNull() {
         cbxCategory.setSelectedItem("Python");
         lblImage.setIcon(null);
         txtAuthor.setText("");
@@ -222,178 +202,172 @@ public class BookController {
         txtTitle.setText("");
     }
 
-     private Category findCategoryID(long id){
-        for(Category c : categoryService.getAllcategory()){
-            if(c.getCategoryId() == id){
+    private Category findCategoryID(long id) {
+        for (Category c : categoryService.getAllcategory()) {
+            if (c.getCategoryId() == id) {
                 return c;
             }
         }
         return null;
     }
-     
-    public void actionAdd(){
+
+    public void actionAdd() {
         setNull();
-        for(ActionListener al : btnSubmitBook.getActionListeners()){
-            btnSubmitBook.removeActionListener(al);
-        }
-         btnSubmitBook.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
-                book.setCategory((Category) cbxCategory.getSelectedItem());
-                book.setTitle(txtTitle.getText());
-                book.setAuthor(txtAuthor.getText());
-                book.setIsbn(txtIsbn.getText());
-                book.setImage(file.getAbsolutePath());
-                book.setPrice(Double.valueOf(txtPrice.getText()));
-                book.setPublishDate(txtPublishDate.getDate());
-                book.setLastUpdate(new java.util.Date());
-                bookService.addBook(book);
-                addupdateBook.dispose();
-                JOptionPane.showMessageDialog(panel, "Insert successfully!");
-                setTabledata(bookService.getAllbook());
-           }
-       });
-        
-    }
-    
-    public void actionModify(){
-        for(ActionListener al : btnSubmitBook.getActionListeners()){
+        for (ActionListener al : btnSubmitBook.getActionListeners()) {
             btnSubmitBook.removeActionListener(al);
         }
         btnSubmitBook.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
-              int row = table.getSelectedRow();
-                if(row == -1){
-                    JOptionPane.showConfirmDialog(panel, "Ban can chon hang can sua truoc!");
-                }
-                else{
-                    int confirm = JOptionPane.showConfirmDialog(panel, "Ban co chac muon sua book nay khong?", "Confirm", JOptionPane.YES_NO_OPTION);
-                    if(confirm == JOptionPane.YES_OPTION){ 
-                     
-                       //book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
-                       book.setTitle(txtTitle.getText());
-                       book.setAuthor(txtAuthor.getText());
-                       book.setPrice(Double.valueOf(txtPrice.getText()));
-                       book.setImage(file.getAbsolutePath());
-                       book.setIsbn(txtIsbn.getText());
-                       book.setPublishDate(txtPublishDate.getDate());
-                       bookService.editBook(book);
-                       addupdateBook.dispose();
-                       JOptionPane.showMessageDialog(panel, "update successfully!");
-                       setTabledata(bookService.getAllbook());
-                       setNull();
-                    }
-                }   
-           }
-       });
-    }
-    public void actions(){
-       btnBook.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
-               listBook();
-               for(ActionListener al : btnAddall.getActionListeners()){
-                   btnAddall.removeActionListener(al);
-               }
-               btnAddall.addActionListener(new ActionListener() {
-                   @Override
-                   public void actionPerformed(ActionEvent ae) {
-                       addupdateBook.pack();
-                       addupdateBook.setLocationRelativeTo(null);
-                       addupdateBook.setVisible(true);
-                       actionAdd();
-                   }
-               });
-               
-               for(KeyListener kl : txtSearchall.getKeyListeners()){
-                   txtSearchall.removeKeyListener(kl);
-               }
-               
-               txtSearchall.addKeyListener(new KeyAdapter() {
-                   @Override
-                   public void keyReleased(KeyEvent ke) {
-                       setTabledata(bookService.findBook(txtSearchall.getText()));
-                   }
-               });
-           }
-       });
-       
-       deleteBook.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
-                int row = table.getSelectedRow();
-                if(row == -1){
-                    JOptionPane.showConfirmDialog(panel, "Ban can chon hang can xoa truoc!");
-                }
-                else{
-                    int confirm = JOptionPane.showConfirmDialog(panel, "Do you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION);
-                    if(confirm == JOptionPane.YES_OPTION){
-                    int id = Integer.valueOf(String.valueOf(table.getValueAt(row, 0)));
-                    bookService.deleteBook(id);
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (String.valueOf(cbxCategory.getSelectedItem()).equals("") || txtTitle.getText().equals("") || txtAuthor.getText().equals("")
+                        || txtIsbn.getText().equals("") || txtPrice.getText().equals("") || txtPublishDate.getDate().equals("")) {
+                    JOptionPane.showMessageDialog(panel, "Input not enough information!");
+                } else if (bookService.checkTitleAuthor(txtTitle.getText(), txtAuthor.getText())) {
+                    JOptionPane.showMessageDialog(panel, "Title and author already existed!");
+                } else {
+                    book.setCategory((Category) cbxCategory.getSelectedItem());
+                    book.setTitle(txtTitle.getText());
+                    book.setAuthor(txtAuthor.getText());
+                    book.setIsbn(txtIsbn.getText());
+                    book.setImage(file.getAbsolutePath());
+                    book.setPrice(Double.valueOf(txtPrice.getText()));
+                    book.setPublishDate(txtPublishDate.getDate());
+                    book.setLastUpdate(new java.util.Date());
+                    bookService.addBook(book);
+                    addupdateBook.dispose();
+                    JOptionPane.showMessageDialog(panel, "Insert successfully!");
                     setTabledata(bookService.getAllbook());
-                    //setNull();
-            }
-        }
-           }
-       });
-       
-       modifyBook.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
-              int row = table.getSelectedRow();
-                if(row == -1){
-                    JOptionPane.showConfirmDialog(panel, "Ban can chon hang can sua truoc!");
                 }
-                else{
-                    int confirm = JOptionPane.showConfirmDialog(panel, "Ban co chac muon sua book nay khong?", "Confirm", JOptionPane.YES_NO_OPTION);
-                    if(confirm == JOptionPane.YES_OPTION){ 
-                       book.setBookId(Long.valueOf(String.valueOf(table.getValueAt(row, 0))));
-                       book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
-                       book.setImage(String.valueOf(table.getValueAt(row, 4)));
-                       cbxCategory.getModel().setSelectedItem(findCategoryID((long)table.getValueAt(row, 1)));
-                       //cbxCategory.setEnabled(false);
-                       txtTitle.setText(String.valueOf(table.getValueAt(row, 2)));
-                       txtAuthor.setText(String.valueOf(table.getValueAt(row, 3)));
-                       lblImage.setIcon(new ImageIcon(fitimage(new ImageIcon(String.valueOf(table.getValueAt(row, 4))).getImage(), 100, 130)));
-                       txtPrice.setText(String.valueOf(table.getValueAt(row,6)));
-                       txtIsbn.setText(String.valueOf(table.getValueAt(row, 5)));
-                       txtPublishDate.setDate(Date.valueOf(String.valueOf(table.getValueAt(row, 7))));
-                       addupdateBook.pack();
-                       addupdateBook.setLocationRelativeTo(null);
-                       addupdateBook.setVisible(true);
+            }
+        });
+
+    }
+
+    public void actionModify() {
+        for (ActionListener al : btnSubmitBook.getActionListeners()) {
+            btnSubmitBook.removeActionListener(al);
+        }
+        btnSubmitBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (String.valueOf(cbxCategory.getSelectedItem()).equals("") || txtTitle.getText().equals("") || txtAuthor.getText().equals("")
+                        || txtIsbn.getText().equals("") || txtPrice.getText().equals("") || txtPublishDate.getDate().equals("")) {
+                    JOptionPane.showConfirmDialog(panel, "Input not enough information");
+                } else {
+                    //book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
+                    book.setTitle(txtTitle.getText());
+                    book.setAuthor(txtAuthor.getText());
+                    book.setPrice(Double.valueOf(txtPrice.getText()));
+                    book.setImage(file.getAbsolutePath());
+                    book.setIsbn(txtIsbn.getText());
+                    book.setPublishDate(txtPublishDate.getDate());
+                    bookService.editBook(book);
+                    addupdateBook.dispose();
+                    JOptionPane.showMessageDialog(panel, "update successfully!");
+                    setTabledata(bookService.getAllbook());
+                    setNull();
+                }
+            }
+        });
+    }
+
+    public void actions() {
+        btnBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                listBook();
+                for (ActionListener al : btnAddall.getActionListeners()) {
+                    btnAddall.removeActionListener(al);
+                }
+                btnAddall.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        addupdateBook.pack();
+                        addupdateBook.setLocationRelativeTo(null);
+                        addupdateBook.setVisible(true);
+                        actionAdd();
+                    }
+                });
+
+                for (KeyListener kl : txtSearchall.getKeyListeners()) {
+                    txtSearchall.removeKeyListener(kl);
+                }
+
+                txtSearchall.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                        setTabledata(bookService.findBook(txtSearchall.getText()));
+                    }
+                });
+            }
+        });
+
+        deleteBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int row = table.getSelectedRow();
+                if (row == -1) {
+                    JOptionPane.showConfirmDialog(panel, "you need choose book first!");
+                } else {
+                    int confirm = JOptionPane.showConfirmDialog(panel, "Do you want to delete this book?", "Confirm", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        int id = Integer.valueOf(String.valueOf(table.getValueAt(row, 0)));
+                        bookService.deleteBook(id);
+                        setTabledata(bookService.getAllbook());
+                        //setNull();
+                    }
+                }
+            }
+        });
+
+        modifyBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int row = table.getSelectedRow();
+                if (row == -1) {
+                    JOptionPane.showConfirmDialog(panel, "you need choose book first!");
+                } else {
+                    int confirm = JOptionPane.showConfirmDialog(panel, "do you want to modify this book!", "Confirm", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        book.setBookId(Long.valueOf(String.valueOf(table.getValueAt(row, 0))));
+                        book.setCategory(findCategoryID((Long) table.getValueAt(row, 1)));
+                        book.setImage(String.valueOf(table.getValueAt(row, 4)));
+                        cbxCategory.getModel().setSelectedItem(findCategoryID((long) table.getValueAt(row, 1)));
+                        cbxCategory.setEnabled(false);
+                        //set data for jtextfield
+                        txtTitle.setText(String.valueOf(table.getValueAt(row, 2)));
+                        txtAuthor.setText(String.valueOf(table.getValueAt(row, 3)));
+                        lblImage.setIcon(new ImageIcon(fitimage(new ImageIcon(String.valueOf(table.getValueAt(row, 4))).getImage(), 100, 130)));
+                        txtPrice.setText(String.valueOf(table.getValueAt(row, 6)));
+                        txtIsbn.setText(String.valueOf(table.getValueAt(row, 5)));
+                        txtPublishDate.setDate(Date.valueOf(String.valueOf(table.getValueAt(row, 7))));
+                        addupdateBook.pack();
+                        addupdateBook.setLocationRelativeTo(null);
+                        addupdateBook.setVisible(true);
                         actionModify();
                     }
-                }   
-           }
-       });
-       
-       btnUpload.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent ae) {
+                }
+            }
+        });
+
+        btnUpload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
                 JFileChooser fileChooser = new JFileChooser();
                 //FileNameExtensionFilter imageFilter  = new FileNameExtensionFilter("");
                 //fileChooser.setFileFilter(imageFilter);
                 fileChooser.setMultiSelectionEnabled(false);
                 int x = fileChooser.showDialog(panel, "chon file");
-                if(x == JFileChooser.APPROVE_OPTION){
-                file = fileChooser.getSelectedFile();
-                ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-                Image image = icon.getImage();
-                ImageIcon imageIcon = new ImageIcon(fitimage(image, 100, 130));
-                lblImage.setIcon(imageIcon);
-            
-        }
-           }
-       });
-      
-       
-//       txtSearch.addKeyListener(new KeyAdapter() {
-//           @Override
-//           public void keyReleased(KeyEvent ke) {
-//               setTabledata(bookService.findBook(String.valueOf(txtSearch.getText())));
-//           }
-//       });
+                if (x == JFileChooser.APPROVE_OPTION) {
+                    file = fileChooser.getSelectedFile();
+                    ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+                    Image image = icon.getImage();
+                    ImageIcon imageIcon = new ImageIcon(fitimage(image, 100, 130));
+                    lblImage.setIcon(imageIcon);
+
+                }
+            }
+        });
     }
-    
+
 }

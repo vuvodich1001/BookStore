@@ -9,14 +9,19 @@ import com.uit.entity.BookOrder;
 import com.uit.entity.Customer;
 import com.uit.entity.OrderDetail;
 import com.uit.service.OrderService;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -61,6 +66,12 @@ public class OrderHistoryController {
             }
         };
         tblOrderDetail.setModel(defaultTableModel2);
+        
+        JTableHeader header = tblOrder.getTableHeader();
+        header.setBackground(Color.yellow);
+        header.setForeground(Color.blue);
+        header.setFont(new Font("Tahome", Font.BOLD, 13));
+        ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         defaultTableModel1.addColumn("OrderID");
         defaultTableModel1.addColumn("ShippingAddress");
         defaultTableModel1.addColumn("RecipentName");
@@ -101,6 +112,11 @@ public class OrderHistoryController {
                     }
                     };
                     tblOrderDetail.setModel(defaultTableModel2);
+                     JTableHeader header = tblOrderDetail.getTableHeader();
+                    header.setBackground(Color.yellow);
+                    header.setForeground(Color.blue);
+                    header.setFont(new Font("Tahome", Font.BOLD, 13));
+                    ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
                     defaultTableModel2.addColumn("OrderId");
                     defaultTableModel2.addColumn("BookId");
                     defaultTableModel2.addColumn("Title");

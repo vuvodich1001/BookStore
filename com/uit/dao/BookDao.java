@@ -6,7 +6,6 @@
 package com.uit.dao;
 
 import com.uit.entity.Book;
-import com.uit.entity.Category;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -72,6 +71,19 @@ public class BookDao {
         String sql = "from Book";
         Query q = s.createQuery(sql).setMaxResults(3);
         return q.list();
+    }
+    
+    public static boolean checkTitleAuthor(String title, String author){
+        Session s = sessionFactory.openSession();
+        Query q = s.createQuery("select count(*) from Book where title = :title and author = :author");
+        q.setParameter("title", title);
+        q.setParameter("author", author);
+        if((long)q.uniqueResult() == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public static void main(String[] args) {

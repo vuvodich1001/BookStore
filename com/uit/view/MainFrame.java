@@ -11,8 +11,10 @@ import com.uit.controller.BookController;
 import com.uit.controller.BuyOrderController;
 import com.uit.controller.CategoryController;
 import com.uit.controller.CustomerController;
+import com.uit.controller.DashBoardController;
 import com.uit.controller.OrderController;
 import com.uit.controller.OrderHistoryController;
+import com.uit.controller.ProfileController;
 import com.uit.controller.UserController;
 import com.uit.entity.Book;
 import com.uit.entity.Category;
@@ -28,8 +30,8 @@ import javax.swing.JPanel;
  * @author vunguyen
  */
 public class MainFrame extends javax.swing.JFrame {
-    
-    protected OrderController orderController; 
+
+    protected OrderController orderController;
     protected OrderController adminOrder;
     protected BuyOrderController buyOrderController;
     protected AdminController adminController;
@@ -37,9 +39,9 @@ public class MainFrame extends javax.swing.JFrame {
     protected CategoryController categoryController;
     protected BookController bookController;
     protected CustomerController customerController;
-    protected CustomerController profileController;
+    protected ProfileController profileController;
     protected OrderHistoryController orderHistoryController;
-    protected BookController dashBoardController;
+    protected DashBoardController dashBoardController;
     public static Map<Book, Integer> list;
 
     /**
@@ -48,82 +50,78 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         list = new HashMap<>();
-        //User
-      
-         
-         //order
-         orderController = new OrderController(viewOrder, bookDetail, txtSearchBook, lblTitle, lblAuthor,
-         lblPublishdate, lblImageorder, lblPrice, btnPlus, btnMinus, btnBuy, list, lblQuantity, lblNotice);
-         orderController.actions();
-         orderController.setView();
-         orderController.setIconforShipingCart(lblCart);
-         
-         adminOrder = new OrderController(table, btnOrder, btnAddall);
-         adminOrder.setViewAdminOrder();
-         
-         //buyorder
-         buyOrderController = new BuyOrderController(lblSum, btnBuyproduct, btnClearOrder, displayPanel, list);
-         buyOrderController.action();
-         
-         //OrderHistory
-         orderHistoryController = new OrderHistoryController(tblOrder, tblOrderDetail, LoginFrame.customer);
-         orderHistoryController.listOrder();
-         orderHistoryController.action();
-         
-         //admin
-         adminController = new AdminController(btnUser, btnCategory, btnBook, btnCustomer, btnAddall, btnOrder);
-         adminController.actions();
-         adminController.setIconforButton();
+         //Admin
+        adminController = new AdminController(btnUser, btnCategory, btnBook, btnCustomer, btnAddall, btnOrder);
+        adminController.actions();
+        adminController.setIconforButton();
         
-         //user 
-        userController = new UserController(txtFullName, txtEmail, txtSearchall, txtPassword, txtConfirmpassword, 
-                btnAddall, btnUser, btnSubmit , table, addupdateUser, adminPanel);
+         //User 
+        userController = new UserController(txtFullName, txtEmail, txtSearchall, txtPassword, txtConfirmpassword,
+                btnAddall, btnUser, btnSubmit, table, addupdateUser, adminPanel);
         userController.actions();
-     
+
         //Category
         categoryController = new CategoryController(txtCategoryName, txtSearchall, table, btnAddall, btnSubmitCategory, btnCategory, adminPanel, addupdateCategory);
         categoryController.actions();
-         
+
         //Book
-        bookController = new BookController(txtAuthor, txtPrice, txtIsbn, txtPublishDate, txtSearchall, txtTitle, cbxCategory, lblImage, 
+        bookController = new BookController(txtAuthor, txtPrice, txtIsbn, txtPublishDate, txtSearchall, txtTitle, cbxCategory, lblImage,
                 btnSubmitBook, btnBook, btnUpload, btnAddall, table, adminPanel, addupdateBook);
         bookController.actions();
-        
+
         //Customer
         customerController = new CustomerController(table, btnCustomer, btnAddall, txtSearchall, adminPanel);
         customerController.actions();
-        
+
+        //Order
+        orderController = new OrderController(viewOrder, bookDetail, txtSearchBook, lblTitle, lblAuthor,
+                lblPublishdate, lblImageorder, lblPrice, btnPlus, btnMinus, btnBuy, list, lblQuantity, lblNotice);
+        orderController.actions();
+        orderController.setView();
+        orderController.setIconforShipingCart(lblCart);
+
+        adminOrder = new OrderController(table, btnOrder, btnAddall);
+        adminOrder.setViewAdminOrder();
+
+        //BuyOrder
+        buyOrderController = new BuyOrderController(lblSum, btnBuyproduct, btnClearOrder, displayPanel, list);
+        buyOrderController.action();
+
+        //OrderHistory
+        orderHistoryController = new OrderHistoryController(tblOrder, tblOrderDetail, LoginFrame.customer);
+        orderHistoryController.listOrder();
+        orderHistoryController.action();
+
         //Profile
-        profileController = new CustomerController(lblUsername, lblPassword, lblCity, lblCountry, lblZipcode, lblPhone, lblEmail, lblRegisterdate, btnChangePassword);
+        profileController = new ProfileController(lblUsername, lblPassword, lblCity, lblCountry, lblZipcode, lblPhone, lblEmail, lblRegisterdate, btnChangePassword);
         profileController.showProfile();
-        
+
         //DashBoard
-        dashBoardController = new BookController(preferPanel, recommentPanel);
+        dashBoardController = new DashBoardController(preferPanel, recommentPanel);
         dashBoardController.showDashBoard();
-         //test imageicon
-         lblProfile.setIcon(getIcon("/com/uit/image/icons8_profile_128px.png", 30, 30));
-         lblOrderHistory.setIcon(getIcon("/com/uit/image/icons8_order_history_60px_1.png", 30, 30));
-         lblDashBoard.setIcon(getIcon("/com/uit/image/icons8_home_page_80px_1.png", 30, 30));
-         lblUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 30, 30));
-         lblOrder.setIcon(getIcon("/com/uit/image/Order.png", 30, 30));
-         lblLogout.setIcon(getIcon("/com/uit/image/icons8_logout_rounded_left_64px_2.png", 30, 30));
+        
+        //test imageicon
+        lblProfile.setIcon(getIcon("/com/uit/image/icons8_profile_128px.png", 30, 30));
+        lblOrderHistory.setIcon(getIcon("/com/uit/image/icons8_order_history_60px_1.png", 30, 30));
+        lblDashBoard.setIcon(getIcon("/com/uit/image/icons8_home_page_80px_1.png", 30, 30));
+        lblUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 30, 30));
+        lblOrder.setIcon(getIcon("/com/uit/image/Order.png", 30, 30));
+        lblLogout.setIcon(getIcon("/com/uit/image/icons8_logout_rounded_left_64px_2.png", 30, 30));
     }
-    
-    
-    public ImageIcon getIcon(String url, int w, int h){
+
+    public ImageIcon getIcon(String url, int w, int h) {
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         Image image = icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(image);
         return imageIcon;
     }
-    
+
     private void changePanel(JPanel panel) {
         LayeredPane.removeAll();
         LayeredPane.add(panel);
         LayeredPane.repaint();
         LayeredPane.revalidate();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -660,7 +658,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LayerPane");
 
         taskbarPanel.setBackground(new java.awt.Color(47, 54, 64));
         taskbarPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -990,19 +987,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(lblUsername))
+                    .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(lblEmail))
+                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(lblAddress))
+                    .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
-                    .addComponent(lblCity))
+                    .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
@@ -1375,7 +1372,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDashBoardMouseClicked
 
     private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
-       changePanel(profilePanel);
+        changePanel(profilePanel);
     }//GEN-LAST:event_lblProfileMouseClicked
 
     private void lblOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderMouseClicked
@@ -1392,64 +1389,64 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCartMouseClicked
 
     private void lblUserMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserMouseMoved
-        // TODO add your handling code here:
+
         lblUser.setBackground(new Color(225, 177, 44));
     }//GEN-LAST:event_lblUserMouseMoved
 
     private void lblUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserMouseExited
-        // TODO add your handling code here:
+
         lblUser.setBackground(new Color(47, 54, 64));
     }//GEN-LAST:event_lblUserMouseExited
 
     private void lblOrderMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderMouseMoved
-        // TODO add your handling code here:
+
         lblOrder.setBackground(new Color(225, 177, 44));
     }//GEN-LAST:event_lblOrderMouseMoved
 
     private void lblOrderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderMouseExited
-        // TODO add your handling code here:
+
         lblOrder.setBackground(new Color(47, 54, 64));
     }//GEN-LAST:event_lblOrderMouseExited
 
     private void lblProfileMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseMoved
-        // TODO add your handling code here:
-         lblProfile.setBackground(new Color(225, 177, 44));
+
+        lblProfile.setBackground(new Color(225, 177, 44));
     }//GEN-LAST:event_lblProfileMouseMoved
 
     private void lblProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseExited
-        // TODO add your handling code here:
+
         lblProfile.setBackground(new Color(47, 54, 64));
     }//GEN-LAST:event_lblProfileMouseExited
 
     private void lblDashBoardMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashBoardMouseMoved
-        // TODO add your handling code here:
+
         lblDashBoard.setBackground(new Color(225, 177, 44));
     }//GEN-LAST:event_lblDashBoardMouseMoved
 
     private void lblDashBoardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashBoardMouseExited
-        // TODO add your handling code here:
+
         lblDashBoard.setBackground(new Color(47, 54, 64));
     }//GEN-LAST:event_lblDashBoardMouseExited
 
     private void lblOrderHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderHistoryMouseClicked
-        // TODO add your handling code here:
+
         changePanel(orderhistoryPanel);
         orderHistoryController.listOrder();
         tblOrder.getSelectionModel().clearSelection();
     }//GEN-LAST:event_lblOrderHistoryMouseClicked
 
     private void lblOrderHistoryMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderHistoryMouseMoved
-        // TODO add your handling code here:
-         lblOrderHistory.setBackground(new Color(225, 177, 44));
+
+        lblOrderHistory.setBackground(new Color(225, 177, 44));
     }//GEN-LAST:event_lblOrderHistoryMouseMoved
 
     private void lblOrderHistoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderHistoryMouseExited
-        // TODO add your handling code here:
+
         lblOrderHistory.setBackground(new Color(47, 54, 64));
     }//GEN-LAST:event_lblOrderHistoryMouseExited
 
     private void btnMoreBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreBookActionPerformed
-        // TODO add your handling code here:
+
         changePanel(orderPanel);
     }//GEN-LAST:event_btnMoreBookActionPerformed
 
@@ -1462,7 +1459,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseMoved
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        // TODO add your handling code here:
+
         LoginFrame lf = new LoginFrame();
         lf.pack();
         lf.setLocationRelativeTo(null);
@@ -1471,12 +1468,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_lblLogoutMouseExited
 
-    
-    
-    
     /**
      * @param args the command line arguments
      */

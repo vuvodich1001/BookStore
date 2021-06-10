@@ -56,12 +56,29 @@ public class UserDao {
         s.close();
     }
     
-    public static long check(String username, String password){
+    public static boolean check(String username, String password){
         Session s = sessionFactory.openSession();
         Query q = s.createQuery("select count(*) from Usr where full_name = :username and password = :password");
         q.setParameter("username", username);
         q.setParameter("password", password);
-        return (long) q.uniqueResult();
+        if((long) q.uniqueResult() == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public static boolean checkEmail(String email){
+        Session s = sessionFactory.openSession();
+        Query q = s.createQuery("select count(*) from Usr where email = :email");
+        q.setParameter("email", email.trim());
+        if((long)q.uniqueResult() == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public static List<Usr> findUser(String username){

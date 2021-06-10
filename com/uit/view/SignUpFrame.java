@@ -221,7 +221,7 @@ public class SignUpFrame extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
-        if(String.valueOf(txtPassword.getPassword()).equals("")){
+        if(String.valueOf(txtPassword.getPassword()).equals("") || txtEmail.getText().equals("") || txtFullname.getText().equals("")){
                JOptionPane.showMessageDialog(this, "You need to filled out of all information!");
         }
         else if (String.valueOf(txtPassword.getPassword()).compareTo(String.valueOf(txtConfirmPasswod.getPassword())) != 0){

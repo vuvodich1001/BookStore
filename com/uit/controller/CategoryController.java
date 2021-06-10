@@ -124,12 +124,16 @@ public class CategoryController {
         btnSubmitCategory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                category.setName(txtName.getText());
-                categoryService.addCategory(category);
-                addupdateCategory.dispose();
-                JOptionPane.showMessageDialog(panel, "Insert successfully!");
-                setTabledata(categoryService.getAllcategory());
-                //txtName.setText("");
+                if(txtName.getText().equals("")){
+                    JOptionPane.showMessageDialog(panel, "Input not enough information!");
+                }
+                else{
+                    category.setName(txtName.getText());
+                    categoryService.addCategory(category);
+                    addupdateCategory.dispose();
+                    JOptionPane.showMessageDialog(panel, "Insert successfully!");
+                    setTabledata(categoryService.getAllcategory());
+                }
             }
         });
         
@@ -142,9 +146,8 @@ public class CategoryController {
         btnSubmitCategory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                 int row = table.getSelectedRow();
-            if(row == -1){
-                JOptionPane.showMessageDialog(panel, "you need choose Category first!");
+            if(txtName.getText().equals("")){
+                JOptionPane.showMessageDialog(panel, "Input not enough information");
             }
             else{
                 category.setName(txtName.getText());
