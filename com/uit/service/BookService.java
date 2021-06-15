@@ -45,6 +45,9 @@ public class BookService {
         return bookDao.mostBook();
     }
     
+    public List<Book> recommendBook(){
+        return bookDao.recommendBook();
+    }
     public boolean checkTitleAuthor(String title, String author){
         return bookDao.checkTitleAuthor(title, author);
     }

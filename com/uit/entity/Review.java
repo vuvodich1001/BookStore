@@ -2,6 +2,7 @@ package com.uit.entity;
 // Generated May 24, 2021 9:48:38 AM by Hibernate Tools 4.3.1
 
 
+import com.uit.view.BuyBookFrame;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,28 +28,31 @@ public class Review  implements java.io.Serializable {
 
 
      private long reviewId;
+     private Book book;
      private Customer customer;
      private long rating;
      private String headline;
-     private String comment;
+     //private String comment;
      private Date reviewTime;
 
     public Review() {
     }
 
 	
-    public Review(long reviewId, Customer customer, long rating, Date reviewTime) {
+    public Review(long reviewId, Book book, Customer customer, long rating, Date reviewTime) {
         this.reviewId = reviewId;
+        this.book = book;
         this.customer = customer;
         this.rating = rating;
         this.reviewTime = reviewTime;
     }
-    public Review(long reviewId, Customer customer, long rating, String headline, String comment, Date reviewTime) {
+    public Review(long reviewId, Customer customer, Book book, long rating, String headline, Date reviewTime) {
        this.reviewId = reviewId;
+       this.book = book;
        this.customer = customer;
        this.rating = rating;
        this.headline = headline;
-       this.comment = comment;
+       //this.comment = comment;
        this.reviewTime = reviewTime;
     }
    
@@ -66,6 +70,15 @@ public class Review  implements java.io.Serializable {
         this.reviewId = reviewId;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="BOOK_ID", nullable=false)
+    public Book getBook() {
+        return this.book;
+    }
+    
+    public void setBook(Book book) {
+        this.book = book;
+    }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CUSTOMER_ID", nullable=false)
     public Customer getCustomer() {
@@ -97,14 +110,14 @@ public class Review  implements java.io.Serializable {
     }
 
     
-    @Column(name="COMMENT", length=500)
-    public String getComment() {
-        return this.comment;
-    }
-    
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+//    @Column(name="COMMENT", length=500)
+//    public String getComment() {
+//        return this.comment;
+//    }
+//    
+//    public void setComment(String comment) {
+//        this.comment = comment;
+//    }
 
     @Temporal(TemporalType.DATE)
     @Column(name="REVIEW_TIME", nullable=false, length=7)

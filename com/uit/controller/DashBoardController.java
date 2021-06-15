@@ -34,7 +34,9 @@ public class DashBoardController {
     public void showDashBoard(){
         GridLayout gridLayout = new GridLayout(0, 3);
         preferPanel.setLayout(gridLayout);
+        recommendPanel.setLayout(gridLayout);
         gridLayout.setHgap(30);
+        //fill preferPanel
         for(Book b : bookService.mostBook()){
             JLabel label = new JLabel(b.getTitle() + " " + b.getPrice() + " VND");
             label.setHorizontalAlignment(JLabel.CENTER);
@@ -46,6 +48,21 @@ public class DashBoardController {
             label.setIcon(imageIcon);
             preferPanel.add(label);
         }
+        
+        //fill recommnedPanel
+        
+        for(Book book : bookService.recommendBook()){
+            JLabel label = new JLabel(book.getTitle() + " " + book.getPrice() + " VND");
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setHorizontalTextPosition(JLabel.CENTER);
+            label.setVerticalTextPosition(JLabel.BOTTOM);
+            ImageIcon icon = new ImageIcon(book.getImage());
+            Image image = icon.getImage();
+            ImageIcon imageIcon = new ImageIcon(fitimage(image, 180, 210));
+            label.setIcon(imageIcon);
+            recommendPanel.add(label);
+        }
+        
     }
      public Image fitimage(Image img , int w , int h){
         BufferedImage resizedimage = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);

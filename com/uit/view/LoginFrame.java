@@ -5,7 +5,6 @@
  */
 package com.uit.view;
 
-import com.uit.bookstore_old.DashBoard;
 import com.uit.entity.Customer;
 import com.uit.service.CustomerService;
 import com.uit.service.UserService;
@@ -106,6 +105,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 txtPasswordActionPerformed(evt);
             }
         });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,6 +187,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
                     customer = customerService.returnCustomer(username, password);
                     MainFrame test = new MainFrame();
+                    test.setDefaultCloseOperation(EXIT_ON_CLOSE);
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
@@ -207,7 +212,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
         SignUpFrame suf = new SignUpFrame();
-        suf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         suf.pack();
         suf.setLocationRelativeTo(null);
         suf.setVisible(true);
@@ -222,29 +226,27 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
               String username = txtUsername.getText();
-        String password = String.valueOf(txtPassword.getPassword());
+               String password = String.valueOf(txtPassword.getPassword());
             if(username.equals("") || password.equals("")){
                 JOptionPane.showMessageDialog(this, "Not enough information!");
             }
             else{
                 if(customerService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    DashBoard db = new DashBoard();
-                    db.getBtnUser().setEnabled(false);
-                    db.getBtnCategory().setEnabled(false);
-                    db.getBtnBook().setEnabled(false);
-                    db.getBtnCustomer().setEnabled(false);
-                    db.pack();
-                    db.setLocationRelativeTo(null);
-                    db.setVisible(true);
+                    customer = customerService.returnCustomer(username, password);
+                    MainFrame mf =new MainFrame();
+                    mf.pack();
+                    mf.setLocationRelativeTo(null);
+                    mf.setVisible(true);
                     this.dispose();
                 }
                 else if(userService.check(username, password)){
                     JOptionPane.showMessageDialog(this, "Login sucessfully!");
-                    DashBoard db = new DashBoard();
-                    db.pack();
-                    db.setLocationRelativeTo(null);
-                    db.setVisible(true);
+                    MainFrame mf =new MainFrame();
+                    mf.pack();
+                    mf.setLocationRelativeTo(null);
+                    mf.setVisible(true);
+                    this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Login denied! Type again");
@@ -254,6 +256,40 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+              String username = txtUsername.getText();
+               String password = String.valueOf(txtPassword.getPassword());
+            if(username.equals("") || password.equals("")){
+                JOptionPane.showMessageDialog(this, "Not enough information!");
+            }
+            else{
+                if(customerService.check(username, password)){
+                    JOptionPane.showMessageDialog(this, "Login sucessfully!");
+                    customer = customerService.returnCustomer(username, password);
+                    MainFrame mf =new MainFrame();
+                    mf.pack();
+                    mf.setLocationRelativeTo(null);
+                    mf.setVisible(true);
+                    this.dispose();
+                }
+                else if(userService.check(username, password)){
+                    JOptionPane.showMessageDialog(this, "Login sucessfully!");
+                    MainFrame mf =new MainFrame();
+                    mf.pack();
+                    mf.setLocationRelativeTo(null);
+                    mf.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Login denied! Type again");
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                }
+            }
+         }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments

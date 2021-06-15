@@ -24,7 +24,7 @@ public class OrderDao {
     
     public static List<BookOrder> listOrder(){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from BookOrder");
+        Query q = s.createQuery("from BookOrder order by order_id");
         return q.list();
     }
   

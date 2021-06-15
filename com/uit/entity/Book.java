@@ -39,6 +39,7 @@ public class Book  implements java.io.Serializable {
      private Double price;
      private Date publishDate;
      private Date lastUpdate;
+     private Set<Review> reviews = new HashSet<>(0);
      private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
     public Book() {
@@ -50,7 +51,8 @@ public class Book  implements java.io.Serializable {
         this.lastUpdate = lastUpdate;
     }
     
-    public Book(long bookId, Category category, String title, String author, String description, String isbn, String image, Double price, Date publishDate, Date lastUpdate, Set<OrderDetail> orderDetails) {
+    public Book(long bookId, Category category, String title, String author, String description, String isbn, String image, Double price, Date publishDate,
+            Date lastUpdate, Set<Review> reviews, Set<OrderDetail> orderDetails) {
        this.bookId = bookId;
        this.category = category;
        this.title = title;
@@ -61,6 +63,7 @@ public class Book  implements java.io.Serializable {
        this.price = price;
        this.publishDate = publishDate;
        this.lastUpdate = lastUpdate;
+       this.reviews = reviews;
        this.orderDetails = orderDetails;
     }
    
@@ -167,7 +170,15 @@ public class Book  implements java.io.Serializable {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
+@OneToMany(fetch=FetchType.LAZY, mappedBy="book")
+    public Set<Review> getReviews() {
+        return this.reviews;
+    }
+    
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+    
 @OneToMany(fetch=FetchType.LAZY, mappedBy="book")
     public Set<OrderDetail> getOrderDetails() {
         return this.orderDetails;

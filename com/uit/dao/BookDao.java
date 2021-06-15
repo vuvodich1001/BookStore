@@ -6,7 +6,16 @@
 package com.uit.dao;
 
 import com.uit.entity.Book;
+import com.uit.entity.OrderDetail;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -67,9 +76,45 @@ public class BookDao {
     }
     
     public static List<Book> mostBook(){
+        List<Book> list = new ArrayList<>();
+        Map<Book, Long> map =new HashMap<Book, Long>();
+        long sum = 0;
+        for(Book book : getAllbook()){
+              for(OrderDetail o : book.getOrderDetails()) {
+                  sum += o.getQuantity();
+              }
+            map.put(book, sum);
+            sum = 0;
+        }
+       List<Entry<Book, Long>> test = new LinkedList<Entry<Book, Long>>(map.entrySet());  
+       
+       Collections.sort(test, new Comparator<Entry<Book, Long>>(){
+            @Override
+            public int compare(Entry<Book, Long> t, Entry<Book, Long> t1) {
+                return t1.getValue().compareTo(t.getValue());
+            }
+       });
+       
+       Map<Book, Long> sortedMap = new LinkedHashMap<Book, Long>();
+       
+       for(Entry<Book, Long> entry : test){
+           sortedMap.put(entry.getKey(), entry.getValue());
+       }
+       
+       int i = 1;
+       for(Map.Entry<Book, Long> m : sortedMap.entrySet()){
+           if(i > 3) break;
+           list.add(m.getKey());
+           i++;
+       }
+        
+       return list;
+    }
+    
+    
+    public static List<Book> recommendBook(){
         Session s = sessionFactory.openSession();
-        String sql = "from Book";
-        Query q = s.createQuery(sql).setMaxResults(3);
+        Query q = s.createQuery("from Book").setMaxResults(3);
         return q.list();
     }
     
@@ -87,8 +132,8 @@ public class BookDao {
     }
     
     public static void main(String[] args) {
-        for(Book book : mostBook()){
-            System.out.println(book.getBookId() + "" + book.getAuthor());
-        }
+      for(Book book : mostBook()){
+          System.out.println(book.getBookId() + " ");
+      }
     }
 }

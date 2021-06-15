@@ -7,10 +7,16 @@ package com.uit.controller;
 
 import com.uit.entity.Book;
 import com.uit.entity.BookOrder;
+import com.uit.entity.OrderDetail;
+import com.uit.entity.Review;
 import com.uit.service.BookService;
 import com.uit.service.OrderService;
+import com.uit.service.ReviewService;
+import com.uit.view.LoginFrame;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -20,18 +26,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -40,8 +56,9 @@ import javax.swing.table.DefaultTableModel;
 public class OrderController {
 
     JPanel panel;
-    BookService bookService;
+    JPanel commentPanel;
     JTextField txtSearch;
+    JTextArea txtComment;
     JDialog bookDetail;
     JLabel lblTitle;
     JLabel lblAuthor;
@@ -51,24 +68,35 @@ public class OrderController {
     JButton btnPlus;
     JButton btnMinus;
     JButton btnBuy;
+    JButton btnSend;
     JLabel lblQuantity;
     JLabel lblNotice;
+    JRadioButton rb1, rb2, rb3, rb4, rb5;
     Map<Book, Integer> listBook;
     long bookId;
+    BookService bookService;
+    ReviewService reviewService;
     
     //admin order
     JTable table;
+    JTable tblDetail;
     JButton btnOrder;
     JButton btnAddall;
+    JPopupMenu menuOrder;
+    JMenuItem detail;
+    JDialog orderDetail;
+    JPanel adminPanel;
     OrderService orderService;
-    DefaultTableModel defaultTableModel;
+    DefaultTableModel defaultTableModel1;
+    DefaultTableModel defaultTableModel2;
     public OrderController() {
 
     }
        
     public OrderController(JPanel panel, JDialog bookDetail, JTextField txtSearch, JLabel lblTitle, JLabel lblAuthor,
             JLabel lblPublishdate, JLabel lblImageorder, JLabel lblPrice, JButton btnPlus, JButton btnMinus, JButton btnBuy, Map<Book, Integer> list,
-            JLabel lblQuantity, JLabel lblNotice) {
+            JLabel lblQuantity, JLabel lblNotice, 
+            JPanel commentPanel, JTextArea txtComment, JButton btnSend, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3, JRadioButton rb4, JRadioButton rb5) {
         this.panel = panel;
         this.txtSearch = txtSearch;
         this.bookDetail = bookDetail;
@@ -83,43 +111,68 @@ public class OrderController {
         this.listBook = list;
         this.lblQuantity = lblQuantity;
         this.lblNotice = lblNotice;
+        this.commentPanel = commentPanel;
+        this.txtComment = txtComment;
+        this.btnSend = btnSend;
+        this.rb1 = rb1;
+        this.rb2 = rb2;
+        this.rb3 = rb3;
+        this.rb4 = rb4;
+        this.rb5 = rb5;
         bookService = new BookService();
+        reviewService = new ReviewService();
     }
     
     // admin order
-    public OrderController(JTable table, JButton btnOrder, JButton btnAddall){
+    public OrderController(JTable table, JButton btnOrder, JButton btnAddall, JTable tblDetail, JDialog orderDetail, JPanel adminPanel){
         this.table = table;
         this.btnOrder = btnOrder;
         this.btnAddall = btnAddall;
+        this.tblDetail = tblDetail;
+        this.orderDetail = orderDetail;
+        this.adminPanel = adminPanel;
         orderService = new OrderService();
+        menuOrder = new JPopupMenu();
+        detail = new JMenuItem();
+        detail.setText("View detail");
     }
     
     public void listOrder(){
-        table.setComponentPopupMenu(null);
-        defaultTableModel = new DefaultTableModel(){
+        menuOrder.add(detail);
+        table.setComponentPopupMenu(menuOrder);
+        defaultTableModel1 = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int i, int i1) {
                 return false;
             }
         };
-        table.setModel(defaultTableModel);
-        defaultTableModel.addColumn("OrderId");
-        defaultTableModel.addColumn("CustomerId");
-        defaultTableModel.addColumn("ShippingAddress");
-        defaultTableModel.addColumn("RecipentName");
-        defaultTableModel.addColumn("RecipentPhone");
-        defaultTableModel.addColumn("PaymentMethod");
-        defaultTableModel.addColumn("Total");
+        table.setModel(defaultTableModel1);
+        defaultTableModel1.addColumn("OrderId");
+        defaultTableModel1.addColumn("CustomerId");
+        defaultTableModel1.addColumn("CustomerName");
+        defaultTableModel1.addColumn("ShippingAddress");
+        defaultTableModel1.addColumn("RecipentName");
+        defaultTableModel1.addColumn("RecipentPhone");
+        defaultTableModel1.addColumn("PaymentMethod");
+        defaultTableModel1.addColumn("Total");
+        defaultTableModel1.addColumn("OrderDate");
         table.setRowHeight(30);
         setTabledata(orderService.listOrder());
         
     }
     
     public void setTabledata(List<BookOrder> list){
-        defaultTableModel.setRowCount(0);
+        defaultTableModel1.setRowCount(0);
         for(BookOrder b : list){
-            defaultTableModel.addRow(new Object[]{b.getOrderId(), b.getCustomer().getCustomerId(), b.getShippingAddress(),
-            b.getRecipentName(), b.getRecipentPhone(), b.getPaymentMethod(), b.getTotal()});
+            defaultTableModel1.addRow(new Object[]{b.getOrderId(), b.getCustomer().getCustomerId(), b.getCustomer().getFullName(), b.getShippingAddress(),
+            b.getRecipentName(), b.getRecipentPhone(), b.getPaymentMethod(), b.getTotal(), b.getOrderDate()});
+        }
+    }
+    
+    private void setTabledetail(List<OrderDetail> list){
+        defaultTableModel2.setRowCount(0);
+        for(OrderDetail o : list){
+            defaultTableModel2.addRow(new Object[]{o.getBookOrder().getOrderId(), o.getBook().getBookId(), o.getBook().getTitle(), o.getQuantity(), o.getSubtotal()});
         }
     }
     public void setViewAdminOrder(){
@@ -133,6 +186,40 @@ public class OrderController {
         for(ActionListener al : btnAddall.getActionListeners()){
             btnAddall.removeActionListener(al);
         }
+        
+        detail.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                orderDetail.pack();
+                orderDetail.setLocationRelativeTo(null);
+                orderDetail.setVisible(true);
+                int row = table.getSelectedRow();
+                if(row == -1){
+                    JOptionPane.showMessageDialog(adminPanel, "you need choose order first!");
+                }
+                else{
+                    defaultTableModel2 = new DefaultTableModel(){
+                    @Override
+                    public boolean isCellEditable(int i, int i1) {
+                        return false;
+                    }
+                    };
+                    tblDetail.setModel(defaultTableModel2);
+                     JTableHeader header = tblDetail.getTableHeader();
+                    header.setBackground(Color.yellow);
+                    header.setForeground(Color.blue);
+                    header.setFont(new Font("Tahome", Font.BOLD, 13));
+                    ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+                    defaultTableModel2.addColumn("OrderId");
+                    defaultTableModel2.addColumn("BookId");
+                    defaultTableModel2.addColumn("Title");
+                    defaultTableModel2.addColumn("Quantity");
+                    defaultTableModel2.addColumn("Total");
+                    setTabledetail(orderService.listDetail((long)table.getValueAt(row, 0)));
+                }
+                
+            }
+        });
     }
     // Customer order
     public void setView() {
@@ -168,7 +255,7 @@ public class OrderController {
             orderButton.setIcon(getIcon("/com/uit/image/icons8_create_order_80px.png", 20, 20));
             orderButton.setBackground(Color.white);
             orderButton.setFocusable(false);
-            JLabel label = new JLabel(book.getTitle() + " " + book.getPrice() + " VND");
+            JLabel label = new JLabel("<html>" + book.getTitle() + " by " +  "<i>" + book.getAuthor()  + "</i>" + " <br/> " + book.getPrice() + " VND" + "</html>");
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setHorizontalTextPosition(JLabel.CENTER);
             label.setVerticalTextPosition(JLabel.BOTTOM);
@@ -181,7 +268,9 @@ public class OrderController {
             labelPanel.add(orderButton);
             labelPanel.setBackground(Color.white);
             panel.add(labelPanel);
-            
+            for(ActionListener al : orderButton.getActionListeners()){
+                orderButton.removeActionListener(al);
+            }
             orderButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -189,14 +278,13 @@ public class OrderController {
                     lblNotice.setIcon(null);
                     bookId = book.getBookId();
                     bookDetail.pack();
-                    //bookDetail.setLocationRelativeTo(panel);
                     final Toolkit toolkit = Toolkit.getDefaultToolkit();
                     final Dimension screenSize = toolkit.getScreenSize();
                     final int x = (screenSize.width - bookDetail.getWidth()) / 2;
                     final int y = (screenSize.height - bookDetail.getHeight()) / 2;
                     bookDetail.setLocation(x, y);
                     bookDetail.setVisible(true);
-                    bookDetail.setSize(600, 480);
+                    bookDetail.setSize(850, 600);
                     displayBook(book);
                 }
             });
@@ -213,9 +301,87 @@ public class OrderController {
         Image image = icon.getImage();
         ImageIcon imageIcon = new ImageIcon(fitimage(image, lblImageorder.getWidth(), lblImageorder.getHeight()));
         lblImageorder.setIcon(imageIcon);
+        
+        //radio button
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(rb1);
+        buttonGroup.add(rb2);
+        buttonGroup.add(rb3);
+        buttonGroup.add(rb4);
+        buttonGroup.add(rb5);
+        rb1.setIcon(getIcon("/com/uit/image/star.png", 15, 15));
+        rb2.setIcon(getIcon("/com/uit/image/star.png", 15, 15));
+        rb3.setIcon(getIcon("/com/uit/image/star.png", 15, 15));
+        rb4.setIcon(getIcon("/com/uit/image/star.png", 15, 15));
+        rb5.setIcon(getIcon("/com/uit/image/star.png", 15, 15));
+        
+        //
+        rb1.setActionCommand("1");
+        rb2.setActionCommand("2");
+        rb3.setActionCommand("3");
+        rb4.setActionCommand("4");
+        rb5.setActionCommand("5");
+        
+        //custom
+        btnSend.setBackground(Color.white);
+        txtComment.setText("Write your comment! < 150 characters");
+        txtComment.setForeground(Color.gray);
+
+        //panel Commnet
+        setViewCommentPanel(book);
+        //action
+        for(ActionListener al : btnSend.getActionListeners()){
+            btnSend.removeActionListener(al);
+        }
+        btnSend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(txtComment.getText().equals("") || txtComment.getText().equals("Write your comment! < 150 characters")){
+                    JOptionPane.showMessageDialog(bookDetail, "Input not enough information!");
+                }
+                else{
+                    Review review = new Review();
+                    review.setBook(book);
+                    review.setCustomer(LoginFrame.customer);
+                    review.setHeadline(txtComment.getText());
+                    review.setRating(Integer.valueOf(buttonGroup.getSelection().getActionCommand()));
+                    review.setReviewTime(new java.util.Date());
+                    reviewService.addReview(review);
+                    setViewCommentPanel(book);
+                    txtComment.setText("Write your comment! < 150 characters");
+                    txtComment.setForeground(Color.gray);
+                }
+            }
+        });
 
     }
 
+    public void setViewCommentPanel(Book book){
+        commentPanel.removeAll();
+        commentPanel.repaint();
+        commentPanel.revalidate();
+        GridLayout gridLayout = new GridLayout(0, 1);
+        commentPanel.setLayout(gridLayout);
+        commentPanel.setBackground(Color.white);
+        
+        for(Review review : reviewService.listAllreviewbyBookId(book.getBookId())){
+            JPanel cpanel = new JPanel();
+            cpanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            JLabel comment = new JLabel(getIcon("/com/uit/image/icons8_customer_128px.png", 35, 35));
+            comment.setText("<html>" +review.getCustomer().getFullName().toUpperCase()+ "<br>" + review.getHeadline() + "----" + review.getReviewTime()+ "</html>");
+            JLabel rating = new JLabel(getIcon("/com/uit/image/star.png", 15, 15));
+            rating.setText(String.valueOf(review.getRating()));
+            rating.setBorder(BorderFactory.createLineBorder(Color.decode("#f1c40f")));
+            //JLabel reviewTime = new JLabel(String.valueOf(review.getReviewTime()));
+            cpanel.setBackground(Color.decode("#fd79a8"));
+            cpanel.setBorder(BorderFactory.createLineBorder(Color.decode("#ecf0f1")));
+            //cpanel.setSize(60, 60);
+            cpanel.add(comment);
+            cpanel.add(rating);
+            //cpanel.add(reviewTime);
+            commentPanel.add(cpanel);
+        }
+    }
     public Image fitimage(Image img, int w, int h) {
         BufferedImage resizedimage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedimage.createGraphics();
@@ -268,6 +434,13 @@ public class OrderController {
                         System.out.println(book.getTitle());
                     }
                 }
+            }
+        });
+       txtComment.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+               txtComment.setText("");
+               txtComment.setForeground(Color.black);
             }
         });
     }

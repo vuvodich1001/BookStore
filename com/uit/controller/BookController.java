@@ -192,7 +192,8 @@ public class BookController {
     }
 
     public void setNull() {
-        cbxCategory.setSelectedItem("Python");
+        cbxCategory.setEnabled(true);
+        cbxCategory.getModel().setSelectedItem("");
         lblImage.setIcon(null);
         txtAuthor.setText("");
         txtIsbn.setText("");
@@ -252,7 +253,7 @@ public class BookController {
             public void actionPerformed(ActionEvent ae) {
                 if (String.valueOf(cbxCategory.getSelectedItem()).equals("") || txtTitle.getText().equals("") || txtAuthor.getText().equals("")
                         || txtIsbn.getText().equals("") || txtPrice.getText().equals("") || txtPublishDate.getDate().equals("")) {
-                    JOptionPane.showConfirmDialog(panel, "Input not enough information");
+                    JOptionPane.showMessageDialog(panel, "Input not enough information");
                 } else {
                     //book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
                     book.setTitle(txtTitle.getText());
@@ -307,7 +308,7 @@ public class BookController {
             public void actionPerformed(ActionEvent ae) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showConfirmDialog(panel, "you need choose book first!");
+                    JOptionPane.showMessageDialog(panel, "you need choose book first!");
                 } else {
                     int confirm = JOptionPane.showConfirmDialog(panel, "Do you want to delete this book?", "Confirm", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
@@ -325,7 +326,7 @@ public class BookController {
             public void actionPerformed(ActionEvent ae) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showConfirmDialog(panel, "you need choose book first!");
+                    JOptionPane.showMessageDialog(panel, "you need choose book first!");
                 } else {
                     int confirm = JOptionPane.showConfirmDialog(panel, "do you want to modify this book!", "Confirm", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {

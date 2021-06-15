@@ -55,34 +55,33 @@ public class BuyOrderController {
        displayPanel.repaint();
        displayPanel.revalidate();
        GridLayout gridLayout = new GridLayout(0,1);
-       GridBagLayout layout = new GridBagLayout();
-      
+       displayPanel.setLayout(gridLayout);
       for(Map.Entry<Book, Integer> m : list.entrySet()){
             JPanel panel = new JPanel();
             panel.setLayout(new FlowLayout(FlowLayout.LEFT));
             JLabel label = new JLabel(m.getKey().getTitle() + " by " + m.getKey().getAuthor() + " " + m.getKey().getPrice() + " VND");
-            //label.setHorizontalAlignment(JLabel.CENTER);
-            //label.setHorizontalTextPosition(JLabel.RIGHT);
-           // label.setVerticalTextPosition(JLabel.RIGHT);
             ImageIcon icon = new ImageIcon(m.getKey().getImage());
             Image image = icon.getImage();
             ImageIcon imageIcon = new ImageIcon(fitimage(image, 100, 130));
             label.setIcon(imageIcon);
-            JLabel label1 = new JLabel(String.valueOf(m.getValue()));
-            JLabel label2 = new JLabel("#" + m.getKey().getBookId());
+            
+            JLabel lblNumber = new JLabel(String.valueOf(m.getValue()));
+            JLabel lblBookId = new JLabel("#" + m.getKey().getBookId());
             JButton plus = new JButton("+");
             plus.setBackground(Color.WHITE);
             JButton minus = new JButton("-");
             minus.setBackground(Color.WHITE);
             JButton delete =  new JButton("X");
-            actionforinsidePanel(delete, plus, minus, label1, label2);
+            //action
+            actionforinsidePanel(delete, plus, minus, lblNumber, lblBookId);
+            
             delete.setBackground(Color.WHITE);
             delete.setForeground(Color.RED);
-            panel.add(label2);
+            panel.add(lblBookId);
             panel.add(delete);
             panel.add(label);
             panel.add(minus);
-            panel.add(label1);
+            panel.add(lblNumber);
             panel.add(plus);
             panel.setBorder(BorderFactory.createLineBorder(Color.decode("#1B1464")));
             panel.setBackground(Color.WHITE);
@@ -91,11 +90,11 @@ public class BuyOrderController {
        }
        title1.setText(String.valueOf(sum) + " VND");
     }
-    public void actionforinsidePanel(JButton delete, JButton plus, JButton minus, JLabel label1, JLabel label2){
+    public void actionforinsidePanel(JButton delete, JButton plus, JButton minus, JLabel lblNumber, JLabel lblBookId){
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                int bookId = Integer.valueOf(label2.getText().substring(1));
+                int bookId = Integer.valueOf(lblBookId.getText().substring(1));
                 Iterator<Book> iterator = list.keySet().iterator();
                 while(iterator.hasNext()){
                     Book book = iterator.next();
@@ -109,10 +108,10 @@ public class BuyOrderController {
         plus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               int number = Integer.valueOf(label1.getText());
-               label1.setText(String.valueOf(number + 1));
+               int number = Integer.valueOf(lblNumber.getText());
+               lblNumber.setText(String.valueOf(number + 1));
                for(Map.Entry<Book, Integer> map : list.entrySet()){
-                   if(Integer.valueOf(label2.getText().substring(1)) == map.getKey().getBookId()){
+                   if(Integer.valueOf(lblBookId.getText().substring(1)) == map.getKey().getBookId()){
                       map.setValue(number + 1);
                       sum += map.getKey().getPrice();
                       title1.setText(String.valueOf(sum) + " VND");
@@ -124,11 +123,11 @@ public class BuyOrderController {
         minus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               int number = Integer.valueOf(label1.getText());
+               int number = Integer.valueOf(lblNumber.getText());
                 if(number > 1){
-                    label1.setText(String.valueOf(number - 1));
+                    lblNumber.setText(String.valueOf(number - 1));
                     for(Map.Entry<Book, Integer> map : list.entrySet()){
-                    if(Integer.valueOf(label2.getText().substring(1)) == map.getKey().getBookId()){
+                    if(Integer.valueOf(lblBookId.getText().substring(1)) == map.getKey().getBookId()){
                        map.setValue(number - 1);
                        sum -= map.getKey().getPrice();
                        title1.setText(String.valueOf(sum) + " VND");
@@ -148,7 +147,7 @@ public class BuyOrderController {
                bbf.pack();
                bbf.setLocationRelativeTo(null);
                bbf.setVisible(true);
-                System.out.println(list.toString());
+               System.out.println(list.toString());
             }
         });
         btnClearOrder.addActionListener(new ActionListener() {
