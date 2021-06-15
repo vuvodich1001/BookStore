@@ -10,7 +10,6 @@ import com.uit.view.BuyBookFrame;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -22,8 +21,10 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -144,6 +145,7 @@ public class BuyOrderController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                BuyBookFrame bbf = new BuyBookFrame();
+               bbf.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                bbf.pack();
                bbf.setLocationRelativeTo(null);
                bbf.setVisible(true);

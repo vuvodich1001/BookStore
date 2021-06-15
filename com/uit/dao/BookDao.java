@@ -7,6 +7,7 @@ package com.uit.dao;
 
 import com.uit.entity.Book;
 import com.uit.entity.OrderDetail;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -53,7 +54,7 @@ public class BookDao {
     
     public static List<Book> findBook(String name){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from Book where lower(title) like :name");
+        Query q = s.createQuery("from Book where lower(title) like :name order by book_id asc");
         q.setParameter("name", "%" + name.toLowerCase() + "%");
         return q.list();
     }
