@@ -7,9 +7,11 @@ package com.uit.controller;
 
 import com.uit.entity.Book;
 import com.uit.entity.BookOrder;
+import com.uit.entity.Category;
 import com.uit.entity.OrderDetail;
 import com.uit.entity.Review;
 import com.uit.service.BookService;
+import com.uit.service.CategoryService;
 import com.uit.service.OrderService;
 import com.uit.service.ReviewService;
 import com.uit.view.LoginFrame;
@@ -35,6 +37,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -65,17 +68,21 @@ public class OrderController {
     JLabel lblPublishdate;
     JLabel lblImageorder;
     JLabel lblPrice;
+    JLabel lblDescription;
+    JLabel lblStatus;
     JButton btnPlus;
     JButton btnMinus;
     JButton btnBuy;
     JButton btnSend;
     JLabel lblQuantity;
     JLabel lblNotice;
+    JComboBox cbxOrderCategory;
     JRadioButton rb1, rb2, rb3, rb4, rb5;
     Map<Book, Integer> listBook;
     long bookId;
     BookService bookService;
     ReviewService reviewService;
+    CategoryService categoryService;
     
     //admin order
     JTable table;
@@ -93,12 +100,13 @@ public class OrderController {
 
     }
        
-    public OrderController(JPanel panel, JDialog bookDetail, JTextField txtSearch, JLabel lblTitle, JLabel lblAuthor,
+    public OrderController(JPanel panel, JDialog bookDetail, JTextField txtSearch, JComboBox cbxOrderCategory, JLabel lblTitle, JLabel lblAuthor,
             JLabel lblPublishdate, JLabel lblImageorder, JLabel lblPrice, JButton btnPlus, JButton btnMinus, JButton btnBuy, Map<Book, Integer> list,
-            JLabel lblQuantity, JLabel lblNotice, 
+            JLabel lblQuantity, JLabel lblNotice, JLabel lblDescription, JLabel lblStatus,
             JPanel commentPanel, JTextArea txtComment, JButton btnSend, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3, JRadioButton rb4, JRadioButton rb5) {
         this.panel = panel;
         this.txtSearch = txtSearch;
+        this.cbxOrderCategory = cbxOrderCategory;
         this.bookDetail = bookDetail;
         this.lblTitle = lblTitle;
         this.lblAuthor = lblAuthor;
@@ -111,6 +119,8 @@ public class OrderController {
         this.listBook = list;
         this.lblQuantity = lblQuantity;
         this.lblNotice = lblNotice;
+        this.lblDescription = lblDescription;
+        this.lblStatus = lblStatus;
         this.commentPanel = commentPanel;
         this.txtComment = txtComment;
         this.btnSend = btnSend;
@@ -121,6 +131,7 @@ public class OrderController {
         this.rb5 = rb5;
         bookService = new BookService();
         reviewService = new ReviewService();
+        categoryService = new CategoryService();
     }
     
     // admin order
@@ -227,6 +238,11 @@ public class OrderController {
         panel.repaint();
         panel.revalidate();
         setLabelLayout(bookService.getAllbook());
+        cbxOrderCategory.removeAllItems();
+        cbxOrderCategory.addItem("All");
+        for(Category category: categoryService.getAllcategory()){
+            cbxOrderCategory.addItem(category.getName());
+        }
     }
 
     public void setIconforShipingCart(JLabel label) {
@@ -255,7 +271,8 @@ public class OrderController {
             orderButton.setIcon(getIcon("/com/uit/image/icons8_create_order_80px.png", 20, 20));
             orderButton.setBackground(Color.white);
             orderButton.setFocusable(false);
-            JLabel label = new JLabel("<html>" + book.getTitle() + " by " +  "<i>" + book.getAuthor()  + "</i>" + " <br/> " + book.getPrice() + " VND" + "</html>");
+            JLabel label = new JLabel("<html><center>" + book.getTitle() + "<br/> by " +  "<i>" + book.getAuthor()  + "</i>" + " <br/> " + 
+                     book.getPrice() + " VND" + "</center>"+ "</html>");
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setHorizontalTextPosition(JLabel.CENTER);
             label.setVerticalTextPosition(JLabel.BOTTOM);
@@ -297,6 +314,13 @@ public class OrderController {
         lblPrice.setText(String.valueOf(book.getPrice()));
         lblPublishdate.setText(String.valueOf(book.getPublishDate()));
         lblQuantity.setText("1");
+        long count = 0;
+        for(OrderDetail o :  book.getOrderDetails()){
+            count += o.getQuantity();
+        }
+        lblStatus.setText(book.getCurQuantity() + " available products | " + count + " selled");
+        lblStatus.setBorder(BorderFactory.createLineBorder(Color.red));
+        lblDescription.setText("<html>" + book.getDescription() + "</html>");
         ImageIcon icon = new ImageIcon(book.getImage());
         Image image = icon.getImage();
         ImageIcon imageIcon = new ImageIcon(fitimage(image, lblImageorder.getWidth(), lblImageorder.getHeight()));
@@ -402,11 +426,28 @@ public class OrderController {
             }
 
         });
-
+        
+        cbxOrderCategory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panel.removeAll();
+                panel.repaint();
+                panel.revalidate();
+                setLabelLayout(bookService.findBookbyCategory(String.valueOf(cbxOrderCategory.getSelectedItem())));
+            }
+        });
         btnPlus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int number = Integer.valueOf(lblQuantity.getText());
+                for(Book book: bookService.getAllbook()){
+                    if(book.getBookId() == bookId && book.getCurQuantity() == number ){
+                        //JOptionPane.showMessageDialog(panel, "cannot enough products!");
+                        lblQuantity.setText(String.valueOf(number));
+                        return;
+                    }
+                }
+               
                 lblQuantity.setText(String.valueOf(number + 1));
             }
         });

@@ -1,10 +1,11 @@
 package com.uit.entity;
-// Generated May 24, 2021 9:48:38 AM by Hibernate Tools 4.3.1
+// Generated Jun 16, 2021 9:11:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,20 +40,22 @@ public class Book  implements java.io.Serializable {
      private Double price;
      private Date publishDate;
      private Date lastUpdate;
-     private Set<Review> reviews = new HashSet<>(0);
+     private Long curQuantity;
+     private String status;
+     private Set<InventoryTracking> inventoryTrackings = new HashSet<InventoryTracking>(0);
+     private Set<Review> reviews = new HashSet<Review>(0);
      private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
     public Book() {
     }
 
+	
     public Book(long bookId, Category category, Date lastUpdate) {
         this.bookId = bookId;
         this.category = category;
         this.lastUpdate = lastUpdate;
     }
-    
-    public Book(long bookId, Category category, String title, String author, String description, String isbn, String image, Double price, Date publishDate,
-            Date lastUpdate, Set<Review> reviews, Set<OrderDetail> orderDetails) {
+    public Book(long bookId, Category category, String title, String author, String description, String isbn, String image, Double price, Date publishDate, Date lastUpdate, Long curQuantity, String status, Set<InventoryTracking> inventoryTrackings, Set<Review> reviews, Set<OrderDetail> orderDetails) {
        this.bookId = bookId;
        this.category = category;
        this.title = title;
@@ -63,16 +66,18 @@ public class Book  implements java.io.Serializable {
        this.price = price;
        this.publishDate = publishDate;
        this.lastUpdate = lastUpdate;
+       this.curQuantity = curQuantity;
+       this.status = status;
+       this.inventoryTrackings = inventoryTrackings;
        this.reviews = reviews;
        this.orderDetails = orderDetails;
     }
    
      @Id 
-
-    
-    @Column(name="BOOK_ID", unique=true, nullable=false, precision=10, scale=0)
+     
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_generator")
     @SequenceGenerator(name="book_generator", sequenceName = "seq_book", allocationSize = 1)
+    @Column(name="BOOK_ID", unique=true, nullable=false, precision=10, scale=0)
     public long getBookId() {
         return this.bookId;
     }
@@ -170,6 +175,36 @@ public class Book  implements java.io.Serializable {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    
+    @Column(name="CUR_QUANTITY", precision=10, scale=0)
+    public Long getCurQuantity() {
+        return this.curQuantity;
+    }
+    
+    public void setCurQuantity(Long curQuantity) {
+        this.curQuantity = curQuantity;
+    }
+
+    
+    @Column(name="STATUS", length=20)
+    public String getStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="book", cascade = CascadeType.ALL)
+    public Set<InventoryTracking> getInventoryTrackings() {
+        return this.inventoryTrackings;
+    }
+    
+    public void setInventoryTrackings(Set<InventoryTracking> inventoryTrackings) {
+        this.inventoryTrackings = inventoryTrackings;
+    }
+
 @OneToMany(fetch=FetchType.LAZY, mappedBy="book")
     public Set<Review> getReviews() {
         return this.reviews;
@@ -178,7 +213,7 @@ public class Book  implements java.io.Serializable {
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
-    
+
 @OneToMany(fetch=FetchType.LAZY, mappedBy="book")
     public Set<OrderDetail> getOrderDetails() {
         return this.orderDetails;
@@ -187,14 +222,10 @@ public class Book  implements java.io.Serializable {
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
-
-    @Override
-    public String toString() {
-        return "Book{" + "bookId=" + bookId + ", title=" + title + '}';
-    }
-
     
-
+    public void addInventory(InventoryTracking inventoryTracking){
+        this.inventoryTrackings.add(inventoryTracking);
+    }
 
 }
 

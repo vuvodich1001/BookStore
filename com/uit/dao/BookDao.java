@@ -7,11 +7,11 @@ package com.uit.dao;
 
 import com.uit.entity.Book;
 import com.uit.entity.OrderDetail;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +57,29 @@ public class BookDao {
         Query q = s.createQuery("from Book where lower(title) like :name order by book_id asc");
         q.setParameter("name", "%" + name.toLowerCase() + "%");
         return q.list();
+    }
+    
+    public static List<Book> findBookbyCategory(String name){
+        Session s = sessionFactory.openSession();
+        String sql = "from Book order by book_id asc";
+        Query q = s.createQuery(sql);
+         List<Book> list = q.list();
+        if(name.equals("All")){
+            
+        }
+        else{
+            Iterator<Book> iterator = list.iterator();
+                    while(iterator.hasNext()){
+                        Book book = iterator.next();
+                        if(book.getCategory().getName().equals(name)){
+                            continue;
+                        }
+                        else{
+                            iterator.remove();
+                        }
+                    }        
+        }
+        return list;
     }
     
     public static void editBook(Book book){
@@ -133,8 +156,8 @@ public class BookDao {
     }
     
     public static void main(String[] args) {
-      for(Book book : mostBook()){
-          System.out.println(book.getBookId() + " ");
+      for(Book book : findBookbyCategory("Java")){
+          System.out.println(book.getBookId() + " " + book.getTitle());
       }
     }
 }

@@ -7,7 +7,6 @@ package com.uit.service;
 
 import com.uit.dao.BookDao;
 import com.uit.entity.Book;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -39,6 +38,10 @@ public class BookService {
     
     public List<Book> findBook(String title){
         return bookDao.findBook(title);
+    }
+    
+    public List<Book> findBookbyCategory(String name){
+        return bookDao.findBookbyCategory(name);
     }
     
     public List<Book> mostBook(){

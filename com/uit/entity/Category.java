@@ -1,5 +1,5 @@
 package com.uit.entity;
-// Generated May 24, 2021 9:48:38 AM by Hibernate Tools 4.3.1
+// Generated Jun 16, 2021 9:11:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -44,9 +44,9 @@ public class Category  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="CATEGORY_ID", unique=true, nullable=false, precision=10, scale=0)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_generator")
     @SequenceGenerator(name="category_generator", sequenceName = "seq_category", allocationSize = 1)
+    @Column(name="CATEGORY_ID", unique=true, nullable=false, precision=10, scale=0)
     public long getCategoryId() {
         return this.categoryId;
     }
@@ -79,7 +79,7 @@ public class Category  implements java.io.Serializable {
         return name;
     }
 
-
+    
 
 
 }

@@ -5,7 +5,6 @@
  */
 package com.uit.bookstore_old;
 
-import com.uit.bookstore_old.DashBoard;
 import com.uit.entity.Usr;
 import com.uit.service.UserService;
 import java.awt.Color;

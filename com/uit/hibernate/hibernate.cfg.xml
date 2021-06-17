@@ -47,12 +47,14 @@ Contributor(s):
     <property name="hibernate.connection.username">DOAN_NEW</property>
     <property name="hibernate.connection.password">311001</property>
     <mapping class="com.uit.entity.Customer"/>
-    <mapping class="com.uit.entity.Book"/> 
-    <mapping class="com.uit.entity.Review"/>
-    <mapping class="com.uit.entity.OrderDetailId"/>
-    <mapping class="com.uit.entity.Usr"/>
+    <mapping class="com.uit.entity.OrderDetail"/>
     <mapping class="com.uit.entity.BookOrder"/>
+    <mapping class="com.uit.entity.OrderDetailId"/>
+    <mapping class="com.uit.entity.Supplier"/>
+    <mapping class="com.uit.entity.Book"/>
     <mapping class="com.uit.entity.Category"/>
-    <mapping class="com.uit.entity.OrderDetail"/> 
+    <mapping class="com.uit.entity.Usr"/>
+    <mapping class="com.uit.entity.InventoryTracking"/>
+    <mapping class="com.uit.entity.Review"/>
   </session-factory>
 </hibernate-configuration>

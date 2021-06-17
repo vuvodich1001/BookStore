@@ -1,5 +1,5 @@
 package com.uit.entity;
-// Generated May 24, 2021 9:48:38 AM by Hibernate Tools 4.3.1
+// Generated Jun 16, 2021 9:11:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -44,13 +44,14 @@ public class BookOrder  implements java.io.Serializable {
     public BookOrder() {
     }
 
-
+	
     public BookOrder(long orderId, Customer customer, Date orderDate) {
         this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
     }
-    public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipentName, String recipentPhone, String paymentMethod, Double total, String status) {
+    public BookOrder(long orderId, Customer customer, Date orderDate, String shippingAddress, String recipentName, String recipentPhone, String paymentMethod, Double total, String status, Set<OrderDetail> orderDetails) {
+       this.orderId = orderId;
        this.customer = customer;
        this.orderDate = orderDate;
        this.shippingAddress = shippingAddress;
@@ -59,14 +60,15 @@ public class BookOrder  implements java.io.Serializable {
        this.paymentMethod = paymentMethod;
        this.total = total;
        this.status = status;
+       this.orderDetails = orderDetails;
     }
    
      @Id 
 
     
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookorder_generator")
+    @SequenceGenerator(name="bookorder_generator", sequenceName = "seq_book_order", allocationSize = 1)
     @Column(name="ORDER_ID", unique=true, nullable=false, precision=10, scale=0)
-     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_generator")
-    @SequenceGenerator(name="order_generator", sequenceName = "seq_book_order", allocationSize = 1)
     public long getOrderId() {
         return this.orderId;
     }
@@ -163,10 +165,11 @@ public class BookOrder  implements java.io.Serializable {
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
-
+    
     public void addOrderDetail(OrderDetail orderDetail){
         this.orderDetails.add(orderDetail);
     }
+
 
 
 }

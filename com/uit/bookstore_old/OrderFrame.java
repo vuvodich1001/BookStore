@@ -5,23 +5,17 @@
  */
 package com.uit.bookstore_old;
 
-import com.uit.bookstore_old.DashBoard;
-import com.uit.bookstore_old.BookFrame;
 import com.uit.entity.Book;
 import com.uit.service.BookService;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

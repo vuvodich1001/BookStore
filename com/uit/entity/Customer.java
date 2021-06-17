@@ -1,11 +1,10 @@
 package com.uit.entity;
-// Generated May 24, 2021 9:48:38 AM by Hibernate Tools 4.3.1
+// Generated Jun 16, 2021 9:11:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -69,9 +68,9 @@ public class Customer  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="CUSTOMER_ID", unique=true, nullable=false, precision=10, scale=0)
-     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
     @SequenceGenerator(name="customer_generator", sequenceName = "seq_customer", allocationSize = 1)
+    @Column(name="CUSTOMER_ID", unique=true, nullable=false, precision=10, scale=0)
     public long getCustomerId() {
         return this.customerId;
     }
@@ -170,7 +169,7 @@ public class Customer  implements java.io.Serializable {
         this.registerDate = registerDate;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade = CascadeType.ALL)
+@OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
     public Set<BookOrder> getBookOrders() {
         return this.bookOrders;
     }

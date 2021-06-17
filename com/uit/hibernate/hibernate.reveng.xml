@@ -48,4 +48,6 @@ Contributor(s):
   <table-filter match-name="USR"/>
   <table-filter match-name="BOOK"/>
   <table-filter match-name="CATEGORY"/>
+  <table-filter match-name="SUPPLIER"/>
+  <table-filter match-name="INVENTORY_TRACKING"/>
 </hibernate-reverse-engineering>

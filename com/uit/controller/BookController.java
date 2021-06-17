@@ -8,8 +8,12 @@ package com.uit.controller;
 import com.toedter.calendar.JDateChooser;
 import com.uit.entity.Book;
 import com.uit.entity.Category;
+import com.uit.entity.InventoryTracking;
+import com.uit.entity.Supplier;
 import com.uit.service.BookService;
 import com.uit.service.CategoryService;
+import com.uit.service.InventoryService;
+import com.uit.service.SupplierService;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -36,6 +40,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -53,7 +58,11 @@ public class BookController {
     private com.toedter.calendar.JDateChooser txtPublishDate;
     private javax.swing.JTextField txtSearchall;
     private javax.swing.JTextField txtTitle;
+    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtSubtotal;
     private javax.swing.JComboBox<Category> cbxCategory;
+    private javax.swing.JComboBox<Supplier> cbxSupplier;
     private javax.swing.JLabel lblImage;
     private javax.swing.JButton btnSubmitBook;
     private javax.swing.JButton btnUpload;
@@ -67,8 +76,10 @@ public class BookController {
     private DefaultTableModel defaultTableModel;
     private Book book;
     private BookService bookService;
+    private InventoryService inventoryService;
     private javax.swing.JPanel panel;
     private CategoryService categoryService;
+    private SupplierService supplierService;
     private File file;
 
     public BookController() {
@@ -76,7 +87,8 @@ public class BookController {
 
     public BookController(JTextField txtAuthor, JTextField txtPrice, JTextField txtIsbn, JDateChooser txtPublishDate,
             JTextField txtSearchall, JTextField txtTitle, JComboBox<Category> cbxCategroy, JLabel lblImage, JButton btnSubmitBook, JButton btnBook, JButton btnUpload,
-            JButton btnAddall, JTable table, JPanel panel, JDialog addupdateBook) {
+            JButton btnAddall, JTable table, JPanel panel, JDialog addupdateBook,
+            JComboBox cbxSupplier, JTextField txtQuantity, JTextField txtSubtotal, JTextArea txtDescription) {
         this.txtAuthor = txtAuthor;
         this.txtIsbn = txtIsbn;
         this.txtPrice = txtPrice;
@@ -92,9 +104,15 @@ public class BookController {
         this.lblImage = lblImage;
         this.panel = panel;
         this.addupdateBook = addupdateBook;
+        this.cbxSupplier = cbxSupplier;
+        this.txtQuantity = txtQuantity;
+        this.txtSubtotal = txtSubtotal;
+        this.txtDescription = txtDescription;
         book = new Book();
         bookService = new BookService();
         categoryService = new CategoryService();
+        supplierService = new SupplierService();
+        inventoryService = new InventoryService();
         menuBook = new JPopupMenu();
         deleteBook = new JMenuItem();
         modifyBook = new JMenuItem();
@@ -125,6 +143,7 @@ public class BookController {
         defaultTableModel.addColumn("isbn");
         defaultTableModel.addColumn("price");
         defaultTableModel.addColumn("publish_date");
+        defaultTableModel.addColumn("quantity");
 
         setTabledata(bookService.getAllbook());
         table.setRowHeight(130);
@@ -137,10 +156,15 @@ public class BookController {
         for (Category c : categoryService.getAllcategory()) {
             cbxCategory.addItem(c);
         }
+        
+        cbxSupplier.removeAllItems();
+        for (Supplier s : supplierService.getAllsupplier()){
+            cbxSupplier.addItem(s);
+        }
         defaultTableModel.setRowCount(0);
         for (Book b : list) {
             defaultTableModel.addRow(new Object[]{b.getBookId(), b.getCategory().getCategoryId(),
-                b.getTitle(), b.getAuthor(), b.getImage(), b.getIsbn(), b.getPrice(), b.getPublishDate()});
+                b.getTitle(), b.getAuthor(), b.getImage(), b.getIsbn(), b.getPrice(), b.getPublishDate(), b.getCurQuantity()});
         }
     }
 
@@ -194,6 +218,7 @@ public class BookController {
     public void setNull() {
         cbxCategory.setEnabled(true);
         cbxCategory.getModel().setSelectedItem("");
+        cbxSupplier.getModel().setSelectedItem("");
         lblImage.setIcon(null);
         txtAuthor.setText("");
         txtIsbn.setText("");
@@ -201,6 +226,9 @@ public class BookController {
         txtPrice.setText("");
         lblImage.setText("");
         txtTitle.setText("");
+        txtQuantity.setText("");
+        txtSubtotal.setText("");
+        txtDescription.setText("");
     }
 
     private Category findCategoryID(long id) {
@@ -226,6 +254,7 @@ public class BookController {
                 } else if (bookService.checkTitleAuthor(txtTitle.getText(), txtAuthor.getText())) {
                     JOptionPane.showMessageDialog(panel, "Title and author already existed!");
                 } else {
+                    //book
                     book.setCategory((Category) cbxCategory.getSelectedItem());
                     book.setTitle(txtTitle.getText());
                     book.setAuthor(txtAuthor.getText());
@@ -233,8 +262,21 @@ public class BookController {
                     book.setImage(file.getAbsolutePath());
                     book.setPrice(Double.valueOf(txtPrice.getText()));
                     book.setPublishDate(txtPublishDate.getDate());
+                    book.setDescription(txtDescription.getText());
                     book.setLastUpdate(new java.util.Date());
+                    book.setCurQuantity(Long.valueOf(txtQuantity.getText()));
+                    book.setStatus("in stock");
+                    //inventory_tracking
+                    InventoryTracking inventoryTracking = new InventoryTracking();
+                    inventoryTracking.setBook(book);
+                    inventoryTracking.setSupplier((Supplier) cbxSupplier.getModel().getSelectedItem());
+                    inventoryTracking.setQuantity(Long.valueOf(txtQuantity.getText()));
+                    inventoryTracking.setSubtotal(Double.valueOf(txtSubtotal.getText()));
+                    inventoryTracking.setReceiptDate(new java.util.Date());
+                    
+                    book.addInventory(inventoryTracking);
                     bookService.addBook(book);
+                    //inventoryService.addInventory(inventoryTracking);
                     addupdateBook.dispose();
                     JOptionPane.showMessageDialog(panel, "Insert successfully!");
                     setTabledata(bookService.getAllbook());
