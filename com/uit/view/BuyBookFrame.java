@@ -152,7 +152,8 @@ public class BuyBookFrame extends javax.swing.JFrame {
         bookOrder.setRecipentPhone(txtPhone.getText());
         bookOrder.setOrderDate(new java.util.Date());
         bookOrder.setPaymentMethod(String.valueOf(cbxPaymentmethod.getSelectedItem()));
-        bookOrder.setTotal(Double.valueOf(txtTotal.getText()));
+        //bookOrder.setTotal(Double.valueOf(txtTotal.getText()));
+        bookOrder.setTotal(0.0);
         bookOrder.setStatus("Processing");
         bookOrder.setCustomer(LoginFrame.customer);
         orderService.addBookorder(bookOrder);

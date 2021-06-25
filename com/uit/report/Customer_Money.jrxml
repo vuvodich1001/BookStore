@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="700" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="772e7fb5-621e-4676-8e9c-713846e2de2d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="month" class="java.lang.Integer"/>
+	<parameter name="year" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select c.customer_id, c.full_name, o.book_id, o.subtotal,
+extract(year from b.order_date), extract(month from b.order_date)
+from customer c join book_order b on c.customer_id = b.customer_id 
+join order_detail o on b.order_id = o.order_id
+where extract(year from b.order_date) = $P{year} and extract(month
+from b.order_date) = $P{month}
+order by c.customer_id]]>
+	</queryString>
+	<field name="CUSTOMER_ID" class="java.math.BigDecimal"/>
+	<field name="FULL_NAME" class="java.lang.String"/>
+	<field name="BOOK_ID" class="java.math.BigDecimal"/>
+	<field name="SUBTOTAL" class="java.lang.Double"/>
+	<field name="EXTRACT(YEARFROMB.ORDER_DATE)" class="java.math.BigDecimal"/>
+	<field name="EXTRACT(MONTHFROMB.ORDER_DATE)" class="java.math.BigDecimal"/>
+	<variable name="sum_1" class="java.lang.Double" resetType="Group" resetGroup="CustomerID" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUBTOTAL}]]></variableExpression>
+	</variable>
+	<variable name="sum_all" class="java.lang.Double" incrementType="Group" incrementGroup="CustomerID" calculation="Sum">
+		<variableExpression><![CDATA[$V{sum_1}]]></variableExpression>
+	</variable>
+	<group name="CustomerID">
+		<groupExpression><![CDATA[$F{CUSTOMER_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="90" y="30" width="100" height="20" uuid="a52f8f36-05ca-4cde-a184-d6cf2ba7dcc4"/>
+					<text><![CDATA[CUSTOMER_ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="190" y="30" width="100" height="20" uuid="1cf2e5cf-0b8b-4fe8-abb4-79dd1347848d"/>
+					<text><![CDATA[FULL_NAME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="30" width="100" height="20" uuid="de8deab2-cad2-4cbc-937f-7bf566e5bfeb"/>
+					<text><![CDATA[BOOK_ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="390" y="30" width="100" height="20" uuid="4ce6b5ff-b2dd-4f7a-9973-275e52e0c8ee"/>
+					<text><![CDATA[SUBTOTAL]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="390" y="30" width="100" height="20" uuid="3d9ff15a-2b52-4533-8473-9ac2b14ac2c9"/>
+					<textFieldExpression><![CDATA[$V{sum_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="84" y="10" width="429" height="1" uuid="3adc4072-7208-433c-89ac-480eacb90795"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="41" y="14" width="550" height="50" forecolor="#FF0000" backcolor="#FFCCCC" uuid="52e6b013-4639-456e-a84b-79e17db3e3c5"/>
+				<textElement>
+					<font fontName="SansSerif" size="26"/>
+				</textElement>
+				<text><![CDATA[Số tiền của từng khách hàng trong tháng năm]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="93" y="15" width="47" height="20" uuid="b76a315e-701b-4161-bf78-d9da5b767c4d"/>
+				<text><![CDATA[Month]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="35" width="47" height="20" uuid="8db0adc0-aa85-4f6e-9d93-0220dee65ec9"/>
+				<text><![CDATA[Year]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="15" width="100" height="20" uuid="11361046-1bcd-4fe8-9226-6e494f395eed"/>
+				<textFieldExpression><![CDATA[$F{EXTRACT(MONTHFROMB.ORDER_DATE)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="35" width="100" height="20" uuid="e8e5d548-52f0-4668-a475-01202334412e"/>
+				<textFieldExpression><![CDATA[$F{EXTRACT(YEARFROMB.ORDER_DATE)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="0" width="100" height="20" uuid="f0d3bf82-4fb9-4b6d-8634-c057855ec65a"/>
+				<textFieldExpression><![CDATA[$F{CUSTOMER_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="100" height="20" uuid="f5916b7d-43ee-4cbc-921b-1dbf34dd7864"/>
+				<textFieldExpression><![CDATA[$F{FULL_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="100" height="20" uuid="63159580-62c4-4de2-9bdd-fc5d935d350d"/>
+				<textFieldExpression><![CDATA[$F{BOOK_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="100" height="20" uuid="34d95f0b-a391-4aa8-b2e3-9117f9662fb0"/>
+				<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="390" y="22" width="100" height="20" uuid="193193c4-6afb-4270-9c7d-9c2dbe0a7cf7"/>
+				<textFieldExpression><![CDATA[$V{sum_all}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="89" y="0" width="424" height="1" uuid="b0fe186c-6176-4a6c-aa03-038a00d9a840"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

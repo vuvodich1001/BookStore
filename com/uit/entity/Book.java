@@ -117,7 +117,7 @@ public class Book  implements java.io.Serializable {
     }
 
     
-    @Column(name="DESCRIPTION", length=200)
+    @Column(name="DESCRIPTION", length=500)
     public String getDescription() {
         return this.description;
     }

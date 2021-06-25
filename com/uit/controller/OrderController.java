@@ -91,6 +91,7 @@ public class OrderController {
     JButton btnAddall;
     JPopupMenu menuOrder;
     JMenuItem detail;
+    JMenuItem complete;
     JDialog orderDetail;
     JPanel adminPanel;
     OrderService orderService;
@@ -146,10 +147,15 @@ public class OrderController {
         menuOrder = new JPopupMenu();
         detail = new JMenuItem();
         detail.setText("View detail");
+        detail.setIcon(getIcon("/com/uit/image/icons8_view_128px_9.png", 20, 20));
+        complete = new JMenuItem();
+        complete.setText("Completed");
+        complete.setIcon(getIcon("/com/uit/image/icons8_ok_96px.png", 20, 20));
     }
     
     public void listOrder(){
         menuOrder.add(detail);
+        menuOrder.add(complete);
         table.setComponentPopupMenu(menuOrder);
         defaultTableModel1 = new DefaultTableModel(){
             @Override
@@ -167,6 +173,7 @@ public class OrderController {
         defaultTableModel1.addColumn("PaymentMethod");
         defaultTableModel1.addColumn("Total");
         defaultTableModel1.addColumn("OrderDate");
+        defaultTableModel1.addColumn("Status");
         table.setRowHeight(30);
         setTabledata(orderService.listOrder());
         
@@ -176,7 +183,7 @@ public class OrderController {
         defaultTableModel1.setRowCount(0);
         for(BookOrder b : list){
             defaultTableModel1.addRow(new Object[]{b.getOrderId(), b.getCustomer().getCustomerId(), b.getCustomer().getFullName(), b.getShippingAddress(),
-            b.getRecipentName(), b.getRecipentPhone(), b.getPaymentMethod(), b.getTotal(), b.getOrderDate()});
+            b.getRecipentName(), b.getRecipentPhone(), b.getPaymentMethod(), b.getTotal(), b.getOrderDate(), b.getStatus()});
         }
     }
     
@@ -231,6 +238,23 @@ public class OrderController {
                 
             }
         });
+        complete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               int row = table.getSelectedRow();
+               if(row == -1){
+                   JOptionPane.showMessageDialog(adminPanel, "you need choose order first!");
+               }
+               else{
+                   int confirm = JOptionPane.showConfirmDialog(adminPanel, "do you want to change status", "Message", JOptionPane.YES_NO_OPTION);
+                   if(confirm == JOptionPane.YES_OPTION){
+                       long orderId = (long)table.getValueAt(row, 0);
+                       orderService.updateStatus(orderId);
+                       setTabledata(orderService.listOrder());
+                   }
+               }
+            }
+        });
     }
     // Customer order
     public void setView() {
@@ -271,8 +295,9 @@ public class OrderController {
             orderButton.setIcon(getIcon("/com/uit/image/icons8_create_order_80px.png", 20, 20));
             orderButton.setBackground(Color.white);
             orderButton.setFocusable(false);
-            JLabel label = new JLabel("<html><center>" + book.getTitle() + "<br/> by " +  "<i>" + book.getAuthor()  + "</i>" + " <br/> " + 
-                     book.getPrice() + " VND" + "</center>"+ "</html>");
+            JLabel label = new JLabel("<html><center><b>" + "<font color=blue> " + book.getTitle() +"</font></b><br/><i>by " + book.getAuthor() + "</i>" + " <br/><b> " + 
+                     book.getPrice() + " VND" + "</b></center>"+ "</html>");
+            label.setFont(new Font("Serif", Font.PLAIN, 15));
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setHorizontalTextPosition(JLabel.CENTER);
             label.setVerticalTextPosition(JLabel.BOTTOM);
@@ -300,6 +325,7 @@ public class OrderController {
                     final int x = (screenSize.width - bookDetail.getWidth()) / 2;
                     final int y = (screenSize.height - bookDetail.getHeight()) / 2;
                     bookDetail.setLocation(x, y);
+                    //bookDetail.setLocationRelativeTo(null);
                     bookDetail.setVisible(true);
                     bookDetail.setSize(850, 600);
                     displayBook(book);
@@ -311,7 +337,7 @@ public class OrderController {
     public void displayBook(Book book) {
         lblTitle.setText(book.getTitle());
         lblAuthor.setText(book.getAuthor());
-        lblPrice.setText(String.valueOf(book.getPrice()));
+        lblPrice.setText(String.valueOf(book.getPrice()) + " VND");
         lblPublishdate.setText(String.valueOf(book.getPublishDate()));
         lblQuantity.setText("1");
         long count = 0;

@@ -48,6 +48,10 @@ public class BookService {
         return bookDao.mostBook();
     }
     
+    public List<Book> bestSellerBook(){
+        return bookDao.bestSellerBook();
+    }
+    
     public List<Book> recommendBook(){
         return bookDao.recommendBook();
     }

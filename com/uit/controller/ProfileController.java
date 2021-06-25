@@ -45,9 +45,11 @@ public class ProfileController {
 
     public void showProfile() {
         lblUsername.setText(LoginFrame.customer.getFullName());
+        lblEmail.setText(LoginFrame.customer.getEmail());
         lblPassword.setText(LoginFrame.customer.getPassword());
         lblRegisterdate.setText(String.valueOf(LoginFrame.customer.getRegisterDate()));
         lblUsername.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
+        lblEmail.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
         lblPassword.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
         lblRegisterdate.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
         btnChangePassword.addActionListener(new ActionListener() {

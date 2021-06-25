@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c69346d1-f1ac-46c5-808c-9560f020bde0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="table_customer" uuid="4989d431-1c89-4756-a90f-dc608d9e66f5">
+		<parameter name="year" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="month" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select c.customer_id, bk.title, o.quantity, o.subtotal,
+extract(year from b.order_date), extract(month from b.order_date)
+from customer c join book_order b on c.customer_id = b.customer_id 
+join order_detail o on b.order_id = o.order_id join book bk on bk.book_id = o.book_id
+where extract(month from b.order_date) = $P{month} and extract(year from b.order_date) = $P{year}
+order by c.customer_id]]>
+		</queryString>
+		<field name="CUSTOMER_ID" class="java.math.BigDecimal"/>
+		<field name="TITLE" class="java.lang.String"/>
+		<field name="QUANTITY" class="java.math.BigDecimal"/>
+		<field name="SUBTOTAL" class="java.lang.Double"/>
+		<field name="EXTRACT(YEARFROMB.ORDER_DATE)" class="java.math.BigDecimal"/>
+		<field name="EXTRACT(MONTHFROMB.ORDER_DATE)" class="java.math.BigDecimal"/>
+		<variable name="sum_1" class="java.lang.Double" resetType="Group" resetGroup="CustomerId" calculation="Sum">
+			<variableExpression><![CDATA[$F{SUBTOTAL}]]></variableExpression>
+		</variable>
+		<variable name="sum_all" class="java.lang.Double" incrementType="Group" incrementGroup="CustomerId" calculation="Sum">
+			<variableExpression><![CDATA[$V{sum_1}]]></variableExpression>
+		</variable>
+		<group name="CustomerId">
+			<groupExpression><![CDATA[$F{CUSTOMER_ID}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="mainYear" class="java.lang.Integer"/>
+	<parameter name="mainMonth" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select extract(year from order_date), extract(month from order_date)
+from book_order
+where extract(month from order_date) = $P{mainMonth} and 
+extract(year from order_date) = $P{mainYear}]]>
+	</queryString>
+	<field name="EXTRACT(YEARFROMORDER_DATE)" class="java.math.BigDecimal"/>
+	<field name="EXTRACT(MONTHFROMORDER_DATE)" class="java.math.BigDecimal"/>
+	<variable name="mainMonth" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="165" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="61" y="22" width="427" height="45" forecolor="#FF3333" uuid="6c808faf-4b08-4c86-81bc-88705483c9c0"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tổng doanh thu trong tháng năm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="7" y="99" width="42" height="20" uuid="3bcbbfb7-ddae-4f81-80d0-21b4d5e08dad"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Month:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="119" width="42" height="20" uuid="d663e2b7-27ea-4b40-ba08-2a0618b42975"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Year:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="99" width="100" height="20" uuid="967119c3-6f1f-40f0-ac16-c6a384e01fc4"/>
+				<textFieldExpression><![CDATA[$F{EXTRACT(MONTHFROMORDER_DATE)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="119" width="100" height="20" uuid="92ffa2d0-d24e-4046-8dc9-2194a485aadf"/>
+				<textFieldExpression><![CDATA[$F{EXTRACT(YEARFROMORDER_DATE)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="127" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 8" style="table 8" x="0" y="0" width="555" height="127" uuid="bf06a270-1c72-4df9-a8c6-fc97c2076127"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="table_customer" uuid="0a9d435f-a6ec-4540-8034-0c2bfdfc5a21">
+						<datasetParameter name="year">
+							<datasetParameterExpression><![CDATA[$P{mainYear}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="month">
+							<datasetParameterExpression><![CDATA[$P{mainMonth}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="369" uuid="db9fe90c-8d12-479c-ae58-d52fc5fe4ce0">
+						<jr:tableFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement x="279" y="0" width="63" height="15" uuid="c0ff612e-2db2-4c2e-b362-fc7cf2b78535"/>
+								<textFieldExpression><![CDATA[$V{sum_all}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="234" y="0" width="46" height="15" uuid="73b8d2fe-2ff0-45ef-9247-147d7656560f"/>
+								<text><![CDATA[Total:]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:groupFooter groupName="CustomerId">
+							<jr:cell height="30" rowSpan="1">
+								<textField>
+									<reportElement x="279" y="0" width="63" height="15" uuid="6bb563b9-d62b-4c5a-ac02-4ed14d056292"/>
+									<textFieldExpression><![CDATA[$V{sum_1}]]></textFieldExpression>
+								</textField>
+								<staticText>
+									<reportElement x="234" y="0" width="45" height="15" uuid="cb606aa2-53b7-42a5-b2c4-1e8281a50350"/>
+									<text><![CDATA[Subtotal:]]></text>
+								</staticText>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:column width="90" uuid="a19b8e13-cd08-480f-a955-441f7f3e2ad0">
+							<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="35cbf790-2968-4e18-993f-9bcb030dc37f"/>
+									<text><![CDATA[CUSTOMER_ID]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="table 8_CH" height="1" rowSpan="1"/>
+							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="20" uuid="7b1f960c-8990-4ddc-94b0-7b39f9084008"/>
+									<textFieldExpression><![CDATA[$F{CUSTOMER_ID}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="f8375fbb-7073-47c7-8765-49d8b12cd485">
+							<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="4167c20e-3315-4dd5-8b36-153c30efd7fe"/>
+									<text><![CDATA[TITLE]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="table 8_CH" height="1" rowSpan="1"/>
+							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="20" uuid="5a297c38-9921-4908-9abb-ddda4f4d5202"/>
+									<textFieldExpression><![CDATA[$F{TITLE}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="99" uuid="6554c545-d8ce-441d-90e9-693caa28f7d7">
+							<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="59090c37-7ee9-4177-9973-8a0a333e7542"/>
+									<text><![CDATA[QUANTITY]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="table 8_CH" height="1" rowSpan="1"/>
+							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="20" uuid="11538cc1-38ba-4fad-820e-54c4faaca4f5"/>
+									<textFieldExpression><![CDATA[$F{QUANTITY}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="f4942466-5bb3-4d2d-8a86-248f956d6734">
+							<jr:columnHeader style="table 8_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="30" uuid="608c9ca2-447f-4a9f-a045-11eee13f12ed"/>
+									<text><![CDATA[SUBTOTAL]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="table 8_CH" height="1" rowSpan="1"/>
+							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="20" uuid="6860d37b-164f-4525-b28d-6dcb67b2b45c"/>
+									<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

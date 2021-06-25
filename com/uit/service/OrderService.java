@@ -40,4 +40,12 @@ public class OrderService {
     public List<BookOrder> listOrder(){
         return orderDao.listOrder();
     }
+
+    public void deleteOrder(long orderId, long bookId){
+        orderDao.deleteOrder(orderId, bookId);
+    }
+    
+    public void updateStatus(long orderId){
+        orderDao.updateStatus(orderId);
+    }
 }

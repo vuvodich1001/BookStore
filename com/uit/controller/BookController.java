@@ -264,8 +264,9 @@ public class BookController {
                     book.setPublishDate(txtPublishDate.getDate());
                     book.setDescription(txtDescription.getText());
                     book.setLastUpdate(new java.util.Date());
-                    book.setCurQuantity(Long.valueOf(txtQuantity.getText()));
+                    book.setCurQuantity(Long.valueOf(0));
                     book.setStatus("in stock");
+                    bookService.addBook(book);
                     //inventory_tracking
                     InventoryTracking inventoryTracking = new InventoryTracking();
                     inventoryTracking.setBook(book);
@@ -274,8 +275,8 @@ public class BookController {
                     inventoryTracking.setSubtotal(Double.valueOf(txtSubtotal.getText()));
                     inventoryTracking.setReceiptDate(new java.util.Date());
                     
-                    book.addInventory(inventoryTracking);
-                    bookService.addBook(book);
+                    //book.addInventory(inventoryTracking);
+                    inventoryService.addInventory(inventoryTracking);
                     //inventoryService.addInventory(inventoryTracking);
                     addupdateBook.dispose();
                     JOptionPane.showMessageDialog(panel, "Insert successfully!");
@@ -297,13 +298,24 @@ public class BookController {
                         || txtIsbn.getText().equals("") || txtPrice.getText().equals("") || txtPublishDate.getDate().equals("")) {
                     JOptionPane.showMessageDialog(panel, "Input not enough information");
                 } else {
-                    //book.setCategory(findCategoryID((Long)table.getValueAt(row, 1)));
+                    //book
                     book.setTitle(txtTitle.getText());
                     book.setAuthor(txtAuthor.getText());
                     book.setPrice(Double.valueOf(txtPrice.getText()));
                     book.setImage(file.getAbsolutePath());
                     book.setIsbn(txtIsbn.getText());
                     book.setPublishDate(txtPublishDate.getDate());
+                    
+                    //inventory
+                    if(cbxSupplier.getModel().getSelectedItem() != null && txtQuantity.getText().length() > 0 && txtSubtotal.getText().length() > 0){
+                         InventoryTracking inventoryTracking = new InventoryTracking();
+                        inventoryTracking.setBook(book);
+                        inventoryTracking.setSupplier((Supplier) cbxSupplier.getModel().getSelectedItem());
+                        inventoryTracking.setQuantity(Long.valueOf(txtQuantity.getText()));
+                        inventoryTracking.setSubtotal(Double.valueOf(txtSubtotal.getText()));
+                        inventoryTracking.setReceiptDate(new java.util.Date());
+                        inventoryService.addInventory(inventoryTracking);
+                    }
                     bookService.editBook(book);
                     addupdateBook.dispose();
                     JOptionPane.showMessageDialog(panel, "update successfully!");
@@ -372,6 +384,7 @@ public class BookController {
                 } else {
                     int confirm = JOptionPane.showConfirmDialog(panel, "do you want to modify this book!", "Confirm", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
+                        setNull();
                         book.setBookId(Long.valueOf(String.valueOf(table.getValueAt(row, 0))));
                         book.setCategory(findCategoryID((Long) table.getValueAt(row, 1)));
                         book.setImage(String.valueOf(table.getValueAt(row, 4)));

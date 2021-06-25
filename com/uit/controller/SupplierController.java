@@ -117,6 +117,9 @@ public class SupplierController {
     }
 
     public void actionAdd(){
+        for(ActionListener al: btnSubmit.getActionListeners()){
+            btnSubmit.removeActionListener(al);
+        }
         btnSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

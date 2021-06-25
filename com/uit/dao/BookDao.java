@@ -7,6 +7,10 @@ package com.uit.dao;
 
 import com.uit.entity.Book;
 import com.uit.entity.OrderDetail;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oracle.jdbc.OracleTypes;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -133,13 +140,53 @@ public class BookDao {
        }
         
        return list;
+       
+    }
+    public static List<Book> bestSellerBook(){
+        List<Book> list = new ArrayList<>();
+        Connection con = JDBCConnection.getJDBCConnection();    
+        try {
+            CallableStatement cs = con.prepareCall("{call top4_book_seller(?)}");
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.execute();
+            ResultSet rs = (ResultSet) cs.getObject(1);
+            while(rs.next()){
+                Book b = new Book();
+                b.setTitle(rs.getString("title"));
+                b.setAuthor(rs.getString("author"));
+                b.setPrice(rs.getDouble("price"));
+                b.setImage(rs.getString("image"));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return list;
     }
     
     
+    
     public static List<Book> recommendBook(){
-        Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from Book").setMaxResults(3);
-        return q.list();
+            List<Book> list = new ArrayList<>();
+            Connection con = JDBCConnection.getJDBCConnection();
+        try {
+            CallableStatement cs = con.prepareCall("{call top4_book_favourite(?)}");
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.execute();
+            ResultSet rs = (ResultSet) cs.getObject(1);
+            while(rs.next()){
+                Book b = new Book();
+                b.setTitle(rs.getString("title"));
+                b.setAuthor(rs.getString("author"));
+                b.setPrice(rs.getDouble("price"));
+                b.setImage(rs.getString("image"));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
     public static boolean checkTitleAuthor(String title, String author){
@@ -153,11 +200,5 @@ public class BookDao {
         else{
             return false;
         }
-    }
-    
-    public static void main(String[] args) {
-      for(Book book : findBookbyCategory("Java")){
-          System.out.println(book.getBookId() + " " + book.getTitle());
-      }
     }
 }

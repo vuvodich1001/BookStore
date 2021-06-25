@@ -66,6 +66,7 @@ public class InventoryController {
         defaultTableModel.addColumn("Supplier");
         defaultTableModel.addColumn("Quantity");
         defaultTableModel.addColumn("Subtotal");
+        defaultTableModel.addColumn("ReceiptDate");
 
        
         table.setRowHeight(30);
@@ -76,7 +77,7 @@ public class InventoryController {
         defaultTableModel.setRowCount(0);
         for (InventoryTracking i : list) {
             defaultTableModel.addRow(new Object[]{i.getTrackingId(), i.getBook().getBookId(),i.getSupplier().getSupplierId(), i.getBook().getTitle(),
-            i.getSupplier().getName(), i.getQuantity(), i.getSubtotal()});
+            i.getSupplier().getName(), i.getQuantity(), i.getSubtotal(), i.getReceiptDate()});
         }
      }
      

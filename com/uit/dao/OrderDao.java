@@ -24,7 +24,7 @@ public class OrderDao {
     
     public static List<BookOrder> listOrder(){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from BookOrder order by order_id");
+        Query q = s.createQuery("from BookOrder order by status, order_id");
         return q.list();
     }
   
@@ -54,16 +54,36 @@ public class OrderDao {
         Transaction t = s.beginTransaction();
         OrderDetailId orderDetailId = new OrderDetailId(bookOrder.getOrderId(), book.getBookId());
         OrderDetail orderDetail = new OrderDetail(orderDetailId, book, bookOrder, quantity, subtotal);
-        bookOrder.addOrderDetail(orderDetail);
-        s.update(bookOrder);
+        //bookOrder.addOrderDetail(orderDetail);
+        //s.update(bookOrder);
+        s.save(orderDetail);
         t.commit();
         s.close();
     }
     
+    public static void deleteOrder(long orderId, long bookId){
+        Session s = sessionFactory.openSession();
+        Transaction t = s.beginTransaction();
+        Query q = s.createQuery("delete from OrderDetail where order_id = :orderId and book_id = :bookId");
+        q.setParameter("orderId", orderId);
+        q.setParameter("bookId", bookId);
+        q.executeUpdate();
+        t.commit();
+        s.close();
+    }
     
+    public static void updateStatus(long orderId){
+        Session s = sessionFactory.openSession();
+        Transaction t = s.beginTransaction();
+        Query q = s.createQuery("update BookOrder set status = 'Completed' where order_id = :orderId");
+        q.setParameter("orderId", orderId);
+        q.executeUpdate();
+        t.commit();
+        s.close();
+    }
 
     public static void main(String[] args){
-           //BookService bookService = new BookService();
+           //BookService bookService = new BookService();t/
 //        CustomerService customerService = new CustomerService();
 //        Customer customer = new Customer();
        // Session s = sessionFactory.openSession();

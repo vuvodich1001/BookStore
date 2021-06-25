@@ -54,7 +54,7 @@ public class BuyOrderController {
        displayPanel.removeAll();
        displayPanel.repaint();
        displayPanel.revalidate();
-       GridLayout gridLayout = new GridLayout(0,1);
+       GridLayout gridLayout = new GridLayout(0, 1);
        displayPanel.setLayout(gridLayout);
       for(Map.Entry<Book, Integer> m : list.entrySet()){
             JPanel panel = new JPanel();
