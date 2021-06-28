@@ -8,6 +8,7 @@ package com.uit.controller;
 import com.uit.view.ChangePasswordFrame;
 import com.uit.view.LoginFrame;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -28,13 +29,15 @@ public class ProfileController {
     private JLabel lblZipcode;
     private JLabel lblPhone;
     private JLabel lblEmail;
+    private JLabel lblAddress;
     private JLabel lblRegisterdate;
     private JButton btnChangePassword;
 
-    public ProfileController(JLabel lblUsername, JLabel lblPassword, JLabel lblCity, JLabel lblCountry, JLabel lblZipcode, JLabel lblPhone, JLabel lblEmail, JLabel lblRegisterdate, JButton btnChangePassword) {
+    public ProfileController(JLabel lblUsername, JLabel lblPassword, JLabel lblCity, JLabel lblAddress, JLabel lblCountry, JLabel lblZipcode, JLabel lblPhone, JLabel lblEmail, JLabel lblRegisterdate, JButton btnChangePassword) {
         this.lblUsername = lblUsername;
         this.lblPassword = lblPassword;
         this.lblCity = lblCity;
+        this.lblAddress = lblAddress;
         this.lblCountry = lblCountry;
         this.lblZipcode = lblZipcode;
         this.lblPhone = lblPhone;
@@ -44,14 +47,45 @@ public class ProfileController {
     }
 
     public void showProfile() {
+        //set text
         lblUsername.setText(LoginFrame.customer.getFullName());
+        lblUsername.setFont(new Font("Serif", Font.BOLD, 15));
+        
         lblEmail.setText(LoginFrame.customer.getEmail());
-        lblPassword.setText(LoginFrame.customer.getPassword());
+        lblEmail.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblPassword.setText("*********");
+        lblPassword.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblAddress.setText(LoginFrame.customer.getAddress());
+        lblAddress.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblCity.setText(LoginFrame.customer.getCity());
+        lblCity.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblCountry.setText(LoginFrame.customer.getCountry());
+        lblCountry.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblPhone.setText(LoginFrame.customer.getPhone());
+        lblPhone.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        lblZipcode.setText(LoginFrame.customer.getZipcode());
+        lblZipcode.setFont(new Font("Serif", Font.BOLD, 15));
+
         lblRegisterdate.setText(String.valueOf(LoginFrame.customer.getRegisterDate()));
-        lblUsername.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
-        lblEmail.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
-        lblPassword.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
-        lblRegisterdate.setBorder(BorderFactory.createLineBorder(Color.decode("#2980b9")));
+        lblRegisterdate.setFont(new Font("Serif", Font.BOLD, 15));
+        
+        //set border
+        lblUsername.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblEmail.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblPassword.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblAddress.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblRegisterdate.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblCity.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblCountry.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblPhone.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        lblZipcode.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+
         btnChangePassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

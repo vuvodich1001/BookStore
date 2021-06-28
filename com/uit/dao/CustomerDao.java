@@ -70,4 +70,16 @@ public class CustomerDao {
         q.setParameter("username", "%" + username.toLowerCase() + "%");
         return q.list();
     }
+    
+    public static void changePassword(String password, long customerId){
+        Session s = sessionFactory.openSession();
+        Transaction t = s.beginTransaction();
+        Query q = s.createQuery("update Customer set password = :password where customer_id = :customerId");
+        q.setParameter("password", password);
+        q.setParameter("customerId", customerId);
+        q.executeUpdate();
+        t.commit();
+        s.close();
+    }
+    
 }

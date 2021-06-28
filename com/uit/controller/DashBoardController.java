@@ -7,6 +7,7 @@ package com.uit.controller;
 
 import com.uit.entity.Book;
 import com.uit.service.BookService;
+import com.uit.view.LoginFrame;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,19 +27,24 @@ import javax.swing.JPanel;
 public class DashBoardController {
     private javax.swing.JPanel preferPanel;
     private javax.swing.JPanel recommendPanel;
+    private javax.swing.JLabel lblWelcome;
     private BookService bookService;
      //DashBoard
-    public DashBoardController(JPanel preferPanel, JPanel recommendPanel){
+    public DashBoardController(JPanel preferPanel, JPanel recommendPanel, JLabel lblWelcome){
         this.recommendPanel = recommendPanel;
         this.preferPanel = preferPanel;
+        this.lblWelcome = lblWelcome;
         bookService = new BookService();
     }
     
     public void showDashBoard(){
+        lblWelcome.setText("Welcome, " + LoginFrame.customer.getFullName());
+        lblWelcome.setFont(new Font("Serif", Font.BOLD, 20));
+        lblWelcome.setForeground(Color.blue);
         GridLayout gridLayout = new GridLayout(0, 4);
         preferPanel.setLayout(gridLayout);
         recommendPanel.setLayout(gridLayout);
-        gridLayout.setHgap(40);
+        gridLayout.setHgap(70);
         
         preferPanel.setBackground(Color.white);
         recommendPanel.setBackground(Color.white);
@@ -63,7 +69,7 @@ public class DashBoardController {
 //            test.setText("5");
             ImageIcon icon = new ImageIcon(book.getImage());
             Image image = icon.getImage();
-            ImageIcon imageIcon = new ImageIcon(fitimage(image, 180, 210));
+            ImageIcon imageIcon = new ImageIcon(fitimage(image, 150, 180));
             label.setIcon(imageIcon);
             preferPanel.add(label);
         }
@@ -79,7 +85,7 @@ public class DashBoardController {
             label.setVerticalTextPosition(JLabel.BOTTOM);
             ImageIcon icon = new ImageIcon(book.getImage());
             Image image = icon.getImage();
-            ImageIcon imageIcon = new ImageIcon(fitimage(image, 180, 210));
+            ImageIcon imageIcon = new ImageIcon(fitimage(image, 150, 180));
             label.setIcon(imageIcon);
             recommendPanel.add(label);
         }

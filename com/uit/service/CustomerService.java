@@ -43,4 +43,8 @@ public class CustomerService {
     public List<Customer>  findUser(String username){
         return customerDao.findUser(username);
     }
+    
+    public void changePassword(String password, long customerId){
+        customerDao.changePassword(password, customerId);
+    }
 }

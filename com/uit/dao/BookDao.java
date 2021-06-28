@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +42,26 @@ public class BookDao {
         return q.list();
     }
     
+    public static List<Book> listBook(){
+        List<Book> list = new ArrayList<>();
+        Connection con = JDBCConnection.getJDBCConnection();
+        String sql = "select * from book";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                Book b = new Book();
+                b.setBookId(rs.getLong("book_id"));
+                b.setAuthor(rs.getString("author"));
+                b.setTitle(rs.getString("title"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+        
+    }
     public static void addBook(Book book){
         Session s = sessionFactory.openSession();
         Transaction t = s.beginTransaction();

@@ -5,17 +5,21 @@
  */
 package com.uit.view;
 
+import com.uit.service.CustomerService;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vunguyen
  */
 public class ChangePasswordFrame extends javax.swing.JFrame {
-
+    private CustomerService customerService;
     /**
      * Creates new form ModifyBookFrame
      */
     public ChangePasswordFrame() {
         initComponents();
+        customerService = new CustomerService();
     }
 
     /**
@@ -106,7 +110,17 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        // TODO add your handling code here:
+            String newPassword = String.valueOf(txtNewPassword.getPassword());
+            String confirmPassword = String.valueOf(txtConfirmPassword.getPassword());
+            String oldPassword = String.valueOf(txtPassword.getPassword());
+            if(!oldPassword.equals(LoginFrame.customer.getPassword())){
+                JOptionPane.showMessageDialog(this, "Old password does not correct");
+            }
+            else if(newPassword.equals(confirmPassword)){
+                customerService.changePassword(newPassword, LoginFrame.customer.getCustomerId());
+                JOptionPane.showMessageDialog(this, "Change password successfully!");
+                this.dispose();
+            }
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     /**
