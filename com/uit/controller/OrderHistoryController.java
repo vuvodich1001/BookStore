@@ -78,9 +78,9 @@ public class OrderHistoryController {
         tblOrderDetail.setModel(defaultTableModel2);
         
         JTableHeader header = tblOrder.getTableHeader();
-        header.setBackground(Color.yellow);
-        header.setForeground(Color.blue);
-        header.setFont(new Font("Tahome", Font.BOLD, 13));
+        header.setBackground(Color.decode("#686de0"));
+        header.setForeground(Color.white);
+        header.setFont(new Font("Tahome", Font.BOLD, 14));
         ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         defaultTableModel1.addColumn("OrderID");
         defaultTableModel1.addColumn("ShippingAddress");
@@ -135,9 +135,9 @@ public class OrderHistoryController {
                     tblOrderDetail.setComponentPopupMenu(menuDetail);
                     tblOrderDetail.setModel(defaultTableModel2);
                      JTableHeader header = tblOrderDetail.getTableHeader();
-                    header.setBackground(Color.yellow);
-                    header.setForeground(Color.blue);
-                    header.setFont(new Font("Tahome", Font.BOLD, 13));
+                    header.setBackground(Color.decode("#686de0"));
+                    header.setForeground(Color.white);
+                    header.setFont(new Font("Tahome", Font.BOLD, 14));
                     ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
                     defaultTableModel2.addColumn("OrderId");
                     defaultTableModel2.addColumn("BookId");

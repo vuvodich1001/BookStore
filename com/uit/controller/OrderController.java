@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -89,6 +90,7 @@ public class OrderController {
     JTable tblDetail;
     JButton btnOrder;
     JButton btnAddall;
+    JTextField txtSearchall;
     JPopupMenu menuOrder;
     JMenuItem detail;
     JMenuItem complete;
@@ -136,10 +138,11 @@ public class OrderController {
     }
     
     // admin order
-    public OrderController(JTable table, JButton btnOrder, JButton btnAddall, JTable tblDetail, JDialog orderDetail, JPanel adminPanel){
+    public OrderController(JTable table, JButton btnOrder, JButton btnAddall, JTextField txtSearchall, JTable tblDetail, JDialog orderDetail, JPanel adminPanel){
         this.table = table;
         this.btnOrder = btnOrder;
         this.btnAddall = btnAddall;
+        this.txtSearchall = txtSearchall;
         this.tblDetail = tblDetail;
         this.orderDetail = orderDetail;
         this.adminPanel = adminPanel;
@@ -157,6 +160,11 @@ public class OrderController {
         menuOrder.add(detail);
         menuOrder.add(complete);
         table.setComponentPopupMenu(menuOrder);
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(Color.decode("#686de0"));
+        header.setForeground(Color.white);
+        header.setFont(new Font("Tahome", Font.BOLD, 14));
+        ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         defaultTableModel1 = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int i, int i1) {
@@ -198,12 +206,16 @@ public class OrderController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                listOrder();
+                for(KeyListener kl : txtSearchall.getKeyListeners()){
+                    txtSearchall.removeKeyListener(kl);
+                }
+                
+                for(ActionListener al : btnAddall.getActionListeners()){
+                    btnAddall.removeActionListener(al);
+                }
             }
+            
         });
-        
-        for(ActionListener al : btnAddall.getActionListeners()){
-            btnAddall.removeActionListener(al);
-        }
         
         detail.addActionListener(new ActionListener() {
             @Override
@@ -344,9 +356,10 @@ public class OrderController {
         for(OrderDetail o :  book.getOrderDetails()){
             count += o.getQuantity();
         }
-        lblStatus.setText(book.getCurQuantity() + " available products | " + count + " selled");
+        lblStatus.setText("<html><font color=green>" + book.getCurQuantity() + " available products </font>|<font color=red> " + count + " selled</font></html>");
         lblStatus.setBorder(BorderFactory.createLineBorder(Color.red));
         lblDescription.setText("<html>" + book.getDescription() + "</html>");
+        lblDescription.setFont(new Font("Serif", Font.PLAIN, 15));
         ImageIcon icon = new ImageIcon(book.getImage());
         Image image = icon.getImage();
         ImageIcon imageIcon = new ImageIcon(fitimage(image, lblImageorder.getWidth(), lblImageorder.getHeight()));

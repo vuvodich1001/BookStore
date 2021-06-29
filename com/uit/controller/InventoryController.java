@@ -47,9 +47,9 @@ public class InventoryController {
     
     public void listSupplier(){
         JTableHeader header = table.getTableHeader();
-        header.setBackground(Color.yellow);
-        header.setForeground(Color.blue);
-        header.setFont(new Font("Tahome", Font.BOLD, 13));
+        header.setBackground(Color.decode("#686de0"));
+        header.setForeground(Color.white);
+        header.setFont(new Font("Tahome", Font.BOLD, 14));
         ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         defaultTableModel = new DefaultTableModel() {
             @Override

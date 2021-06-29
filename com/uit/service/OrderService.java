@@ -48,4 +48,8 @@ public class OrderService {
     public void updateStatus(long orderId){
         orderDao.updateStatus(orderId);
     }
+    
+    public List<BookOrder> findOrder(String id){
+        return findOrder(id);
+    }
 }

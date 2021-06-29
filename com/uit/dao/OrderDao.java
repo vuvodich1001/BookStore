@@ -82,7 +82,15 @@ public class OrderDao {
         s.close();
     }
 
-    public static void main(String[] args){
+    public static List<BookOrder> findOrder(String id){
+       Session s = sessionFactory.openSession();
+       Query q = s.createQuery("from BookOrder where order_id = :id");
+       q.setParameter("id", id);
+       return q.list();
+    }
+    
+  
+//    public static void main(String[] args){
            //BookService bookService = new BookService();t/
 //        CustomerService customerService = new CustomerService();
 //        Customer customer = new Customer();
@@ -117,5 +125,5 @@ public class OrderDao {
 //        s.close();
       
        
-    }
+ //   }
 }
