@@ -1495,6 +1495,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Search");
 
+        txtSearchall.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1583,14 +1585,16 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnAddall)
                     .addComponent(txtSearchall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
         );
 
         LayeredPane.add(adminPanel, "card6");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Search");
+
+        txtSearchBook.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lblCart.setBackground(new java.awt.Color(102, 255, 102));
         lblCart.setForeground(new java.awt.Color(102, 51, 255));

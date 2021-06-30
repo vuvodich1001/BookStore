@@ -114,13 +114,14 @@ public class BookDao {
         Session s = sessionFactory.openSession();
         Transaction t = s.beginTransaction();
         Query q = s.createQuery("update Book set title = :title, author = :author, isbn= :isbn, image= :image,"
-                + " price= :price, publish_date = :publishDate where book_id = :bookId");
+                + " price= :price, publish_date = :publishDate, description = :description where book_id = :bookId");
         q.setParameter("title", book.getTitle());
         q.setParameter("author", book.getAuthor());
         q.setParameter("isbn", book.getIsbn());
         q.setParameter("image", book.getImage());
         q.setParameter("price", book.getPrice());
         q.setParameter("publishDate", book.getPublishDate());
+        q.setParameter("description", book.getDescription());
         q.setParameter("bookId", book.getBookId());
         q.executeUpdate();
         t.commit();

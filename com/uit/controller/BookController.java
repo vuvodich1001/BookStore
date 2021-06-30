@@ -267,6 +267,7 @@ public class BookController {
                     book.setCurQuantity(Long.valueOf(0));
                     book.setStatus("in stock");
                     bookService.addBook(book);
+                    
                     //inventory_tracking
                     InventoryTracking inventoryTracking = new InventoryTracking();
                     inventoryTracking.setBook(book);
@@ -277,7 +278,6 @@ public class BookController {
                     
                     //book.addInventory(inventoryTracking);
                     inventoryService.addInventory(inventoryTracking);
-                    //inventoryService.addInventory(inventoryTracking);
                     addupdateBook.dispose();
                     JOptionPane.showMessageDialog(panel, "Insert successfully!");
                     setTabledata(bookService.getAllbook());
@@ -302,10 +302,13 @@ public class BookController {
                     book.setTitle(txtTitle.getText());
                     book.setAuthor(txtAuthor.getText());
                     book.setPrice(Double.valueOf(txtPrice.getText()));
-                    book.setImage(file.getAbsolutePath());
+                    if(file.exists()){
+                        book.setImage(file.getAbsolutePath());
+                    }
                     book.setIsbn(txtIsbn.getText());
                     book.setPublishDate(txtPublishDate.getDate());
-                    
+                    book.setDescription(txtDescription.getText());
+                            
                     //inventory
                     if(cbxSupplier.getModel().getSelectedItem() != null && txtQuantity.getText().length() > 0 && txtSubtotal.getText().length() > 0){
                          InventoryTracking inventoryTracking = new InventoryTracking();
@@ -391,6 +394,11 @@ public class BookController {
                         cbxCategory.getModel().setSelectedItem(findCategoryID((long) table.getValueAt(row, 1)));
                         cbxCategory.setEnabled(false);
                         //set data for jtextfield
+                        for(Book b : bookService.getAllbook()){
+                            if(b.getBookId() == Long.valueOf(String.valueOf(table.getValueAt(row, 0)))){
+                                 txtDescription.setText(b.getDescription());
+                            }
+                        }
                         txtTitle.setText(String.valueOf(table.getValueAt(row, 2)));
                         txtAuthor.setText(String.valueOf(table.getValueAt(row, 3)));
                         lblImage.setIcon(new ImageIcon(fitimage(new ImageIcon(String.valueOf(table.getValueAt(row, 4))).getImage(), 100, 130)));
