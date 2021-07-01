@@ -27,13 +27,15 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class StatisticController {
     private JButton btnStatistic;
+    private JButton btnView;
     private JMonthChooser month;
     private JYearChooser year;
 
-    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year) {
+    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year, JButton btnView) {
         this.btnStatistic = btnStatistic;
         this.month = month;
         this.year = year;
+        this.btnView = btnView;
         btnStatistic.setBackground(Color.white);
         btnStatistic.setFocusable(false);
     }
@@ -66,6 +68,21 @@ public class StatisticController {
                     String report = "C:\\Users\\vungu\\OneDrive\\Documents\\NetBeansProjects\\Hibernate\\src\\com\\uit\\report\\Customer_Money_Table.jrxml";
                     JasperReport jr = JasperCompileManager.compileReport(report);
                     JasperPrint jp = JasperFillManager.fillReport(jr, hashMap, con);
+                    JasperViewer.viewReport(jp, false);
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        });
+        
+        btnView.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    Connection con = getConnection();
+                    String report = "C:\\Users\\vungu\\OneDrive\\Documents\\NetBeansProjects\\Hibernate\\src\\com\\uit\\report\\top3_potential_customer.jrxml";
+                    JasperReport jr = JasperCompileManager.compileReport(report);
+                    JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
                     JasperViewer.viewReport(jp, false);
                     con.close();
                 } catch (Exception e) {

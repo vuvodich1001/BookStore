@@ -117,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
         dashBoardController.showDashBoard();
         
         //Statistic
-        statisticController = new StatisticController(btnStatistic, month, year);
+        statisticController = new StatisticController(btnStatistic, month, year, btnView);
         statisticController.actions();
         
         //test imageicon
@@ -327,6 +327,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel52 = new javax.swing.JLabel();
         year = new com.toedter.calendar.JYearChooser();
         month = new com.toedter.calendar.JMonthChooser();
+        jLabel53 = new javax.swing.JLabel();
+        btnView = new javax.swing.JButton();
         dashboardPanel = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -1750,10 +1752,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 153, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Total revenue by month-year");
+        jLabel18.setText("Top 3 potential customer");
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel52.setText("Month/year:");
+
+        jLabel53.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel53.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel53.setText("Total revenue by month-year");
+
+        btnView.setBackground(new java.awt.Color(255, 255, 255));
+        btnView.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnView.setText("View");
 
         javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
         statisticPanel.setLayout(statisticPanelLayout);
@@ -1761,9 +1772,6 @@ public class MainFrame extends javax.swing.JFrame {
             statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(statisticPanelLayout.createSequentialGroup()
                 .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
                         .addGap(310, 310, 310)
                         .addComponent(jLabel52)
@@ -1773,22 +1781,40 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
                         .addGap(422, 422, 422)
-                        .addComponent(btnStatistic)))
-                .addContainerGap(232, Short.MAX_VALUE))
+                        .addComponent(btnStatistic))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(426, 426, 426)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statisticPanelLayout.createSequentialGroup()
+                    .addContainerGap(248, Short.MAX_VALUE)
+                    .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(222, 222, 222)))
         );
         statisticPanelLayout.setVerticalGroup(
             statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(statisticPanelLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel18)
-                .addGap(38, 38, 38)
+                .addGap(133, 133, 133)
                 .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(43, 43, 43)
                 .addComponent(btnStatistic)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel18)
+                .addGap(36, 36, 36)
+                .addComponent(btnView)
+                .addContainerGap(323, Short.MAX_VALUE))
+            .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(statisticPanelLayout.createSequentialGroup()
+                    .addGap(76, 76, 76)
+                    .addComponent(jLabel53)
+                    .addContainerGap(575, Short.MAX_VALUE)))
         );
 
         LayeredPane.add(statisticPanel, "card9");
@@ -2081,6 +2107,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSupplier;
     private javax.swing.JButton btnUpload;
     private javax.swing.JButton btnUser;
+    private javax.swing.JButton btnView;
     private javax.swing.JPanel buyPanel;
     private javax.swing.JComboBox<Category> cbxCategory;
     private javax.swing.JComboBox<String> cbxOrderCategroy;
@@ -2136,6 +2163,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
