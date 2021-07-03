@@ -27,6 +27,7 @@ import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -124,7 +125,7 @@ public class MainFrame extends javax.swing.JFrame {
         lblProfile.setIcon(getIcon("/com/uit/image/icons8_profile_128px.png", 30, 30));
         lblOrderHistory.setIcon(getIcon("/com/uit/image/icons8_order_history_60px_1.png", 30, 30));
         lblDashBoard.setIcon(getIcon("/com/uit/image/icons8_home_page_80px_1.png", 30, 30));
-        lblUser.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 30, 30));
+        lblAdmin.setIcon(getIcon("/com/uit/image/icons8_user_80px.png", 30, 30));
         lblOrder.setIcon(getIcon("/com/uit/image/Order.png", 30, 30));
         lblLogout.setIcon(getIcon("/com/uit/image/icons8_logout_rounded_left_64px_2.png", 30, 30));
         lblStatistic.setIcon(getIcon("/com/uit/image/icons8_combo_chart_80px_6.png", 30, 30));
@@ -140,6 +141,9 @@ public class MainFrame extends javax.swing.JFrame {
         return imageIcon;
     }
 
+    public JLabel getLblAdmin(){
+        return lblAdmin;
+    }
     private void changePanel(JPanel panel) {
         LayeredPane.removeAll();
         LayeredPane.add(panel);
@@ -253,7 +257,7 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         lblProfile = new javax.swing.JLabel();
         lblDashBoard = new javax.swing.JLabel();
-        lblUser = new javax.swing.JLabel();
+        lblAdmin = new javax.swing.JLabel();
         lblOrderHistory = new javax.swing.JLabel();
         lblOrder = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
@@ -1068,24 +1072,24 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        lblUser.setBackground(new java.awt.Color(47, 54, 64));
-        lblUser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblUser.setForeground(new java.awt.Color(255, 255, 255));
-        lblUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblUser.setText("Admin");
-        lblUser.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblUser.setOpaque(true);
-        lblUser.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        lblAdmin.setBackground(new java.awt.Color(47, 54, 64));
+        lblAdmin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        lblAdmin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAdmin.setText("Admin");
+        lblAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblAdmin.setOpaque(true);
+        lblAdmin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                lblUserMouseMoved(evt);
+                lblAdminMouseMoved(evt);
             }
         });
-        lblUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblUserMouseClicked(evt);
+                lblAdminMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblUserMouseExited(evt);
+                lblAdminMouseExited(evt);
             }
         });
 
@@ -1180,7 +1184,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addComponent(lblProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblDashBoard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblOrderHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(taskbarPanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -1198,7 +1202,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDashBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1773,21 +1777,21 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(statisticPanelLayout.createSequentialGroup()
                 .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(jLabel52)
-                        .addGap(18, 18, 18)
-                        .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(422, 422, 422)
-                        .addComponent(btnStatistic))
-                    .addGroup(statisticPanelLayout.createSequentialGroup()
                         .addGap(229, 229, 229)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(426, 426, 426)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(425, 425, 425)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(310, 310, 310)
+                        .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnStatistic)
+                            .addGroup(statisticPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel52)
+                                .addGap(18, 18, 18)
+                                .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(241, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statisticPanelLayout.createSequentialGroup()
@@ -1803,13 +1807,13 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(43, 43, 43)
+                .addGap(35, 35, 35)
                 .addComponent(btnStatistic)
-                .addGap(50, 50, 50)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel18)
-                .addGap(36, 36, 36)
+                .addGap(28, 28, 28)
                 .addComponent(btnView)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(statisticPanelLayout.createSequentialGroup()
                     .addGap(76, 76, 76)
@@ -1902,9 +1906,9 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserMouseClicked
+    private void lblAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseClicked
         changePanel(adminPanel);
-    }//GEN-LAST:event_lblUserMouseClicked
+    }//GEN-LAST:event_lblAdminMouseClicked
 
     private void lblDashBoardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashBoardMouseClicked
         changePanel(dashboardPanel);
@@ -1928,15 +1932,15 @@ public class MainFrame extends javax.swing.JFrame {
         //list.clear();
     }//GEN-LAST:event_lblCartMouseClicked
 
-    private void lblUserMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserMouseMoved
+    private void lblAdminMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseMoved
 
-        lblUser.setBackground(new Color(225, 177, 44));
-    }//GEN-LAST:event_lblUserMouseMoved
+        lblAdmin.setBackground(new Color(225, 177, 44));
+    }//GEN-LAST:event_lblAdminMouseMoved
 
-    private void lblUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUserMouseExited
+    private void lblAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseExited
 
-        lblUser.setBackground(new Color(47, 54, 64));
-    }//GEN-LAST:event_lblUserMouseExited
+        lblAdmin.setBackground(new Color(47, 54, 64));
+    }//GEN-LAST:event_lblAdminMouseExited
 
     private void lblOrderMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrderMouseMoved
 
@@ -2188,6 +2192,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblAdmin;
     private javax.swing.JLabel lblAuthor;
     private javax.swing.JLabel lblCart;
     private javax.swing.JLabel lblCity;
@@ -2212,7 +2217,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblSum;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JLabel lblZipcode;

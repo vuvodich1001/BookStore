@@ -78,7 +78,7 @@ public class OrderHistoryController {
         tblOrderDetail.setModel(defaultTableModel2);
         
         JTableHeader header = tblOrder.getTableHeader();
-        header.setBackground(Color.decode("#686de0"));
+        header.setBackground(Color.decode("#2c3e50"));
         header.setForeground(Color.white);
         header.setFont(new Font("Tahome", Font.BOLD, 14));
         ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
@@ -135,7 +135,7 @@ public class OrderHistoryController {
                     tblOrderDetail.setComponentPopupMenu(menuDetail);
                     tblOrderDetail.setModel(defaultTableModel2);
                      JTableHeader header = tblOrderDetail.getTableHeader();
-                    header.setBackground(Color.decode("#686de0"));
+                    header.setBackground(Color.decode("#2c3e50"));
                     header.setForeground(Color.white);
                     header.setFont(new Font("Tahome", Font.BOLD, 14));
                     ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);

@@ -36,6 +36,7 @@ public class StatisticController {
         this.month = month;
         this.year = year;
         this.btnView = btnView;
+        month.setMonth(0);
         btnStatistic.setBackground(Color.white);
         btnStatistic.setFocusable(false);
     }

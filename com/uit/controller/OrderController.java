@@ -161,7 +161,7 @@ public class OrderController {
         menuOrder.add(complete);
         table.setComponentPopupMenu(menuOrder);
         JTableHeader header = table.getTableHeader();
-        header.setBackground(Color.decode("#686de0"));
+        header.setBackground(Color.decode("#2c3e50"));
         header.setForeground(Color.white);
         header.setFont(new Font("Tahome", Font.BOLD, 14));
         ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
@@ -236,8 +236,8 @@ public class OrderController {
                     };
                     tblDetail.setModel(defaultTableModel2);
                      JTableHeader header = tblDetail.getTableHeader();
-                    header.setBackground(Color.yellow);
-                    header.setForeground(Color.blue);
+                    header.setBackground(Color.decode("#2c3e50"));
+                    header.setForeground(Color.white);
                     header.setFont(new Font("Tahome", Font.BOLD, 13));
                     ((DefaultTableCellRenderer)header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
                     defaultTableModel2.addColumn("OrderId");
@@ -358,7 +358,7 @@ public class OrderController {
         }
         lblStatus.setText("<html><font color=green>" + book.getCurQuantity() + " available products </font>|<font color=red> " + count + " selled</font></html>");
         lblStatus.setBorder(BorderFactory.createLineBorder(Color.red));
-        lblDescription.setText("<html>" + book.getDescription() + "</html>");
+        lblDescription.setText("<html><p align=justify>" + book.getDescription() + "</p></html>");
         lblDescription.setFont(new Font("Serif", Font.PLAIN, 15));
         ImageIcon icon = new ImageIcon(book.getImage());
         Image image = icon.getImage();

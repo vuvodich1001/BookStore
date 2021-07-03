@@ -8,7 +8,6 @@ package com.uit.view;
 import com.uit.entity.Customer;
 import com.uit.service.CustomerService;
 import com.uit.service.UserService;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -229,6 +228,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
+                    test.getLblAdmin().setEnabled(false);
                     this.dispose();
                 }
                 else if(userService.check(username, password)){
@@ -237,6 +237,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
+                    test.getLblAdmin().setEnabled(true);
                     this.dispose();
                 }
                 else{
@@ -310,6 +311,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     mf.pack();
                     mf.setLocationRelativeTo(null);
                     mf.setVisible(true);
+                    mf.getLblAdmin().setVisible(false);
                     this.dispose();
                 }
                 else if(userService.check(username, password)){
@@ -318,6 +320,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     mf.pack();
                     mf.setLocationRelativeTo(null);
                     mf.setVisible(true);
+                    mf.getLblAdmin().setVisible(true);
                     this.dispose();
                 }
                 else{
