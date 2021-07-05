@@ -505,7 +505,17 @@ public class OrderController {
             public void actionPerformed(ActionEvent ae) {
                 for (Book book : bookService.getAllbook()) {
                     if (book.getBookId() == bookId) {
-                        listBook.put(book, Integer.valueOf(lblQuantity.getText()));
+                        //listBook.put(book, Integer.valueOf(lblQuantity.getText()));
+                        boolean check = false;
+                        for(Map.Entry<Book, Integer> map : listBook.entrySet()){
+                            if(map.getKey().getBookId() == book.getBookId()){
+                                check = true;
+                                map.setValue(map.getValue() + Integer.valueOf(lblQuantity.getText()));
+                            }
+                        }
+                        if(check == false){
+                            listBook.put(book, Integer.valueOf(lblQuantity.getText()));
+                        }
                         bookDetail.setVisible(false);
                         ImageIcon icon = new ImageIcon(getClass().getResource("/com/uit/image/icons8_ok_96px.png"));
                         Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);

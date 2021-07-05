@@ -489,10 +489,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGap(31, 31, 31)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(lblPublishdate, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                                            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnBuy)
                                         .addGap(80, 80, 80))
@@ -786,6 +785,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("ADD/UPDATE BOOK");
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -808,15 +808,6 @@ public class MainFrame extends javax.swing.JFrame {
         addupdateBook.getContentPane().setLayout(addupdateBookLayout);
         addupdateBookLayout.setHorizontalGroup(
             addupdateBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addupdateBookLayout.createSequentialGroup()
-                .addGroup(addupdateBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addupdateBookLayout.createSequentialGroup()
-                        .addGap(287, 287, 287)
-                        .addComponent(jLabel21))
-                    .addGroup(addupdateBookLayout.createSequentialGroup()
-                        .addGap(341, 341, 341)
-                        .addComponent(btnSubmitBook)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(addupdateBookLayout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addGroup(addupdateBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -860,6 +851,15 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 34, Short.MAX_VALUE))
             .addComponent(jSeparator5)
+            .addGroup(addupdateBookLayout.createSequentialGroup()
+                .addGroup(addupdateBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addupdateBookLayout.createSequentialGroup()
+                        .addGap(341, 341, 341)
+                        .addComponent(btnSubmitBook))
+                    .addGroup(addupdateBookLayout.createSequentialGroup()
+                        .addGap(314, 314, 314)
+                        .addComponent(jLabel21)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addupdateBookLayout.setVerticalGroup(
             addupdateBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
