@@ -251,13 +251,14 @@ order by c.customer_id]]>
 	<parameter name="mainYear" class="java.lang.Integer"/>
 	<parameter name="mainMonth" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select extract(year from order_date), extract(month from order_date)
+		<![CDATA[select extract(year from order_date), extract(month from order_date), sysdate
 from book_order
 where extract(month from order_date) = $P{mainMonth} and 
 extract(year from order_date) = $P{mainYear}]]>
 	</queryString>
 	<field name="EXTRACT(YEARFROMORDER_DATE)" class="java.math.BigDecimal"/>
 	<field name="EXTRACT(MONTHFROMORDER_DATE)" class="java.math.BigDecimal"/>
+	<field name="SYSDATE" class="java.sql.Timestamp"/>
 	<variable name="mainMonth" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -293,6 +294,14 @@ extract(year from order_date) = $P{mainYear}]]>
 				<reportElement x="116" y="100" width="100" height="20" uuid="92ffa2d0-d24e-4046-8dc9-2194a485aadf"/>
 				<textFieldExpression><![CDATA[$F{EXTRACT(YEARFROMORDER_DATE)}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="415" y="100" width="100" height="20" uuid="0c44d261-544d-4971-af1b-0589210fd515"/>
+				<textFieldExpression><![CDATA[$F{SYSDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="100" width="60" height="20" uuid="937fee47-8e2a-4bf6-b901-8346b7b2383a"/>
+				<text><![CDATA[Create date:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageFooter>
@@ -301,7 +310,7 @@ extract(year from order_date) = $P{mainYear}]]>
 	<summary>
 		<band height="75" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 8" style="table 8" x="116" y="0" width="72" height="72" uuid="bf06a270-1c72-4df9-a8c6-fc97c2076127"/>
+				<reportElement key="table 8" style="table 8" x="74" y="0" width="72" height="72" uuid="bf06a270-1c72-4df9-a8c6-fc97c2076127"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="table_customer" uuid="0a9d435f-a6ec-4540-8034-0c2bfdfc5a21">
 						<datasetParameter name="year">
@@ -312,17 +321,17 @@ extract(year from order_date) = $P{mainYear}]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="370" uuid="db9fe90c-8d12-479c-ae58-d52fc5fe4ce0">
+					<jr:columnGroup width="439" uuid="db9fe90c-8d12-479c-ae58-d52fc5fe4ce0">
 						<jr:tableFooter height="20" rowSpan="1">
-							<textField>
-								<reportElement x="279" y="0" width="65" height="20" uuid="c0ff612e-2db2-4c2e-b362-fc7cf2b78535"/>
+							<textField pattern="đ #,##0">
+								<reportElement x="341" y="0" width="65" height="20" uuid="c0ff612e-2db2-4c2e-b362-fc7cf2b78535"/>
 								<textElement>
 									<font fontName="Arial" size="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sum_all}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement x="200" y="0" width="79" height="20" uuid="73b8d2fe-2ff0-45ef-9247-147d7656560f"/>
+								<reportElement x="262" y="0" width="79" height="20" uuid="73b8d2fe-2ff0-45ef-9247-147d7656560f"/>
 								<textElement>
 									<font fontName="Arial" size="10" isBold="true"/>
 								</textElement>
@@ -331,15 +340,15 @@ extract(year from order_date) = $P{mainYear}]]>
 						</jr:tableFooter>
 						<jr:groupFooter groupName="CustomerId">
 							<jr:cell height="20" rowSpan="1">
-								<textField>
-									<reportElement x="279" y="0" width="65" height="19" uuid="6bb563b9-d62b-4c5a-ac02-4ed14d056292"/>
+								<textField pattern="đ #,##0">
+									<reportElement x="341" y="0" width="65" height="19" uuid="6bb563b9-d62b-4c5a-ac02-4ed14d056292"/>
 									<textElement>
 										<font fontName="Arial" size="10" isBold="false"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$V{sum_1}]]></textFieldExpression>
 								</textField>
 								<staticText>
-									<reportElement x="229" y="0" width="50" height="19" uuid="cb606aa2-53b7-42a5-b2c4-1e8281a50350"/>
+									<reportElement x="291" y="0" width="50" height="19" uuid="cb606aa2-53b7-42a5-b2c4-1e8281a50350"/>
 									<textElement>
 										<font fontName="Arial" size="10" isBold="true"/>
 									</textElement>
@@ -350,11 +359,11 @@ extract(year from order_date) = $P{mainYear}]]>
 						<jr:column width="90" uuid="a19b8e13-cd08-480f-a955-441f7f3e2ad0">
 							<jr:columnHeader style="table 8_CH" height="24" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="90" height="23" uuid="35cbf790-2968-4e18-993f-9bcb030dc37f"/>
+									<reportElement mode="Opaque" x="0" y="0" width="90" height="24" forecolor="#FFFFFF" backcolor="#9900FF" uuid="35cbf790-2968-4e18-993f-9bcb030dc37f"/>
 									<textElement>
-										<font fontName="Arial" size="10"/>
+										<font fontName="Arial" size="12" isBold="true"/>
 									</textElement>
-									<text><![CDATA[CUSTOMER_ID]]></text>
+									<text><![CDATA[CustomerID]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 8_CH" height="2" rowSpan="1"/>
@@ -368,14 +377,14 @@ extract(year from order_date) = $P{mainYear}]]>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="90" uuid="f8375fbb-7073-47c7-8765-49d8b12cd485">
+						<jr:column width="152" uuid="f8375fbb-7073-47c7-8765-49d8b12cd485">
 							<jr:columnHeader style="table 8_CH" height="24" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="90" height="23" uuid="4167c20e-3315-4dd5-8b36-153c30efd7fe"/>
+									<reportElement mode="Opaque" x="0" y="1" width="152" height="23" forecolor="#FFFFFF" backcolor="#9900FF" uuid="4167c20e-3315-4dd5-8b36-153c30efd7fe"/>
 									<textElement>
-										<font fontName="Arial" size="10"/>
+										<font fontName="Arial" size="12" isBold="true"/>
 									</textElement>
-									<text><![CDATA[TITLE]]></text>
+									<text><![CDATA[Title]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 8_CH" height="2" rowSpan="1"/>
@@ -389,20 +398,20 @@ extract(year from order_date) = $P{mainYear}]]>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="99" uuid="6554c545-d8ce-441d-90e9-693caa28f7d7">
+						<jr:column width="104" uuid="6554c545-d8ce-441d-90e9-693caa28f7d7">
 							<jr:columnHeader style="table 8_CH" height="24" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="90" height="23" uuid="59090c37-7ee9-4177-9973-8a0a333e7542"/>
+									<reportElement mode="Opaque" x="0" y="1" width="104" height="23" forecolor="#FFFFFF" backcolor="#9900FF" uuid="59090c37-7ee9-4177-9973-8a0a333e7542"/>
 									<textElement>
-										<font fontName="Arial" size="10"/>
+										<font fontName="Arial" size="12" isBold="true"/>
 									</textElement>
-									<text><![CDATA[QUANTITY]]></text>
+									<text><![CDATA[Quantity]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 8_CH" height="2" rowSpan="1"/>
 							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="0" y="0" width="90" height="20" uuid="11538cc1-38ba-4fad-820e-54c4faaca4f5"/>
+									<reportElement x="0" y="0" width="99" height="20" uuid="11538cc1-38ba-4fad-820e-54c4faaca4f5"/>
 									<textElement>
 										<font fontName="Arial" size="10"/>
 									</textElement>
@@ -410,19 +419,19 @@ extract(year from order_date) = $P{mainYear}]]>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="91" uuid="f4942466-5bb3-4d2d-8a86-248f956d6734">
+						<jr:column width="93" uuid="f4942466-5bb3-4d2d-8a86-248f956d6734">
 							<jr:columnHeader style="table 8_CH" height="24" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="90" height="23" uuid="608c9ca2-447f-4a9f-a045-11eee13f12ed"/>
+									<reportElement mode="Opaque" x="0" y="1" width="93" height="23" forecolor="#FFFFFF" backcolor="#9900FF" uuid="608c9ca2-447f-4a9f-a045-11eee13f12ed"/>
 									<textElement>
-										<font fontName="Arial" size="10"/>
+										<font fontName="Arial" size="12" isBold="true"/>
 									</textElement>
-									<text><![CDATA[SUBTOTAL]]></text>
+									<text><![CDATA[Subtotal]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 8_CH" height="2" rowSpan="1"/>
 							<jr:detailCell style="table 8_TD" height="20" rowSpan="1">
-								<textField>
+								<textField pattern="đ #,##0">
 									<reportElement x="0" y="0" width="90" height="20" uuid="6860d37b-164f-4525-b28d-6dcb67b2b45c"/>
 									<textElement>
 										<font fontName="Arial" size="10"/>

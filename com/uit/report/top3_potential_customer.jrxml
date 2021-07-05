@@ -53,6 +53,62 @@
 			<style backcolor="#EFF7FF"/>
 		</conditionalStyle>
 	</style>
+	<style name="table 2">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#9932CC">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#EABFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F9EFFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 3">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#4B0082">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#E4BFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8EFFF"/>
+		</conditionalStyle>
+	</style>
 	<subDataset name="table_customer" uuid="8c8295f0-21d0-4059-b8f5-c0acbbf4a6ff">
 		<queryString>
 			<![CDATA[select  * from (
@@ -67,23 +123,14 @@ where rownum <=3]]>
 		<field name="SUM(TOTAL)" class="java.math.BigDecimal"/>
 	</subDataset>
 	<queryString>
-		<![CDATA[SELECT * FROM CUSTOMER]]>
+		<![CDATA[select sysdate from dual]]>
 	</queryString>
-	<field name="CUSTOMER_ID" class="java.math.BigDecimal"/>
-	<field name="EMAIL" class="java.lang.String"/>
-	<field name="FULL_NAME" class="java.lang.String"/>
-	<field name="ADDRESS" class="java.lang.String"/>
-	<field name="CITY" class="java.lang.String"/>
-	<field name="COUNTRY" class="java.lang.String"/>
-	<field name="PHONE" class="java.lang.String"/>
-	<field name="ZIPCODE" class="java.lang.String"/>
-	<field name="PASSWORD" class="java.lang.String"/>
-	<field name="REGISTER_DATE" class="java.sql.Timestamp"/>
+	<field name="SYSDATE" class="java.sql.Timestamp"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="78" splitType="Stretch">
+		<band height="87" splitType="Stretch">
 			<staticText>
 				<reportElement x="106" y="25" width="323" height="39" forecolor="#FF0033" uuid="1e67ded5-612f-4ea7-89f2-5e6036f6b54d"/>
 				<textElement>
@@ -91,54 +138,71 @@ where rownum <=3]]>
 				</textElement>
 				<text><![CDATA[TOP 3 POTENTIAL CUSTOMER]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="282" y="67" width="100" height="20" uuid="18ac754e-02f8-44ef-93b7-35416d81bf0e"/>
+				<textFieldExpression><![CDATA[$F{SYSDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="220" y="67" width="62" height="20" uuid="94e50a1c-87cb-4c9b-802a-700e94f8cf96"/>
+				<text><![CDATA[Create date:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="50">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="121" y="0" width="224" height="50" uuid="9e22cc1f-1ab8-44a1-9e9b-a35323a3cf3e"/>
+				<reportElement key="table 3" style="table 3" x="106" y="0" width="360" height="50" uuid="1becb655-3e44-4554-a43f-64b975906946"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="table_customer" uuid="591eb94a-0be2-4f73-ae8f-fbaebbcdc6ac">
+					<datasetRun subDataset="table_customer" uuid="64aa3dc8-2c59-44ab-9b8d-d54a72d9b147">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="90" uuid="6cab8d3d-df47-46ab-88c2-9b678cc8875f">
-						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
+					<jr:column width="90" uuid="abb01e36-cf14-4d75-8741-a5103169eb61">
+						<jr:columnHeader style="table 3_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="20" uuid="19ef028d-5310-4672-aa18-97dfe97ecd2c"/>
-								<text><![CDATA[CUSTOMER_ID]]></text>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#9900FF" uuid="76d2ae10-1caf-4950-911b-5bc3ec15e8e1"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CusomerID]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="113a4de0-0379-42f2-b23f-2cb0b7431942"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="361f1ee7-f320-4077-b17c-452c993bd9f0"/>
 								<textFieldExpression><![CDATA[$F{CUSTOMER_ID}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="8d59db4a-6b63-461c-8cde-13191b85aff3">
-						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
+					<jr:column width="90" uuid="38d800d0-54e8-49f0-8447-bf2235d6fd98">
+						<jr:columnHeader style="table 3_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="20" uuid="ceecbfa7-4baa-4a3b-a263-ec98ff75d90f"/>
-								<text><![CDATA[USERNAME]]></text>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#9900FF" uuid="6cc58da3-2165-4a64-b9d4-bc872693944a"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Username]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="58eb10fe-42cd-4795-9a25-3feafc242feb"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="74018388-c072-4420-8dc7-cf95660b1ef1"/>
 								<textFieldExpression><![CDATA[$F{FULL_NAME}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="b19d1607-8c41-4093-a32e-6e4196771dbb">
-						<jr:columnHeader style="table 1_CH" height="21" rowSpan="1">
+					<jr:column width="90" uuid="2cc35205-9673-4493-b7c1-e79fa4528860">
+						<jr:columnHeader style="table 3_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="20" uuid="fd44c899-c142-42ca-8695-240dba4ba232"/>
-								<text><![CDATA[TOTAL]]></text>
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" backcolor="#9900FF" uuid="df9f8e67-beda-453b-a8b2-34fed48371ac"/>
+								<textElement>
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="3ba2d8e2-3ba1-4b39-85e1-0be5b35b2726"/>
+						<jr:detailCell style="table 3_TD" height="20">
+							<textField pattern="đ #,##0">
+								<reportElement x="0" y="0" width="90" height="20" uuid="9f9499c6-8748-486b-ac95-23f4fe614eb4"/>
 								<textFieldExpression><![CDATA[$F{SUM(TOTAL)}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

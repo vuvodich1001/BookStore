@@ -118,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
         dashBoardController.showDashBoard();
         
         //Statistic
-        statisticController = new StatisticController(btnStatistic, month, year, btnView);
+        statisticController = new StatisticController(btnStatistic, month, year, btnView, btnList);
         statisticController.actions();
         
         //test imageicon
@@ -333,6 +333,8 @@ public class MainFrame extends javax.swing.JFrame {
         month = new com.toedter.calendar.JMonthChooser();
         jLabel53 = new javax.swing.JLabel();
         btnView = new javax.swing.JButton();
+        jLabel54 = new javax.swing.JLabel();
+        btnList = new javax.swing.JButton();
         dashboardPanel = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -1752,6 +1754,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnStatistic.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnStatistic.setText("Statistic");
+        btnStatistic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 153, 255));
@@ -1769,6 +1772,17 @@ public class MainFrame extends javax.swing.JFrame {
         btnView.setBackground(new java.awt.Color(255, 255, 255));
         btnView.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnView.setText("View");
+        btnView.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel54.setText("List book by category");
+
+        btnList.setBackground(new java.awt.Color(255, 255, 255));
+        btnList.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnList.setText("List");
+        btnList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
         statisticPanel.setLayout(statisticPanelLayout);
@@ -1777,22 +1791,28 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(statisticPanelLayout.createSequentialGroup()
                 .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(229, 229, 229)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(425, 425, 425)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(statisticPanelLayout.createSequentialGroup()
                         .addGap(310, 310, 310)
                         .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnStatistic)
+                            .addComponent(btnStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(statisticPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel52)
                                 .addGap(18, 18, 18)
                                 .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(241, Short.MAX_VALUE))
+                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(406, 406, 406)
+                        .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(405, 405, 405)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(244, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statisticPanelLayout.createSequentialGroup()
                     .addContainerGap(248, Short.MAX_VALUE)
@@ -1809,11 +1829,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(35, 35, 35)
                 .addComponent(btnStatistic)
-                .addGap(58, 58, 58)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel18)
                 .addGap(28, 28, 28)
                 .addComponent(btnView)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel54)
+                .addGap(38, 38, 38)
+                .addComponent(btnList)
+                .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(statisticPanelLayout.createSequentialGroup()
                     .addGap(76, 76, 76)
@@ -2098,6 +2122,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnClearOrder;
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnInventory;
+    private javax.swing.JButton btnList;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnMoreBook;
     private javax.swing.JButton btnOrder;
@@ -2168,6 +2193,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

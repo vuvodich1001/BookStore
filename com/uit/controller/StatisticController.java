@@ -28,14 +28,16 @@ import net.sf.jasperreports.view.JasperViewer;
 public class StatisticController {
     private JButton btnStatistic;
     private JButton btnView;
+    private JButton btnList;
     private JMonthChooser month;
     private JYearChooser year;
 
-    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year, JButton btnView) {
+    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year, JButton btnView, JButton btnList) {
         this.btnStatistic = btnStatistic;
         this.month = month;
         this.year = year;
         this.btnView = btnView;
+        this.btnList = btnList;
         month.setMonth(0);
         btnStatistic.setBackground(Color.white);
         btnStatistic.setFocusable(false);
@@ -87,6 +89,21 @@ public class StatisticController {
                     JasperViewer.viewReport(jp, false);
                     con.close();
                 } catch (Exception e) {
+                }
+            }
+        });
+        
+        btnList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try{
+                    Connection con = getConnection();
+                    String report = "C:\\Users\\vungu\\OneDrive\\Documents\\NetBeansProjects\\Hibernate\\src\\com\\uit\\report\\BookbyCategory.jrxml";
+                    JasperReport jr = JasperCompileManager.compileReport(report);
+                    JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+                    JasperViewer.viewReport(jp, false);
+                    con.close();
+                } catch(Exception e){
                 }
             }
         });
