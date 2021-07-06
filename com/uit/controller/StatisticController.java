@@ -7,7 +7,9 @@ package com.uit.controller;
 
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
+import com.uit.service.BookService;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -29,18 +32,39 @@ public class StatisticController {
     private JButton btnStatistic;
     private JButton btnView;
     private JButton btnList;
+    private JLabel lblQuantityBook;
+    private JLabel lblQuantityCustomer;
+    private JLabel lblQuantityOrder;
     private JMonthChooser month;
     private JYearChooser year;
+    private BookService bookService;
 
-    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year, JButton btnView, JButton btnList) {
+    public StatisticController(JButton btnStatistic, JMonthChooser month, JYearChooser year, JButton btnView, JButton btnListButton,
+            JLabel lblBook, JLabel lblCustomer, JLabel lblOrder) {
         this.btnStatistic = btnStatistic;
         this.month = month;
         this.year = year;
         this.btnView = btnView;
-        this.btnList = btnList;
+        this.btnList = btnListButton;
+        this.lblQuantityBook = lblBook;
+        this.lblQuantityCustomer = lblCustomer;
+        this.lblQuantityOrder = lblOrder;
+        bookService = new BookService();
         month.setMonth(0);
         btnStatistic.setBackground(Color.white);
         btnStatistic.setFocusable(false);
+        //lblBook
+        lblQuantityBook.setText("Number of books: " + bookService.quantityStatistic("Book"));
+        lblQuantityBook.setFont(new Font("Serif", Font.BOLD, 20));
+        lblQuantityBook.setForeground(Color.black);
+        //lblCustomer
+        lblQuantityCustomer.setText("Number of customers: " + bookService.quantityStatistic("Customer"));
+        lblQuantityCustomer.setFont(new Font("Serif", Font.BOLD, 20));
+        lblQuantityCustomer.setForeground(Color.black);
+        //lblOrder
+        lblQuantityOrder.setText("Number of orders: " + bookService.quantityStatistic("BookOrder"));
+        lblQuantityOrder.setFont(new Font("Serif", Font.BOLD, 20));
+        lblQuantityOrder.setForeground(Color.black);
     }
     
     private static Connection getConnection(){

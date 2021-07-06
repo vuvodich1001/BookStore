@@ -24,13 +24,13 @@ public class OrderDao {
     
     public static List<BookOrder> listOrder(){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from BookOrder order by status, order_id");
+        Query q = s.createQuery("from BookOrder order by status desc, order_id desc");
         return q.list();
     }
   
     public static List<BookOrder> listOrderforspecificUser(long id){
         Session s = sessionFactory.openSession();
-        Query q = s.createQuery("from BookOrder where customer_id = :id order by order_id asc");
+        Query q = s.createQuery("from BookOrder where customer_id = :id order by status desc, order_id desc");
         q.setParameter("id", id);
         return q.list();
     }

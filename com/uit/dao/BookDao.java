@@ -223,4 +223,10 @@ public class BookDao {
             return false;
         }
     }
+    
+    public static long quantityStatistic(String name){
+        Session s = sessionFactory.openSession();
+        Query q = s.createQuery("select count(*) from " + name);
+        return (long)q.uniqueResult();
+    }
 }

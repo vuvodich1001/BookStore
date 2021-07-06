@@ -118,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
         dashBoardController.showDashBoard();
         
         //Statistic
-        statisticController = new StatisticController(btnStatistic, month, year, btnView, btnList);
+        statisticController = new StatisticController(btnStatistic, month, year, btnView, btnList, lblQuantityBook, lblQuantityCustomer, lblQuantityOrder);
         statisticController.actions();
         
         //test imageicon
@@ -143,6 +143,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     public JLabel getLblAdmin(){
         return lblAdmin;
+    }
+    
+    public JLabel getLblStatistic(){
+        return lblStatistic;
     }
     private void changePanel(JPanel panel) {
         LayeredPane.removeAll();
@@ -335,6 +339,10 @@ public class MainFrame extends javax.swing.JFrame {
         btnView = new javax.swing.JButton();
         jLabel54 = new javax.swing.JLabel();
         btnList = new javax.swing.JButton();
+        lblQuantityBook = new javax.swing.JLabel();
+        lblQuantityCustomer = new javax.swing.JLabel();
+        lblQuantityOrder = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
         dashboardPanel = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -1757,7 +1765,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnStatistic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel18.setForeground(Color.blue);
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Top 3 potential customer");
 
@@ -1765,7 +1773,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel52.setText("Month/year:");
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel53.setForeground(Color.blue);
         jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel53.setText("Total revenue by month-year");
 
@@ -1775,7 +1783,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnView.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel54.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel54.setForeground(Color.blue);
         jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel54.setText("List book by category");
 
@@ -1783,6 +1791,16 @@ public class MainFrame extends javax.swing.JFrame {
         btnList.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnList.setText("List");
         btnList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblQuantityBook.setText("jLabel55");
+
+        lblQuantityCustomer.setText("jLabel56");
+
+        lblQuantityOrder.setText("jLabel57");
+
+        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel55.setForeground(Color.blue);
+        jLabel55.setText("Overview:");
 
         javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
         statisticPanel.setLayout(statisticPanelLayout);
@@ -1801,8 +1819,15 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(406, 406, 406)
-                        .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(statisticPanelLayout.createSequentialGroup()
+                        .addGap(308, 308, 308)
+                        .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblQuantityCustomer)
+                            .addComponent(lblQuantityBook)
+                            .addComponent(lblQuantityOrder)
+                            .addComponent(jLabel55)))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
                         .addGap(226, 226, 226)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1810,8 +1835,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(405, 405, 405)
                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(statisticPanelLayout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(406, 406, 406)
+                        .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(244, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statisticPanelLayout.createSequentialGroup()
@@ -1833,11 +1858,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addGap(28, 28, 28)
                 .addComponent(btnView)
-                .addGap(37, 37, 37)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel54)
-                .addGap(38, 38, 38)
+                .addGap(31, 31, 31)
                 .addComponent(btnList)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel55)
+                .addGap(18, 18, 18)
+                .addComponent(lblQuantityBook)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblQuantityCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblQuantityOrder)
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(statisticPanelLayout.createSequentialGroup()
                     .addGap(76, 76, 76)
@@ -2194,6 +2227,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2238,6 +2272,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblPublishdate;
     private javax.swing.JLabel lblQuantity;
+    private javax.swing.JLabel lblQuantityBook;
+    private javax.swing.JLabel lblQuantityCustomer;
+    private javax.swing.JLabel lblQuantityOrder;
     private javax.swing.JLabel lblRegisterdate;
     private javax.swing.JLabel lblStatistic;
     private javax.swing.JLabel lblStatus;

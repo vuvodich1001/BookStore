@@ -228,7 +228,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
-                    test.getLblAdmin().setEnabled(false);
+                    test.getLblAdmin().setVisible(false);
+                    test.getLblStatistic().setVisible(false);
                     this.dispose();
                 }
                 else if(userService.check(username, password)){
@@ -237,7 +238,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     test.pack();
                     test.setLocationRelativeTo(null);
                     test.setVisible(true);
-                    test.getLblAdmin().setEnabled(true);
+                    test.getLblAdmin().setVisible(false);
+                    test.getLblStatistic().setVisible(false);
                     this.dispose();
                 }
                 else{
@@ -312,6 +314,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     mf.setLocationRelativeTo(null);
                     mf.setVisible(true);
                     mf.getLblAdmin().setVisible(false);
+                    mf.getLblStatistic().setVisible(false);
                     this.dispose();
                 }
                 else if(userService.check(username, password)){
@@ -321,6 +324,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     mf.setLocationRelativeTo(null);
                     mf.setVisible(true);
                     mf.getLblAdmin().setVisible(true);
+                    mf.getLblStatistic().setVisible(true);
                     this.dispose();
                 }
                 else{

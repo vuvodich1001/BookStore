@@ -182,7 +182,7 @@ public class BuyBookFrame extends javax.swing.JFrame {
         for(Map.Entry<Book, Integer> map : MainFrame.list.entrySet()){
             orderService.addOrder(bookOrder, map.getKey(), map.getValue(), map.getKey().getPrice() * map.getValue());
         }
-        JOptionPane.showMessageDialog(this, "Sucessfully!");
+        JOptionPane.showMessageDialog(this, "Sucessfully! We will contact you to confirm this order, Thank you <3");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

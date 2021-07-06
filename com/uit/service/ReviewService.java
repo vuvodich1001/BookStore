@@ -14,20 +14,30 @@ import java.util.List;
  * @author vunguyen
  */
 public class ReviewService {
+
     ReviewDao reviewDao;
-    
-    public ReviewService(){
+
+    public ReviewService() {
         reviewDao = new ReviewDao();
     }
-    
-    public List<Review> listAllreview(){
+
+    public List<Review> listAllreview() {
         return reviewDao.listAllreview();
     }
-    
-    public List<Review> listAllreviewbyBookId(long id){
+
+    public List<Review> listAllreviewbyBookId(long id) {
         return reviewDao.listAllreviewbyBookId(id);
     }
-    public void addReview(Review review){
+
+    public void addReview(Review review) {
         reviewDao.addReview(review);
+    }
+
+    public boolean checkReviewDuplicate(long bookId, long customerId) {
+        return reviewDao.checkReviewDuplicate(bookId, customerId);
+    }
+    
+    public boolean checkReview(long bookId, long customerId){
+        return reviewDao.checkReview(bookId, customerId);
     }
 }

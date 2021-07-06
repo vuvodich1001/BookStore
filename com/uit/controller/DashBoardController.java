@@ -37,9 +37,16 @@ public class DashBoardController {
     }
     
     public void showDashBoard(){
-        lblWelcome.setText("Welcome, " + LoginFrame.customer.getFullName());
-        lblWelcome.setFont(new Font("Serif", Font.BOLD, 20));
-        lblWelcome.setForeground(Color.blue);
+        if(LoginFrame.customer.getFullName() != null ){
+            lblWelcome.setText("Welcome, " + LoginFrame.customer.getFullName());
+            lblWelcome.setFont(new Font("Serif", Font.BOLD, 20));
+            lblWelcome.setForeground(Color.blue);
+        }
+        else{
+            lblWelcome.setText("Welcom, Admin");
+            lblWelcome.setFont(new Font("Serif", Font.BOLD, 20));
+            lblWelcome.setForeground(Color.blue);
+        }
         GridLayout gridLayout = new GridLayout(0, 4);
         preferPanel.setLayout(gridLayout);
         recommendPanel.setLayout(gridLayout);

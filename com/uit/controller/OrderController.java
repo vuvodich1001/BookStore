@@ -399,10 +399,17 @@ public class OrderController {
         btnSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if(txtComment.getText().equals("") || txtComment.getText().equals("Write your comment! < 150 characters")){
+                if(txtComment.getText().equals("") || buttonGroup.getSelection() == null ||
+                        txtComment.getText().equals("Write your comment! < 150 characters")){
                     JOptionPane.showMessageDialog(bookDetail, "Input not enough information!");
                 }
-                else{
+                else if(reviewService.checkReviewDuplicate(book.getBookId(), LoginFrame.customer.getCustomerId())){
+                    JOptionPane.showMessageDialog(bookDetail, "Can't review.You have been created review!");
+                }
+                else if(!reviewService.checkReview(book.getBookId(), LoginFrame.customer.getCustomerId())){
+                     JOptionPane.showMessageDialog(bookDetail, "Can't review.You have been not bought book!");
+                }
+                else {
                     Review review = new Review();
                     review.setBook(book);
                     review.setCustomer(LoginFrame.customer);
@@ -414,6 +421,7 @@ public class OrderController {
                     txtComment.setText("Write your comment! < 150 characters");
                     txtComment.setForeground(Color.gray);
                 }
+                
             }
         });
 
