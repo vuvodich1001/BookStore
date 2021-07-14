@@ -102,7 +102,31 @@ public class OrderController {
     public OrderController() {
 
     }
+
+    public OrderController(JPanel commentPanel, JTextArea txtComment, JDialog bookDetail, JLabel lblImage, JLabel lblTitle, JLabel lblAuthor,
+            JLabel lblPrice, JLabel lblDescription, JLabel lblPublishDate, JButton btnSend, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3, JRadioButton rb4, 
+            JRadioButton rb5) {
+        this.commentPanel = commentPanel;
+        this.txtComment = txtComment;
+        this.bookDetail = bookDetail;
+        this.lblImageorder = lblImage;
+        this.lblTitle = lblTitle;
+        this.lblAuthor = lblAuthor;
+        this.lblPrice = lblPrice;
+        this.lblDescription = lblDescription;
+        this.lblPublishdate = lblPublishDate;
+        this.btnSend = btnSend;
+        this.rb1 = rb1;
+        this.rb2 = rb2;
+        this.rb4 = rb4;
+        this.rb3 = rb3;
+        this.rb5 = rb5;
+        reviewService = new ReviewService();
+    }
+
+   
        
+    
     public OrderController(JPanel panel, JDialog bookDetail, JTextField txtSearch, JComboBox cbxOrderCategory, JLabel lblTitle, JLabel lblAuthor,
             JLabel lblPublishdate, JLabel lblImageorder, JLabel lblPrice, JButton btnPlus, JButton btnMinus, JButton btnBuy, Map<Book, Integer> list,
             JLabel lblQuantity, JLabel lblNotice, JLabel lblDescription, JLabel lblStatus,
@@ -273,6 +297,11 @@ public class OrderController {
         panel.removeAll();
         panel.repaint();
         panel.revalidate();
+        for(Book b : bookService.getAllbook()){
+            if(b.getBookId() == 32){
+                System.out.println(b.getTitle() + " " + b.getPrice());
+            }
+        }
         setLabelLayout(bookService.getAllbook());
         cbxOrderCategory.removeAllItems();
         cbxOrderCategory.addItem("All");
@@ -351,13 +380,17 @@ public class OrderController {
         lblAuthor.setText(book.getAuthor());
         lblPrice.setText(String.valueOf(book.getPrice()) + " VND");
         lblPublishdate.setText(String.valueOf(book.getPublishDate()));
-        lblQuantity.setText("1");
+        if(lblQuantity != null){
+            lblQuantity.setText("1");
+        }
         long count = 0;
-        for(OrderDetail o :  book.getOrderDetails()){
+        for(OrderDetail o : book.getOrderDetails()){
             count += o.getQuantity();
         }
-        lblStatus.setText("<html><font color=green>" + book.getCurQuantity() + " available products </font>|<font color=red> " + count + " selled</font></html>");
-        lblStatus.setBorder(BorderFactory.createLineBorder(Color.red));
+        if(lblStatus != null){
+            lblStatus.setText("<html><font color=green>" + book.getCurQuantity() + " available products </font>|<font color=red> " + count + " selled</font></html>");
+            lblStatus.setBorder(BorderFactory.createLineBorder(Color.red));    
+        }
         lblDescription.setText("<html><p align=justify>" + book.getDescription() + "</p></html>");
         lblDescription.setFont(new Font("Serif", Font.PLAIN, 15));
         ImageIcon icon = new ImageIcon(book.getImage());

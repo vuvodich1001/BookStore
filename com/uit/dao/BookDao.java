@@ -6,6 +6,7 @@
 package com.uit.dao;
 
 import com.uit.entity.Book;
+import com.uit.entity.Category;
 import com.uit.entity.OrderDetail;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -42,6 +43,57 @@ public class BookDao {
         return q.list();
     }
     
+    
+    public static List<Book> getAllbooks(){
+        List<Book> list = new ArrayList<>();
+        
+        Connection con = JDBCConnection.getJDBCConnection();
+        try {
+            con.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql = "select * from book order by book_id asc";
+        try {
+            Statement st = con.createStatement();
+            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                if(rs.getLong("book_id") == 32)
+                System.out.println(rs.getString("title") + " before: " + rs.getDouble("price"));
+            }
+            try {
+                Thread.sleep(3000);
+                rs = st.executeQuery(sql);
+                while(rs.next()){
+                    Book book = new Book();
+                    book.setBookId(rs.getLong("book_id"));
+                    book.setAuthor(rs.getString("Author"));
+                    book.setPrice(rs.getDouble("Price"));
+                     if(rs.getLong("book_id") == 32)
+                    System.out.println(rs.getString("title") + " after: " + rs.getDouble("price"));
+                    book.setTitle(rs.getString("Title"));
+                    book.setCurQuantity(rs.getLong("cur_quantity"));
+                    book.setIsbn(rs.getString("isbn"));
+                    book.setImage(rs.getString("image"));
+                    book.setPublishDate(rs.getDate("publish_date"));
+                    for(Category c : CategoryDao.getAllcategory()){
+                        if(c.getCategoryId() == rs.getLong("category_id")){
+                            book.setCategory(c);
+                        }
+                    }
+                    list.add(book);
+                }
+                //con.commit();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public static List<Book> listBook(){
         List<Book> list = new ArrayList<>();
         Connection con = JDBCConnection.getJDBCConnection();
@@ -54,6 +106,9 @@ public class BookDao {
                 b.setBookId(rs.getLong("book_id"));
                 b.setAuthor(rs.getString("author"));
                 b.setTitle(rs.getString("title"));
+                b.setCurQuantity(rs.getLong("cur_quantity"));
+                b.setIsbn(rs.getString("isbn"));
+                list.add(b);
                 
             }
         } catch (SQLException ex) {
@@ -91,7 +146,7 @@ public class BookDao {
         Session s = sessionFactory.openSession();
         String sql = "from Book order by book_id asc";
         Query q = s.createQuery(sql);
-         List<Book> list = q.list();
+        List<Book> list = q.list();
         if(name.equals("All")){
             
         }

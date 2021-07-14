@@ -5,9 +5,11 @@
  */
 package com.uit.controller;
 
+import com.uit.entity.Book;
 import com.uit.entity.BookOrder;
 import com.uit.entity.Customer;
 import com.uit.entity.OrderDetail;
+import com.uit.service.BookService;
 import com.uit.service.OrderService;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,11 +18,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -36,17 +43,59 @@ public class OrderHistoryController {
     private JPopupMenu menu;
     private JPopupMenu menuDetail;
     private JMenuItem delete;
+    private JMenuItem review;
     private JMenuItem detail;
+    private JDialog bookDetail;
+    private JPanel commnetPanel;
+    private JLabel lblTitle;
+    private JLabel lblAuthor;
+    private JLabel lblImage;
+    private JLabel lblDescription;
+    private JLabel lblPublishDate;
+    private JTextArea txtComment;
+    private JButton btnSend;
+    JRadioButton rb1, rb2, rb3, rb4, rb5;
     private DefaultTableModel defaultTableModel1;
     private DefaultTableModel defaultTableModel2;
     private Customer customer;
     private String status;
+    private BookService bookService;
     
-    public OrderHistoryController(JTable tblOrder, JTable tblOrderDetail, Customer customer){
+    public OrderHistoryController(JTable tblOrder, JTable tblOrderDetail, Customer customer, JDialog bookDetail){
         this.tblOrder = tblOrder;
         this.tblOrderDetail = tblOrderDetail;
         this.customer = customer;
+        this.bookDetail = bookDetail;
+    }
+
+    public OrderHistoryController(JTable tblOrder, JTable tblOrderDetail, Customer customer,
+            JDialog bookDetail, JPanel commnetPanel,  JLabel lblImage, JLabel lblTitle, JLabel lblAuthor, JLabel lblDescription, JLabel lblPublishDate,
+            JTextArea txtComment, JButton btnSend, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3, JRadioButton rb4, JRadioButton rb5) {
+        this.tblOrder = tblOrder;
+        this.tblOrderDetail = tblOrderDetail;
+        this.orderService = orderService;
+        this.customer = customer;
+        this.menu = menu;
+        this.menuDetail = menuDetail;
+        this.delete = delete;
+        this.review = review;
+        this.detail = detail;
+        this.bookDetail = bookDetail;
+        this.commnetPanel = commnetPanel;
+        this.lblTitle = lblTitle;
+        this.lblAuthor = lblAuthor;
+        this.lblDescription = lblDescription;
+        this.lblPublishDate = lblPublishDate;
+        this.lblImage = lblImage;
+        this.txtComment = txtComment;
+        this.btnSend = btnSend;
+        this.rb1 = rb1;
+        this.rb2 = rb2;
+        this.rb3 = rb3;
+        this.rb4 = rb4;
+        this.rb5 = rb5;
         orderService = new OrderService();
+        bookService = new BookService();
         menu = new JPopupMenu();
         menuDetail = new JPopupMenu();
         detail = new JMenuItem();
@@ -55,7 +104,11 @@ public class OrderHistoryController {
         delete = new JMenuItem();
         delete.setText("delete");
         delete.setIcon(getIcon("/com/uit/image/icons8_delete_96px.png", 20, 20));
+        review = new JMenuItem();
+        review.setText("review");
+        review.setIcon(getIcon("/com/uit/image/icons8_inspection_96px.png", 20, 20));
     }
+
     
     public void listOrder(){
         menu.add(detail);
@@ -132,6 +185,7 @@ public class OrderHistoryController {
                     }
                     };
                     menuDetail.add(delete);
+                    menuDetail.add(review);
                     tblOrderDetail.setComponentPopupMenu(menuDetail);
                     tblOrderDetail.setModel(defaultTableModel2);
                      JTableHeader header = tblOrderDetail.getTableHeader();
@@ -169,6 +223,33 @@ public class OrderHistoryController {
                         setTabledata(orderService.listOrderforspecificCustomer(customer.getCustomerId()));
                     }
                 }
+            }
+        });
+        
+        review.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               int row = tblOrderDetail.getSelectedRow();
+               if(row == -1){
+                   JOptionPane.showMessageDialog(menu, "you need choose order first");
+               }
+               else if(status.equals("Processing")){
+                   JOptionPane.showMessageDialog(menu, "can't review this order detail");
+               }
+               else{
+                   long bookId = Long.valueOf(String.valueOf(tblOrderDetail.getValueAt(row, 1)));
+                  
+                   bookDetail.pack();
+                   bookDetail.setLocationRelativeTo(null);
+                   bookDetail.setVisible(true);
+                   OrderController orderController = new OrderController(commnetPanel, txtComment, bookDetail, lblImage, lblTitle, lblAuthor, lblTitle, 
+                           lblDescription, lblPublishDate, btnSend, rb1, rb2, rb3, rb4, rb5);
+                    for(Book book : bookService.getAllbook()){
+                       if(book.getBookId() == bookId){
+                           orderController.displayBook(book);
+                       }
+                   }
+               }
             }
         });
     }

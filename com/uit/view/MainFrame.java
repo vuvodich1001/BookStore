@@ -105,7 +105,8 @@ public class MainFrame extends javax.swing.JFrame {
         buyOrderController.action();
 
         //OrderHistory
-        orderHistoryController = new OrderHistoryController(tblOrder, tblOrderDetail, LoginFrame.customer);
+        orderHistoryController = new OrderHistoryController(tblOrder, tblOrderDetail, LoginFrame.customer, 
+                bookDetail, commentPanel, lblImageorder, lblTitle, lblAuthor, lblDescription, lblPublishdate, txtComment, btnSend, rb1, rb2, rb3, rb4, rb5);
         orderHistoryController.listOrder();
         orderHistoryController.action();
 
